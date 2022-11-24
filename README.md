@@ -90,20 +90,20 @@ Aplikasi `Sayang-Dibuang` memungkinkan _user_ untuk berbagi makanan dan/atau bar
 
 ## Kontrak per modul<br>
 
-    1. **Authentication**<br>
+    1. Authentication
         Modul ini dikerjakan oleh Lyzander.
 
-    2. **Information dan Review**<br>
+    2. Information dan Review<br>
         Modul ini dikerjakan oleh Khansa.
 
-    3. **Beranda Barang Bekas**<br>
+    3. Beranda Barang Bekas<br>
         Modul ini dikerjakan oleh Pikatan.
 
-    4. **Request Barang Bekas**<br>
+    4. Request Barang Bekas<br>
         Modul ini dikerjakan oleh Catherine.
 
-    5. __**Crowdfunding**__<br>
+    5. Crowdfunding<br>
         Modul ini dikerjakan oleh Gibrano.
 
-    6. **Leaderboard**<br>
+    6. Leaderboard<br>
         Modul ini dikerjakan oleh Kristo.
