@@ -1,6 +1,4 @@
-# Kelompok PBP D10: Sayang-Dibuang
-
-[![Deploy](https://github.com/D10-PBP/Proyek-Tengah-Semester/actions/workflows/dpl.yml/badge.svg)](https://github.com/D10-PBP/Proyek-Tengah-Semester/actions/workflows/dpl.yml)
+# Kelompok PBP D10: Sayang-Dibuang Mobile
 
 ## 📌 Nama Anggota 📌
 
@@ -11,10 +9,9 @@
 5. Pikatan Arya Bramajati - 2106630031
 6. Catherine Angel Robin - 2106705392
 
-## ✨ Tautan Aplikasi Heroku ✨
+## ✨ Link APK ✨
 
-- Nama aplikasi kami : `Sayang-Dibuang`
-- Link : https://sayang-dibuang.herokuapp.com/
+Coming soon
 
 ## 📜 Cerita Aplikasi dan Manfaat 📜
 
@@ -90,3 +87,23 @@ Aplikasi `Sayang-Dibuang` memungkinkan _user_ untuk berbagi makanan dan/atau bar
     1. Admin
     2. Public (Orang-orang yang mengakses aplikasi, tetapi belum membuat akun. Public hanya dapat mengakses fitur Information saja)
     3. User (Orang-orang yang sudah login dan dapat mengakses semua fitur pada aplikasi sayang-dibuang)
+
+## Kontrak per modul<br>
+
+    1. **Authentication**<br>
+        Modul ini dikerjakan oleh Lyzander.
+
+    2. **Information dan Review**<br>
+        Modul ini dikerjakan oleh Khansa.
+
+    3. **Beranda Barang Bekas**<br>
+        Modul ini dikerjakan oleh Pikatan.
+
+    4. **Request Barang Bekas**<br>
+        Modul ini dikerjakan oleh Catherine.
+
+    5. __**Crowdfunding**__<br>
+        Modul ini dikerjakan oleh Gibrano.
+
+    6. **Leaderboard**<br>
+        Modul ini dikerjakan oleh Kristo.
