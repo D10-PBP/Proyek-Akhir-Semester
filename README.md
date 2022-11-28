@@ -111,7 +111,7 @@ Aplikasi `Sayang-Dibuang` memungkinkan _user_ untuk berbagi makanan dan/atau bar
 ## Alur pengintegrasian dengan PTS<br>
 Karena konsep aplikasi Sayang Dibuang Mobile serupa dengan versi web-nya, maka kami akan memanfaatkan _endpoint_ yang kami sudah buat pada PTS sebelumnya untuk membawa fitur-fitur pada Sayang Dibuang Web kepada versi _mobile_-nya. Pada dasarnya, aplikasi mobile kami akan mengakses _endpoint_ pada Django, di mana _endpoint_ yang sudah dibuat akan mengembalikan _response_ JSON, sehingga memudahkan pengolahan data di Flutter. Untuk cara rincinya adalah sebagai berikut:
     
-    1. Menambahkan _dependency_ `http` ke dalam aplikasi Sayang Dibuang Mobile.
-    2. Membuat model di _source code_ aplikasi Sayang Dibuang Mobile yang akan berguna untuk proses _parsing_ _response_ JSON.
-    3. Membuat berbagai _request_ kepada _endpoint_ PTS untuk mengakses dan menambah data, sehingga fitur-fitur pada versi web juga dapat diakses di versi _mobile_ Sayang Dibuang.
-    4. Memanfaatkan _widget_ `FutureBuilder` untuk menampilkan _response_ GET _request_ dari aplikasi Sayang Dibuang Mobile.
+    1. Menambahkan dependency http ke dalam aplikasi Sayang Dibuang Mobile.
+    2. Membuat model di source code aplikasi Sayang Dibuang Mobile yang akan berguna untuk proses parsing response JSON.
+    3. Membuat berbagai request kepada endpoint PTS untuk mengakses dan menambah data, sehingga fitur-fitur pada versi web juga dapat diakses di versi mobile Sayang Dibuang.
+    4. Memanfaatkan widget FutureBuilder untuk menampilkan response GET request dari aplikasi Sayang Dibuang Mobile.
