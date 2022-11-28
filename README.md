@@ -107,3 +107,6 @@ Aplikasi `Sayang-Dibuang` memungkinkan _user_ untuk berbagi makanan dan/atau bar
 
     6. Leaderboard<br>
         Modul ini dikerjakan oleh Kristo.
+
+## Alur pengintegrasian dengan PTS<br>
+Karena konsep aplikasi Sayang Dibuang Mobile serupa dengan versi web-nya, maka kami akan memanfaatkan _endpoint_ yang kami sudah buat pada PTS sebelumnya untuk membawa fitur-fitur pada Sayang Dibuang Web kepada versi _mobile_-nya. Pada dasarnya, aplikasi mobile kami akan mengakses _endpoint_ pada Django, di mana _endpoint_ yang sudah dibuat akan mengembalikan _response_ JSON, sehingga memudahkan pengolahan data di Flutter.
