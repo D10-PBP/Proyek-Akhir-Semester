@@ -6,4 +6,5 @@ class ThemeColor {
   static const Color sand = Color(0xFFF6F2E9);
   static const Color darkGreen = Color(0xFF185641);
   static const Color gold = Color(0xFFBFA861);
+  static const Color white = Color(0xFFFFFFFF);
 }
