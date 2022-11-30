@@ -67,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
         children: [
           Builder(
             builder: (context) => IconButton(
-              icon: new Icon(Icons.menu),
+              icon: new Icon(Icons.menu, size: 35.0),
               onPressed: () => Scaffold.of(context).openDrawer(),
             ),
           ),

@@ -48,11 +48,7 @@ class DrawerClassState extends State<DrawerClass> {
                   ),
                 ),
                 onTap: () {
-                  // ini ga keubah klo ganti page jadi pke widget.currentIndex aja
-                  // setState(() {
-                  //   _currentSelected = index;
-                  // });
-                  // Route menu ke halaman utama
+                  Navigator.pop(context);
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
