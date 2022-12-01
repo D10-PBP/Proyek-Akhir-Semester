@@ -63,6 +63,9 @@ flutter:
     - family: PlusJakarta
       fonts:
         - asset: fonts/PlusJakartaSans-Regular.otf
+    - family: Verona
+      fonts:
+        - asset: fonts/Verona-Serial-Regular.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:
