@@ -18,7 +18,7 @@ class _CrowdfundingsPageState extends State<CrowdfundingsPage> {
           children: const [
             // Header
             Text(
-              "Crowdfundings",
+              "Crowdfunding",
               style: TextStyle(
                   fontFamily: "Verona",
                   fontWeight: FontWeight.bold,

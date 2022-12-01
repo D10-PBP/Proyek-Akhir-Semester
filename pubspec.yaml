@@ -66,6 +66,9 @@ flutter:
     - family: Verona
       fonts:
         - asset: fonts/Verona-Serial-Regular.ttf
+    - family: Moana
+      fonts:
+        - asset: fonts/MoanaRainyDemoRegular.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:
