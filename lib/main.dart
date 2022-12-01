@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/pages/beranda.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/pages/crowdfundings.dart';
@@ -43,9 +44,21 @@ class _MyHomePageState extends State<MyHomePage> {
       CrowdfundingsPage(),
       CrowdfundingsPage(), // nanti diganti sama Leaderboard
     ];
-    return SafeArea(
+
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          systemNavigationBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.dark),
       child: Scaffold(
+          // background color
+          backgroundColor: ThemeColor.sand,
+
+          // the screen
           body: pages[currentIndex],
+
+          // the bottom navbar
           bottomNavigationBar: Container(
             color: ThemeColor.gold,
             child: Padding(
