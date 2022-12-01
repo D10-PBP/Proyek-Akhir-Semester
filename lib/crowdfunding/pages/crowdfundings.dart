@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 class CrowdfundingsPage extends StatefulWidget {
@@ -13,23 +11,9 @@ class CrowdfundingsPage extends StatefulWidget {
 class _CrowdfundingsPageState extends State<CrowdfundingsPage> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            // Header
-            Text(
-              "Crowdfundings",
-              style: TextStyle(
-                  fontFamily: "Verona",
-                  fontWeight: FontWeight.bold,
-                  fontSize: 32),
-            ),
-
-            // Intro Card
-          ],
-        ),
+    return const Center(
+      child: Text(
+        "Crowdfundings",
       ),
     );
   }
