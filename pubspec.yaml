@@ -38,6 +38,7 @@ dependencies:
   http: ^0.13.5
   pbp_django_auth: ^0.2.2
   provider: ^6.0.4
+  google_nav_bar: ^5.0.6
 
 dev_dependencies:
   flutter_test:
@@ -59,6 +60,17 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+
+  fonts:
+    - family: PlusJakarta
+      fonts:
+        - asset: fonts/PlusJakartaSans-Regular.otf
+    - family: Verona
+      fonts:
+        - asset: fonts/Verona-Serial-Regular.ttf
+    - family: Moana
+      fonts:
+        - asset: fonts/MoanaRainyDemoRegular.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:
