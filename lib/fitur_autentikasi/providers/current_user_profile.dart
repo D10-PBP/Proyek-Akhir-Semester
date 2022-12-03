@@ -9,7 +9,7 @@ class CurrentUserProfileModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void removeUser(UserProfile user) {
+  void removeUser() {
     _user = null;
     notifyListeners();
   }
