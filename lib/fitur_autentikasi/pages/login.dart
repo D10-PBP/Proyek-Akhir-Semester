@@ -3,8 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:sayang_dibuang_mobile/core/widget/drawer.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
-import 'package:sayang_dibuang_mobile/fitur_autentikasi/models/user_profile.dart';
-import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/auth.dart';
 
 class LoginPage extends StatelessWidget {
