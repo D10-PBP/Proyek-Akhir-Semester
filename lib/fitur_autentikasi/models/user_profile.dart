@@ -32,6 +32,30 @@ class UserProfile {
         "pk": pk,
         "fields": fields.toJson(),
       };
+
+  // Getter and Setter
+  String get username => fields.user.username;
+  String get fullname => "${fields.user.firstName} ${fields.user.lastName}";
+  String get firstName => fields.user.firstName;
+  String get lastName => fields.user.lastName;
+  String get email => fields.user.email;
+  String get telephone => fields.telephone;
+  String get whatsapp => fields.whatsapp;
+  String get line => fields.line;
+  int get poin => fields.poin;
+
+  @override
+  String toString() {
+    return """
+Username: $username
+Fullname: $fullname
+Email: $email
+Telephone: $telephone
+Whatsapp: $whatsapp
+Line: $line
+Poin: $poin
+""";
+  }
 }
 
 class Fields {

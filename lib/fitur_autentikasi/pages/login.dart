@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:sayang_dibuang_mobile/core/widget/drawer.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/models/user_profile.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/auth.dart';
 
 class LoginPage extends StatefulWidget {
@@ -15,8 +17,10 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _loginFormKey = GlobalKey<FormState>();
   bool isPasswordVisible = false;
-  String loginUrl = "http://127.0.0.1:8000/login/ajax";
-  String logoutUrl = "http://127.0.0.1:8000/logout";
+  String loginUrl = "https://sayang-dibuang.up.railway.app/login/ajax";
+  String logoutUrl = "https://sayang-dibuang.up.railway.app/logout";
+  // String loginUrl = "http://127.0.0.1:8000/login/ajax";
+  // String logoutUrl = "http://127.0.0.1:8000/logout";
 
   void togglePasswordView() {
     setState(() {
@@ -121,12 +125,15 @@ class _LoginPageState extends State<LoginPage> {
                           MaterialStateProperty.all(ThemeColor.gold),
                     ),
                     onPressed: () async {
-                      print("test");
-                      print(_loginFormKey.currentState!.validate());
-
                       if (_loginFormKey.currentState!.validate()) {
-                        print(request);
-                        await login(request, loginUrl, username, password1);
+                        UserProfile? userProfile =
+                            await login(request, loginUrl, username, password1);
+                        if (!mounted) return;
+                        if (userProfile != null) {
+                          context
+                              .read<CurrentUserProfileModel>()
+                              .addUser(userProfile);
+                        }
                       }
                     },
                     child: const SizedBox(
