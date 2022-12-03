@@ -7,20 +7,29 @@ import 'package:sayang_dibuang_mobile/fitur_autentikasi/models/user_profile.dart
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/auth.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
-  State<StatefulWidget> createState() => _LoginPageState();
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      backgroundColor: ThemeColor.sand,
+      drawer: DrawerClass("Login", 2),
+      body: LoginForm(),
+    );
+  }
 }
 
-class _LoginPageState extends State<LoginPage> {
+class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
+
+  @override
+  State<LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
   final _loginFormKey = GlobalKey<FormState>();
   bool isPasswordVisible = false;
-  String loginUrl = "https://sayang-dibuang.up.railway.app/login/ajax";
-  String logoutUrl = "https://sayang-dibuang.up.railway.app/logout";
-  // String loginUrl = "http://127.0.0.1:8000/login/ajax";
-  // String logoutUrl = "http://127.0.0.1:8000/logout";
 
   void togglePasswordView() {
     setState(() {
@@ -34,122 +43,111 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
-    return Scaffold(
-      backgroundColor: ThemeColor.sand,
-      drawer: const DrawerClass("Login", 2),
-      body: Form(
-        key: _loginFormKey,
-        child: Column(children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Builder(
-                builder: (context) => IconButton(
-                  icon: const Icon(Icons.menu),
-                  onPressed: () => Scaffold.of(context).openDrawer(),
-                ),
+    return Form(
+      key: _loginFormKey,
+      child: Column(children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Builder(
+              builder: (context) => IconButton(
+                icon: const Icon(Icons.menu),
+                onPressed: () => Scaffold.of(context).openDrawer(),
               ),
-            ],
-          ),
-          Column(
-            children: [
-              Text("LOGIN"),
-              Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      labelText: "Username",
+            ),
+          ],
+        ),
+        Column(
+          children: [
+            const Text("LOGIN"),
+            Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  decoration: InputDecoration(
+                    labelText: "Username",
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
+                  onChanged: (String? value) {
+                    setState(() {
+                      username = value!;
+                    });
+                  },
+                  onSaved: (String? value) {
+                    setState(() {
+                      username = value!;
+                    });
+                  },
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Username tidak boleh kosong!';
+                    }
+                    return null;
+                  },
+                )),
+            Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  obscureText: !isPasswordVisible,
+                  decoration: InputDecoration(
+                      labelText: "Password",
                       filled: true,
                       fillColor: Colors.white,
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0),
                       ),
-                    ),
-                    onChanged: (String? value) {
-                      setState(() {
-                        username = value!;
-                      });
-                    },
-                    onSaved: (String? value) {
-                      setState(() {
-                        username = value!;
-                      });
-                    },
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Username tidak boleh kosong!';
-                      }
-                      return null;
-                    },
-                  )),
-              Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextFormField(
-                    obscureText: !isPasswordVisible,
-                    decoration: InputDecoration(
-                        labelText: "Password",
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.0),
+                      suffixIcon: IconButton(
+                          onPressed: togglePasswordView,
+                          icon: Icon(
+                            isPasswordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ))),
+                  onChanged: (String? value) {
+                    setState(() {
+                      password1 = value!;
+                    });
+                  },
+                  onSaved: (String? value) {
+                    setState(() {
+                      password1 = value!;
+                    });
+                  },
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Password tidak boleh kosong!';
+                    }
+                    return null;
+                  },
+                )),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(ThemeColor.gold),
+                  ),
+                  onPressed: () async {
+                    if (_loginFormKey.currentState!.validate()) {
+                      await login(
+                          context, mounted, request, username, password1);
+                    }
+                  },
+                  child: const SizedBox(
+                      height: 40,
+                      width: 200,
+                      child: Center(
+                        child: Text(
+                          "Login",
+                          style: TextStyle(color: Colors.white),
                         ),
-                        suffixIcon: IconButton(
-                            onPressed: togglePasswordView,
-                            icon: Icon(
-                              isPasswordVisible
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                            ))),
-                    onChanged: (String? value) {
-                      setState(() {
-                        password1 = value!;
-                      });
-                    },
-                    onSaved: (String? value) {
-                      setState(() {
-                        password1 = value!;
-                      });
-                    },
-                    validator: (String? value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Password tidak boleh kosong!';
-                      }
-                      return null;
-                    },
-                  )),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextButton(
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(ThemeColor.gold),
-                    ),
-                    onPressed: () async {
-                      if (_loginFormKey.currentState!.validate()) {
-                        UserProfile? userProfile =
-                            await login(request, loginUrl, username, password1);
-                        if (!mounted) return;
-                        if (userProfile != null) {
-                          context
-                              .read<CurrentUserProfileModel>()
-                              .addUser(userProfile);
-                        }
-                      }
-                    },
-                    child: const SizedBox(
-                        height: 40,
-                        width: 200,
-                        child: Center(
-                          child: Text(
-                            "Login",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ))),
-              ),
-            ],
-          )
-        ]),
-      ),
+                      ))),
+            ),
+          ],
+        )
+      ]),
     );
   }
 }
