@@ -10,13 +10,17 @@ class URL {
   static const String loginUrl =
       "https://sayang-dibuang.up.railway.app/login/ajax";
   static const String logoutUrl =
-      "https://sayang-dibuang.up.railway.app/logout";
+      "https://sayang-dibuang.up.railway.app/logout/ajax";
+  // static String userDataURL(username) =>
+  //     "http://127.0.0.1:8000/user-data/$username";
+  // static const String loginUrl = "http://127.0.0.1:8000/login/ajax";
+  // static const String logoutUrl = "http://127.0.0.1:8000/logout/ajax";
 }
 
-Future<void> login(BuildContext context, bool mounted, CookieRequest request,
+Future<String> login(BuildContext context, bool mounted, CookieRequest request,
     String username, String password1) async {
   // 'username' and 'password' should be the values of the user login form.
-  await request.login(URL.loginUrl, {
+  final response = await request.login(URL.loginUrl, {
     'username': username,
     'password': password1,
   });
@@ -24,16 +28,18 @@ Future<void> login(BuildContext context, bool mounted, CookieRequest request,
     // Code here will run if the login succeeded.
     final userDataJson = await getUserData(request, username);
     UserProfile userProfile = UserProfile.fromJson(userDataJson[0]);
-    if (!mounted) return;
+    if (!mounted) return "";
     context.read<CurrentUserProfileModel>().addUser(userProfile);
+    return response["message"];
   } else {
     // Code here will run if the login failed (wrong username/password).
+    return response["message"];
   }
 }
 
-Future<void> logout(
-    BuildContext context, bool mounted, CookieRequest request) async {
-  request.logout(URL.logoutUrl);
+Future<void> logout(BuildContext context, CookieRequest request,
+    [bool mounted = true]) async {
+  await request.logout(URL.logoutUrl);
   if (!mounted) return;
   context.read<CurrentUserProfileModel>().removeUser();
 }

@@ -1,19 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
-import 'package:sayang_dibuang_mobile/core/widget/drawer.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/auth.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class Login extends StatelessWidget {
+  const Login({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: ThemeColor.sand,
-      drawer: DrawerClass("Login", 2),
-      body: LoginForm(),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          const Text(
+            "Login",
+            style: TextStyle(
+                fontFamily: "Verona",
+                fontWeight: FontWeight.bold,
+                fontSize: 32),
+          ),
+          Text(
+            "Masuk ke Akun Anda",
+            style: TextStyle(
+              fontFamily: "PlusJakarta",
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+              color: Colors.grey[600],
+            ),
+          ),
+          const SizedBox(height: 30),
+          const LoginForm(),
+        ],
+      ),
     );
   }
 }
@@ -42,110 +61,142 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return Form(
-      key: _loginFormKey,
-      child: Column(children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+        key: _loginFormKey,
+        child: Column(
           children: [
-            Builder(
-              builder: (context) => IconButton(
-                icon: const Icon(Icons.menu),
-                onPressed: () => Scaffold.of(context).openDrawer(),
+            TextFormField(
+              style: const TextStyle(fontFamily: "PlusJakarta'", fontSize: 15),
+              decoration: InputDecoration(
+                labelText: "Username",
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+                hoverColor: ThemeColor.sand,
               ),
+              onChanged: (String? value) {
+                setState(() {
+                  username = value!;
+                });
+              },
+              onSaved: (String? value) {
+                setState(() {
+                  username = value!;
+                });
+              },
+              validator: (String? value) {
+                if (value == null || value.isEmpty) {
+                  return 'Username tidak boleh kosong!';
+                }
+                return null;
+              },
             ),
-          ],
-        ),
-        Column(
-          children: [
-            const Text("LOGIN"),
-            Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    labelText: "Username",
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
+            const SizedBox(height: 10.0),
+            TextFormField(
+              obscureText: !isPasswordVisible,
+              style: const TextStyle(fontFamily: "PlusJakarta'", fontSize: 15),
+              decoration: InputDecoration(
+                  labelText: "Password",
+                  filled: true,
+                  fillColor: Colors.white,
+                  hoverColor: ThemeColor.sand,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
                   ),
-                  onChanged: (String? value) {
-                    setState(() {
-                      username = value!;
-                    });
-                  },
-                  onSaved: (String? value) {
-                    setState(() {
-                      username = value!;
-                    });
-                  },
-                  validator: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Username tidak boleh kosong!';
-                    }
-                    return null;
-                  },
-                )),
-            Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: TextFormField(
-                  obscureText: !isPasswordVisible,
-                  decoration: InputDecoration(
-                      labelText: "Password",
-                      filled: true,
-                      fillColor: Colors.white,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                      suffixIcon: IconButton(
-                          onPressed: togglePasswordView,
-                          icon: Icon(
-                            isPasswordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                          ))),
-                  onChanged: (String? value) {
-                    setState(() {
-                      password1 = value!;
-                    });
-                  },
-                  onSaved: (String? value) {
-                    setState(() {
-                      password1 = value!;
-                    });
-                  },
-                  validator: (String? value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Password tidak boleh kosong!';
-                    }
-                    return null;
-                  },
-                )),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextButton(
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(ThemeColor.gold),
-                  ),
-                  onPressed: () async {
-                    if (_loginFormKey.currentState!.validate()) {
-                      await login(
-                          context, mounted, request, username, password1);
-                    }
-                  },
-                  child: const SizedBox(
-                      height: 40,
-                      width: 200,
-                      child: Center(
-                        child: Text(
-                          "Login",
-                          style: TextStyle(color: Colors.white),
-                        ),
+                  suffixIcon: IconButton(
+                      onPressed: togglePasswordView,
+                      icon: Icon(
+                        isPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
                       ))),
+              onChanged: (String? value) {
+                setState(() {
+                  password1 = value!;
+                });
+              },
+              onSaved: (String? value) {
+                setState(() {
+                  password1 = value!;
+                });
+              },
+              validator: (String? value) {
+                if (value == null || value.isEmpty) {
+                  return 'Password tidak boleh kosong!';
+                }
+                return null;
+              },
             ),
+            const SizedBox(
+              height: 20,
+            ),
+            TextButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(ThemeColor.gold),
+                ),
+                onPressed: () async {
+                  if (_loginFormKey.currentState!.validate()) {
+                    final response = await login(
+                        context, mounted, request, username, password1);
+                    if (!mounted) return;
+                    if (!context
+                        .read<CurrentUserProfileModel>()
+                        .hasCurrentUser()) {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return Dialog(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            elevation: 15,
+                            child: SizedBox(
+                              width: 300,
+                              height: 150,
+                              child: Center(
+                                child: ListView(
+                                  padding: const EdgeInsets.only(
+                                      top: 20, bottom: 20),
+                                  shrinkWrap: true,
+                                  children: <Widget>[
+                                    Padding(
+                                        padding: const EdgeInsets.all(10),
+                                        child: Text(
+                                          response,
+                                          textAlign: TextAlign.center,
+                                        )),
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('Kembali'),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    }
+                  }
+                },
+                child: const SizedBox(
+                    height: 40,
+                    width: 200,
+                    child: Center(
+                      child: Text(
+                        "Login",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: "PlusJakarta",
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ))),
           ],
-        )
-      ]),
-    );
+        ));
   }
 }

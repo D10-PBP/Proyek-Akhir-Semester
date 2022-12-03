@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/pages/beranda.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/pages/crowdfundings.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/pages/profile.dart';
 
 import 'core/theme/theme_color.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
@@ -52,6 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
       BerandaBarangPage(), // nanti diganti sama Request
       CrowdfundingsPage(),
       CrowdfundingsPage(), // nanti diganti sama Leaderboard
+      ProfilePage(),
     ];
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
@@ -105,6 +107,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     GButton(
                       icon: Icons.leaderboard_rounded,
                       text: 'Leaderboard',
+                    ),
+                    GButton(
+                      icon: Icons.account_circle_outlined,
                     ),
                   ]),
             ),

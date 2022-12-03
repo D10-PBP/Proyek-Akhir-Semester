@@ -18,7 +18,7 @@ class DrawerClass extends StatefulWidget {
   static final List<Widget> _listViewPages = [
     const MyHomePage(),
     const BerandaBarangPage(),
-    const LoginPage(),
+    const Login(),
   ];
   @override
   State<StatefulWidget> createState() => DrawerClassState();
