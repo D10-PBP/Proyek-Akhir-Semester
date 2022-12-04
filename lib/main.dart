@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/pages/beranda.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/pages/crowdfundings.dart';
+import 'package:sayang_dibuang_mobile/information/pages/information.dart';
 
 import 'core/theme/theme_color.dart';
 
@@ -38,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     List<Widget> pages = [
-      CrowdfundingsPage(), // nanti diganti sama Home
+      InformationPage(), // nanti diganti sama Home
       BerandaBarangPage(),
       BerandaBarangPage(), // nanti diganti sama Request
       CrowdfundingsPage(),
