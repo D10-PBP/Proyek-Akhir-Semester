@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/loading.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/auth.dart';
 
 class Login extends StatelessWidget {
@@ -10,28 +11,31 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          const Text(
-            "Login",
-            style: TextStyle(
-                fontFamily: "Verona",
-                fontWeight: FontWeight.bold,
-                fontSize: 32),
-          ),
-          Text(
-            "Masuk ke Akun Anda",
-            style: TextStyle(
-              fontFamily: "PlusJakarta",
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-              color: Colors.grey[600],
+    return ChangeNotifierProvider(
+      create: (context) => Loading(),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const Text(
+              "Login",
+              style: TextStyle(
+                  fontFamily: "Verona",
+                  fontWeight: FontWeight.bold,
+                  fontSize: 32),
             ),
-          ),
-          const SizedBox(height: 30),
-          const LoginForm(),
-        ],
+            Text(
+              "Masuk ke Akun Anda",
+              style: TextStyle(
+                fontFamily: "PlusJakarta",
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+                color: Colors.grey[600],
+              ),
+            ),
+            const SizedBox(height: 30),
+            const LoginForm(),
+          ],
+        ),
       ),
     );
   }
@@ -136,6 +140,7 @@ class _LoginFormState extends State<LoginForm> {
                   backgroundColor: MaterialStateProperty.all(ThemeColor.gold),
                 ),
                 onPressed: () async {
+                  context.read<Loading>().toggleLoading();
                   if (_loginFormKey.currentState!.validate()) {
                     final response = await login(
                         context, mounted, request, username, password1);
@@ -181,19 +186,48 @@ class _LoginFormState extends State<LoginForm> {
                       );
                     }
                   }
+                  if (!mounted) return;
+                  context.read<Loading>().toggleLoading();
                 },
-                child: const SizedBox(
+                child: SizedBox(
                     height: 40,
                     width: 200,
                     child: Center(
-                      child: Text(
-                        "Login",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: "PlusJakarta",
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
+                      child: Consumer<Loading>(
+                        builder: (context, loading, child) {
+                          return (!loading.isLoading())
+                              ? const Text(
+                                  "Login",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: "PlusJakarta",
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                )
+                              : Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const [
+                                    Text(
+                                      "Login",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: "PlusJakarta",
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                    SizedBox(width: 10),
+                                    SizedBox(
+                                      width: 10,
+                                      height: 10,
+                                      child: CircularProgressIndicator(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                );
+                        },
                       ),
                     ))),
           ],
