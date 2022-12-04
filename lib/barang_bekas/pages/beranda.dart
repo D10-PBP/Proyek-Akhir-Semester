@@ -17,132 +17,135 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Scaffold(
-      backgroundColor: ThemeColor.sand,
-      drawer: DrawerClass('Beranda', 1),
-      body: Stack(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        children: [
-          SingleChildScrollView(
-            child: Center(
-              child: Column(
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    height: 100,
-                    child: Container(
-                        decoration: BoxDecoration(
-                          color: ThemeColor.darkGreen,
-                          borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(15),
-                              bottomRight: Radius.circular(15)),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "Beranda Barang",
-                            style: TextStyle(
-                                color: ThemeColor.sand,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 28),
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: ThemeColor.sand,
+        drawer: DrawerClass('Beranda', 1),
+        body: Stack(
+          // Center is a layout widget. It takes a single child and positions it
+          // in the middle of the parent.
+          children: [
+            SingleChildScrollView(
+              child: Center(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      height: 100,
+                      child: Container(
+                          decoration: BoxDecoration(
+                            color: ThemeColor.darkGreen,
+                            borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(15),
+                                bottomRight: Radius.circular(15)),
                           ),
-                        )),
-                  ),
-                  SizedBox(
-                    height: 50,
-                  ),
-                  GestureDetector(
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => BarangDetailPage(
-                                judul: "Judul",
-                                deskripsi:
-                                    "Text largeeeeeeeeeeeeeeeeeeeeeee. Nah lo gmn. Halo nama saya ini. Ini BArang yang saya mw kasih. Kalau kalian butuh barang ini. Lgsg chat sjh thx.",
-                                kategori: "Kategori",
-                                owner: "Owner nama",
-                                noTelp: "087788776655",
-                                line: "owner.line",
-                                wa: "0899887766"))),
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
-                        side: BorderSide(
-                          color: ThemeColor.darkGreen,
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            height: 200,
-                            width: 200,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15.0),
-                              color: ThemeColor.gold,
+                          child: Center(
+                            child: Text(
+                              "Beranda Barang",
+                              style: TextStyle(
+                                  color: ThemeColor.sand,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 28),
                             ),
-                            padding: new EdgeInsets.all(10.0),
-                            child: Text("Image HERE"),
+                          )),
+                    ),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    GestureDetector(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => BarangDetailPage(
+                                  judul: "Judul",
+                                  deskripsi:
+                                      "Text largeeeeeeeeeeeeeeeeeeeeeee. Nah lo gmn. Halo nama saya ini. Ini BArang yang saya mw kasih. Kalau kalian butuh barang ini. Lgsg chat sjh thx.",
+                                  kategori: "Kategori",
+                                  owner: "Owner nama",
+                                  noTelp: "087788776655",
+                                  line: "owner.line",
+                                  wa: "0899887766"))),
+                      child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15.0),
+                          side: BorderSide(
+                            color: ThemeColor.darkGreen,
                           ),
-                          Flexible(
-                            child: Container(
-                              padding:
-                                  new EdgeInsets.only(top: 25.0, left: 15.0),
+                        ),
+                        child: Row(
+                          children: [
+                            Container(
                               height: 200,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Judul",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18),
-                                  ),
-                                  Container(
-                                    padding: EdgeInsets.all(12.0),
-                                    child: Text(
-                                      'Text largeeeeeeeeeeeeeeeeeeeeeee. Nah lo gmn. Halo nama saya ini. Ini BArang yang saya mw kasih. Kalau kalian butuh barang ini. Lgsg chat sjh thx.',
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 3,
+                              width: 200,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15.0),
+                                color: ThemeColor.gold,
+                              ),
+                              padding: new EdgeInsets.all(10.0),
+                              child: Text("Image HERE"),
+                            ),
+                            Flexible(
+                              child: Container(
+                                padding:
+                                    new EdgeInsets.only(top: 25.0, left: 15.0),
+                                height: 200,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Judul",
                                       style: TextStyle(
-                                        fontSize: 14.0,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.all(12.0),
+                                      child: Text(
+                                        'Text largeeeeeeeeeeeeeeeeeeeeeee. Nah lo gmn. Halo nama saya ini. Ini BArang yang saya mw kasih. Kalau kalian butuh barang ini. Lgsg chat sjh thx.',
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 3,
+                                        style: TextStyle(
+                                          fontSize: 14.0,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      border:
-                                          Border.all(color: ThemeColor.gold),
-                                      borderRadius: BorderRadius.circular(15.0),
-                                      // color: ThemeColor.darkGreen,
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        border:
+                                            Border.all(color: ThemeColor.gold),
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                        // color: ThemeColor.darkGreen,
+                                      ),
+                                      margin: EdgeInsets.only(left: 15.0),
+                                      padding: EdgeInsets.all(
+                                          5), //apply padding to all four sides
+                                      child: Text("Kategori"),
                                     ),
-                                    margin: EdgeInsets.only(left: 15.0),
-                                    padding: EdgeInsets.all(
-                                        5), //apply padding to all four sides
-                                    child: Text("Kategori"),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-          Builder(
-            builder: (context) => IconButton(
-              icon: new Icon(
-                Icons.menu,
-                size: 35.0,
-                color: ThemeColor.sand,
+            Builder(
+              builder: (context) => IconButton(
+                icon: new Icon(
+                  Icons.menu,
+                  size: 35.0,
+                  color: ThemeColor.sand,
+                ),
+                onPressed: () => Scaffold.of(context).openDrawer(),
               ),
-              onPressed: () => Scaffold.of(context).openDrawer(),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
