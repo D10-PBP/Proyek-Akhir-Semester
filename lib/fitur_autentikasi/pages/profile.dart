@@ -97,7 +97,7 @@ class ProfilePageUser extends StatelessWidget {
                       onPressed: () async {
                         final response = await logout(context, request);
                         if (!mounted) return;
-                        if (!context
+                        if (context
                             .read<CurrentUserProfileModel>()
                             .hasCurrentUser()) {
                           showDialog(
