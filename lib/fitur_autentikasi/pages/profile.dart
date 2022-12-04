@@ -12,11 +12,13 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Center(
-        child: (context.watch<CurrentUserProfileModel>().hasCurrentUser())
-            ? ProfilePageUser()
-            : ProfileLogin(),
-      ),
+      child: Center(child: Consumer<CurrentUserProfileModel>(
+        builder: ((context, profile, child) {
+          return (profile.hasCurrentUser())
+              ? const ProfilePageUser()
+              : const ProfileLogin();
+        }),
+      )),
     );
   }
 }
@@ -24,9 +26,40 @@ class ProfilePage extends StatelessWidget {
 class ProfilePageUser extends StatelessWidget {
   const ProfilePageUser({super.key});
 
+  Widget tableProfile(CurrentUserProfileModel profile) {
+    return Table(
+      columnWidths: const {
+        0: FlexColumnWidth(),
+        1: FixedColumnWidth(10),
+        2: FlexColumnWidth(),
+      },
+      border: const TableBorder(
+          horizontalInside: BorderSide(
+              width: 1, color: Colors.grey, style: BorderStyle.solid)),
+      children: [
+        tableProfileRow("Username", profile.user!.username),
+        tableProfileRow("Email", profile.user!.email),
+        tableProfileRow("Poin", profile.user!.poin.toString()),
+        tableProfileRow("Nama Lengkap", profile.user!.fullname),
+        tableProfileRow("Nomor Telepon", profile.user!.telephone),
+        tableProfileRow("Nomor Whatsapp", profile.user!.whatsapp),
+        tableProfileRow("ID Line", profile.user!.line),
+      ],
+    );
+  }
+
+  TableRow tableProfileRow(String name, String value) {
+    return TableRow(children: [
+      Text(name),
+      const Text(':'),
+      Text(value),
+    ]);
+  }
+
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
+    final profile = context.read<CurrentUserProfileModel>();
     final currentHeight = MediaQuery.of(context).size.height;
     final currentWidth = MediaQuery.of(context).size.width;
     return Stack(
@@ -52,10 +85,12 @@ class ProfilePageUser extends StatelessWidget {
                         fontSize: 32),
                   ),
                   const SizedBox(height: 10),
+                  tableProfile(profile),
+                  const SizedBox(height: 20),
                   TextButton(
                       style: ButtonStyle(
                         backgroundColor:
-                            MaterialStateProperty.all(ThemeColor.gold),
+                            MaterialStateProperty.all(ThemeColor.darkGreen),
                       ),
                       onPressed: () async {
                         await logout(context, request);
