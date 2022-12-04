@@ -19,29 +19,38 @@ class URL {
 
 Future<String> login(BuildContext context, bool mounted, CookieRequest request,
     String username, String password1) async {
-  // 'username' and 'password' should be the values of the user login form.
-  final response = await request.login(URL.loginUrl, {
-    'username': username,
-    'password': password1,
-  });
-  if (request.loggedIn) {
-    // Code here will run if the login succeeded.
-    final userDataJson = await getUserData(request, username);
-    UserProfile userProfile = UserProfile.fromJson(userDataJson[0]);
-    if (!mounted) return "";
-    context.read<CurrentUserProfileModel>().addUser(userProfile);
-    return response["message"];
-  } else {
-    // Code here will run if the login failed (wrong username/password).
-    return response["message"];
+  try {
+    // 'username' and 'password' should be the values of the user login form.
+    final response = await request.login(URL.loginUrl, {
+      'username': username,
+      'password': password1,
+    });
+    if (request.loggedIn) {
+      // Code here will run if the login succeeded.
+      final userDataJson = await getUserData(request, username);
+      UserProfile userProfile = UserProfile.fromJson(userDataJson[0]);
+      if (!mounted) return "";
+      context.read<CurrentUserProfileModel>().addUser(userProfile);
+      return response["message"];
+    } else {
+      // Code here will run if the login failed (wrong username/password).
+      return response["message"];
+    }
+  } catch (e) {
+    return e.toString();
   }
 }
 
-Future<void> logout(BuildContext context, CookieRequest request,
+Future<String> logout(BuildContext context, CookieRequest request,
     [bool mounted = true]) async {
-  await request.logout(URL.logoutUrl);
-  if (!mounted) return;
-  context.read<CurrentUserProfileModel>().removeUser();
+  try {
+    final response = await request.logout(URL.logoutUrl);
+    if (!mounted) return "";
+    context.read<CurrentUserProfileModel>().removeUser();
+    return response["message"];
+  } catch (e) {
+    return "Logout Failed Try Again";
+  }
 }
 
 Future<dynamic> getUserData(CookieRequest request, String username) async {

@@ -26,6 +26,8 @@ class ProfilePage extends StatelessWidget {
 class ProfilePageUser extends StatelessWidget {
   const ProfilePageUser({super.key});
 
+  final mounted = true;
+
   Widget tableProfile(CurrentUserProfileModel profile) {
     return Table(
       columnWidths: const {
@@ -93,7 +95,48 @@ class ProfilePageUser extends StatelessWidget {
                             MaterialStateProperty.all(ThemeColor.darkGreen),
                       ),
                       onPressed: () async {
-                        await logout(context, request);
+                        final response = await logout(context, request);
+                        if (!mounted) return;
+                        if (!context
+                            .read<CurrentUserProfileModel>()
+                            .hasCurrentUser()) {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return Dialog(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                elevation: 15,
+                                child: SizedBox(
+                                  width: 300,
+                                  height: 150,
+                                  child: Center(
+                                    child: ListView(
+                                      padding: const EdgeInsets.only(
+                                          top: 20, bottom: 20),
+                                      shrinkWrap: true,
+                                      children: <Widget>[
+                                        Padding(
+                                            padding: const EdgeInsets.all(10),
+                                            child: Text(
+                                              response,
+                                              textAlign: TextAlign.center,
+                                            )),
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text('Kembali'),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        }
                       },
                       child: const SizedBox(
                           height: 40,
