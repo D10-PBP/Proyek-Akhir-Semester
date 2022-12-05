@@ -73,9 +73,12 @@ flutter:
         - asset: fonts/MoanaRainyDemoRegular.ttf
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
-  #   - images/a_dot_ham.jpeg
+  assets:
+    - lib\leaderboard\Images\Bronze.png
+    - lib\leaderboard\Images\Gold.png
+    - lib\leaderboard\Images\Silver.png
+    - lib\leaderboard\Images\Standard.png
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

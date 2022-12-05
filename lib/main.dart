@@ -6,6 +6,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/pages/beranda.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/pages/crowdfundings.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/pages/profile.dart';
+import 'package:sayang_dibuang_mobile/leaderboard/pages/leaderboard.dart';
 
 import 'core/theme/theme_color.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
@@ -52,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
       BerandaBarangPage(),
       BerandaBarangPage(), // nanti diganti sama Request
       CrowdfundingsPage(),
-      CrowdfundingsPage(), // nanti diganti sama Leaderboard
+      LeaderboardPage(), // nanti diganti sama Leaderboard
       ProfilePage(),
     ];
 
