@@ -7,7 +7,7 @@ import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/loading.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/auth.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/pages/register.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/dialog.dart';
-import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/style.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/widgets/form_field.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});
@@ -53,15 +53,33 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final _loginFormKey = GlobalKey<FormState>();
   bool isPasswordVisible = false;
+  String username = "";
+  String password1 = "";
+
+  void setUsername(String? value) {
+    setState(() {
+      username = value!;
+    });
+  }
+
+  void setPassword1(String? value) {
+    setState(() {
+      password1 = value!;
+    });
+  }
+
+  String? validator(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Field tidak boleh kosong";
+    }
+    return null;
+  }
 
   void togglePasswordView() {
     setState(() {
       isPasswordVisible = !isPasswordVisible;
     });
   }
-
-  String username = "";
-  String password1 = "";
 
   @override
   Widget build(BuildContext context) {
@@ -70,55 +88,23 @@ class _LoginFormState extends State<LoginForm> {
         key: _loginFormKey,
         child: Column(
           children: [
-            TextFormField(
-              style: const TextStyle(fontFamily: "PlusJakarta'", fontSize: 15),
-              decoration: inputDecorationForm("Username"),
-              onChanged: (String? value) {
-                setState(() {
-                  username = value!;
-                });
-              },
-              onSaved: (String? value) {
-                setState(() {
-                  username = value!;
-                });
-              },
-              validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return 'Username tidak boleh kosong!';
-                }
-                return null;
-              },
-            ),
+            TextFormFieldAuth(
+                placeholder: "Username",
+                setFieldState: setUsername,
+                validator: validator),
             const SizedBox(height: 10.0),
-            TextFormField(
-              obscureText: !isPasswordVisible,
-              style: const TextStyle(fontFamily: "PlusJakarta'", fontSize: 15),
-              decoration: inputDecorationForm("Password",
-                  iconButton: IconButton(
-                      onPressed: togglePasswordView,
-                      icon: Icon(
-                        isPasswordVisible
-                            ? Icons.visibility
-                            : Icons.visibility_off,
-                      ))),
-              onChanged: (String? value) {
-                setState(() {
-                  password1 = value!;
-                });
-              },
-              onSaved: (String? value) {
-                setState(() {
-                  password1 = value!;
-                });
-              },
-              validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return 'Password tidak boleh kosong!';
-                }
-                return null;
-              },
-            ),
+            TextFormFieldAuth(
+                placeholder: "Password",
+                obscureText: !isPasswordVisible,
+                setFieldState: setPassword1,
+                validator: validator,
+                iconButton: IconButton(
+                    onPressed: togglePasswordView,
+                    icon: Icon(
+                      (isPasswordVisible)
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                    ))),
             const SizedBox(
               height: 20,
             ),
