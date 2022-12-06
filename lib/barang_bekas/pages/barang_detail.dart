@@ -6,6 +6,7 @@ import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 class BarangDetailPage extends StatelessWidget {
   final String judul;
   final String deskripsi;
+  final String foto;
   final String kategori;
   final String owner;
   final String noTelp;
@@ -16,6 +17,7 @@ class BarangDetailPage extends StatelessWidget {
       {super.key,
       required this.judul,
       required this.deskripsi,
+      required this.foto,
       required this.kategori,
       required this.owner,
       required this.noTelp,
@@ -53,7 +55,7 @@ class BarangDetailPage extends StatelessWidget {
                         color: ThemeColor.gold,
                       ),
                       padding: new EdgeInsets.all(10.0),
-                      child: Text("Image HERE"),
+                      child: Image.network(foto),
                     ),
                     Container(
                       padding: EdgeInsets.only(top: 12.0),

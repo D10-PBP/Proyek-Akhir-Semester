@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:sayang_dibuang_mobile/barang_bekas/models/barang_bekas.dart';
 
 Future<List<BarangBekas>> fetchBarangBekas(request) async {
-  var url = 'https://sayang-dibuang.up.railway.app/barang/all/?search=';
+  var url = 'https://sayang-dibuang.up.railway.app/barang/all/mobile/';
   var response = await request.get(
     url,
   );
@@ -12,6 +12,7 @@ Future<List<BarangBekas>> fetchBarangBekas(request) async {
   List<BarangBekas> listBarangBekas = [];
   for (var d in data) {
     if (d != null) {
+      // print(d);
       listBarangBekas.add(BarangBekas.fromJson(d));
     }
   }
@@ -27,6 +28,7 @@ Future<List<String>> fetchKategori(request) async {
   List<String> listKategori = [];
   for (var d in data) {
     if (d != null) {
+      // print(d);
       Kategori kat = Kategori.fromJson(d);
       listKategori.add(kat.jenis);
     }
@@ -42,7 +44,7 @@ Future<List<String>> fetchLokasi(request) async {
   var data = response;
   List<String> listLokasi = [];
   for (var d in data) {
-    print(d);
+    // print(d);
     if (d != null) {
       Lokasi lokasi = Lokasi.fromJson(d);
       listLokasi.add(lokasi.nama);

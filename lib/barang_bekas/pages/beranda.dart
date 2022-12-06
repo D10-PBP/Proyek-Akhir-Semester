@@ -43,15 +43,17 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => BarangDetailPage(
-                              judul: snapshot.data![index].judul,
-                              deskripsi: snapshot.data![index].deskripsi,
-                              kategori: snapshot.data![index].kategori,
-                              // owner: snapshot.data![index].profile
-                              //     .toString(), // ini baru pk gitu
-                              owner: "Test",
-                              noTelp: "087788776655",
-                              line: "owner.line",
-                              wa: "0899887766"),
+                            judul: snapshot.data![index].judul,
+                            deskripsi: snapshot.data![index].deskripsi,
+                            foto: snapshot.data![index].foto,
+                            kategori: snapshot.data![index].kategori,
+                            // owner: snapshot.data![index].profile
+                            //     .toString(), // ini baru pk gitu
+                            owner: "Test",
+                            noTelp: "099",
+                            line: "pooh",
+                            wa: "0899",
+                          ),
                         ),
                       ),
                       child: Card(
@@ -68,10 +70,10 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
                               width: 200,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15.0),
-                                color: ThemeColor.gold,
+                                color: Color.fromARGB(255, 199, 188, 155),
                               ),
                               padding: new EdgeInsets.only(left: 10, right: 10),
-                              child: Text("Image HERE"),
+                              child: Image.network(snapshot.data![index].foto),
                             ),
                             Flexible(
                               child: Container(

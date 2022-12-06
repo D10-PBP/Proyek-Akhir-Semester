@@ -9,33 +9,26 @@ import 'package:async/async.dart';
 
 // ref: https://stackoverflow.com/questions/51161862/how-to-send-an-image-to-an-api-in-dart-flutter
 upload(File imageFile) async {
-  // open a bytestream
-  var stream =
-      new http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
-  // get file length
-  var length = await imageFile.length();
+  var request = http.MultipartRequest(
+    'POST',
+    Uri.parse("Enter You API Url"),
+  );
+  Map<String, String> headers = {"Content-type": "multipart/form-data"};
+  request.files.add(
+    http.MultipartFile(
+      'image',
+      imageFile.readAsBytes().asStream(),
+      imageFile.lengthSync(),
+      filename: imageFile.path.split('/').last,
+    ),
+  );
+  request.headers.addAll(headers);
+  print("request: " + request.toString());
+  var res = await request.send();
+  http.Response response = await http.Response.fromStream(res);
 
-  // string to uri
-  var uri = Uri.parse("https://sayang-dibuang.up.railway.app/");
-
-  // create multipart request
-  var request = new http.MultipartRequest("POST", uri);
-
-  // multipart that takes file
-  var multipartFile = new http.MultipartFile('file', stream, length,
-      filename: basename(imageFile.path));
-
-  // add file to multipart
-  request.files.add(multipartFile);
-
-  // send
-  var response = await request.send();
-  print(response.statusCode);
-
-  // listen for response
-  response.stream.transform(utf8.decoder).listen((value) {
-    print(value);
-  });
+  var resJson = jsonDecode(response.body);
+  return resJson;
 }
 
 Future<File> getImage() async {
@@ -48,7 +41,8 @@ Future<File> getImage() async {
   return file;
 }
 
-createBarang(request, username, judul, deskripsi, foto) async {
+createBarang(
+    request, username, judul, deskripsi, foto, lokasi, kategori) async {
   // ref: https://kashifchandio.medium.com/upload-images-to-a-rest-api-with-flutter-using-http-61713964e1c
   // dimana taronya tlg
   // var request = http.MultipartRequest("POST", Uri.parse(urlInsertImage));
@@ -61,7 +55,9 @@ createBarang(request, username, judul, deskripsi, foto) async {
     "username": username,
     "judul": judul,
     "deskripsi": deskripsi,
-    "foto": foto // ini gmn
+    "foto": foto, // ini gmn
+    "lokasi": lokasi,
+    "kategori": kategori,
   });
   return response['status'];
 }
