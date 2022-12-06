@@ -70,7 +70,8 @@ class ProfilePageUser extends StatelessWidget {
         children: [
           Container(
             margin: const EdgeInsets.all(20),
-            padding: const EdgeInsets.all(50.0),
+            padding:
+                const EdgeInsets.only(top: 50, bottom: 50, left: 25, right: 25),
             width: (currentWidth > 500) ? 500 : double.infinity,
             height: currentHeight * 7 / 10,
             decoration: BoxDecoration(
@@ -181,7 +182,7 @@ class ProfileLogin extends StatelessWidget {
     final currentWidth = MediaQuery.of(context).size.width;
     return Container(
       margin: const EdgeInsets.all(20),
-      padding: const EdgeInsets.all(50.0),
+      padding: const EdgeInsets.only(top: 50, bottom: 50, left: 40, right: 40),
       width: (currentWidth > 500) ? 500 : double.infinity,
       height: currentHeight * 7 / 10,
       decoration: BoxDecoration(
