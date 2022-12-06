@@ -5,6 +5,9 @@ import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/loading.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/auth.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/pages/register.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/dialog.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/style.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});
@@ -26,7 +29,6 @@ class Login extends StatelessWidget {
             Text(
               "Masuk ke Akun Anda",
               style: TextStyle(
-                fontFamily: "PlusJakarta",
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
                 color: Colors.grey[600],
@@ -70,15 +72,7 @@ class _LoginFormState extends State<LoginForm> {
           children: [
             TextFormField(
               style: const TextStyle(fontFamily: "PlusJakarta'", fontSize: 15),
-              decoration: InputDecoration(
-                labelText: "Username",
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                hoverColor: ThemeColor.sand,
-              ),
+              decoration: inputDecorationForm("Username"),
               onChanged: (String? value) {
                 setState(() {
                   username = value!;
@@ -100,15 +94,8 @@ class _LoginFormState extends State<LoginForm> {
             TextFormField(
               obscureText: !isPasswordVisible,
               style: const TextStyle(fontFamily: "PlusJakarta'", fontSize: 15),
-              decoration: InputDecoration(
-                  labelText: "Password",
-                  filled: true,
-                  fillColor: Colors.white,
-                  hoverColor: ThemeColor.sand,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  suffixIcon: IconButton(
+              decoration: inputDecorationForm("Password",
+                  iconButton: IconButton(
                       onPressed: togglePasswordView,
                       icon: Icon(
                         isPasswordVisible
@@ -148,42 +135,7 @@ class _LoginFormState extends State<LoginForm> {
                     if (!context
                         .read<CurrentUserProfileModel>()
                         .hasCurrentUser()) {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return Dialog(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            elevation: 15,
-                            child: SizedBox(
-                              width: 300,
-                              height: 150,
-                              child: Center(
-                                child: ListView(
-                                  padding: const EdgeInsets.only(
-                                      top: 20, bottom: 20),
-                                  shrinkWrap: true,
-                                  children: <Widget>[
-                                    Padding(
-                                        padding: const EdgeInsets.all(10),
-                                        child: Text(
-                                          response,
-                                          textAlign: TextAlign.center,
-                                        )),
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Text('Kembali'),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      );
+                      myDialog(context, response);
                     }
                   }
                   if (!mounted) return;
@@ -230,6 +182,18 @@ class _LoginFormState extends State<LoginForm> {
                         },
                       ),
                     ))),
+            const SizedBox(height: 5),
+            InkWell(
+              hoverColor: Colors.blue[50],
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const RegisterPage()));
+              },
+              child: Text("Buat akun baru",
+                  style: TextStyle(color: Colors.blue[400])),
+            )
           ],
         ));
   }

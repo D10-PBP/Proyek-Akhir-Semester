@@ -5,6 +5,7 @@ import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/pages/login.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/auth.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/dialog.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -101,42 +102,7 @@ class ProfilePageUser extends StatelessWidget {
                         if (context
                             .read<CurrentUserProfileModel>()
                             .hasCurrentUser()) {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return Dialog(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                elevation: 15,
-                                child: SizedBox(
-                                  width: 300,
-                                  height: 150,
-                                  child: Center(
-                                    child: ListView(
-                                      padding: const EdgeInsets.only(
-                                          top: 20, bottom: 20),
-                                      shrinkWrap: true,
-                                      children: <Widget>[
-                                        Padding(
-                                            padding: const EdgeInsets.all(10),
-                                            child: Text(
-                                              response,
-                                              textAlign: TextAlign.center,
-                                            )),
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: const Text('Kembali'),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          );
+                          myDialog(context, response);
                         }
                       },
                       child: const SizedBox(
