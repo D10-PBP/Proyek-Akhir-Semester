@@ -110,24 +110,32 @@ class _LoginFormState extends State<LoginForm> {
             const SizedBox(
               height: 20,
             ),
-            TextButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(ThemeColor.gold),
-                ),
-                onPressed: () async {
-                  context.read<Loading>().toggleLoading();
-                  if (_loginFormKey.currentState!.validate()) {
-                    final response = await login(
-                        context, mounted, request, username, password1);
-                    if (!mounted) return;
-                    if (!context
-                        .read<CurrentUserProfileModel>()
-                        .hasCurrentUser()) {
-                      myDialog(context, response);
-                    }
-                  }
-                  if (!mounted) return;
-                  context.read<Loading>().toggleLoading();
+            Consumer<Loading>(
+                builder: (context, loading, child) {
+                  return TextButton(
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(ThemeColor.gold),
+                    ),
+                    onPressed: (!loading.isLoading())
+                        ? () async {
+                            context.read<Loading>().toggleLoading();
+                            if (_loginFormKey.currentState!.validate()) {
+                              final response = await login(context, mounted,
+                                  request, username, password1);
+                              if (!mounted) return;
+                              if (!context
+                                  .read<CurrentUserProfileModel>()
+                                  .hasCurrentUser()) {
+                                myDialog(context, response);
+                              }
+                            }
+                            if (!mounted) return;
+                            context.read<Loading>().toggleLoading();
+                          }
+                        : null,
+                    child: child!,
+                  );
                 },
                 child: SizedBox(
                     height: 40,

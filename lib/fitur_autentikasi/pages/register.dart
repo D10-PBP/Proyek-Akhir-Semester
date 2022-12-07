@@ -257,124 +257,125 @@ class _RegisterFormState extends State<RegisterForm> {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     return Form(
-        key: _registerFormKey,
-        child: Column(
-          children: [
-            SizedBox(
-              width: widthForm,
-              height: heightForm,
-              child: TextFormFieldAuth(
-                placeholder: "Username*",
-                setFieldState: setUsername,
-                validator: validator(type: "username"),
-                errorStyle: errorStyle,
+      key: _registerFormKey,
+      child: Column(children: [
+        SizedBox(
+          width: widthForm,
+          height: heightForm,
+          child: TextFormFieldAuth(
+            placeholder: "Username*",
+            setFieldState: setUsername,
+            validator: validator(type: "username"),
+            errorStyle: errorStyle,
+          ),
+        ),
+        const SizedBox(height: 10.0),
+        SizedBox(
+          width: widthForm,
+          height: heightForm,
+          child: Row(
+            children: [
+              Expanded(
+                child: TextFormFieldAuth(
+                  placeholder: "Password*",
+                  obscureText: true,
+                  setFieldState: setPassword1,
+                  validator: validator(type: "password"),
+                  errorStyle: errorStyle,
+                ),
               ),
-            ),
-            const SizedBox(height: 10.0),
-            SizedBox(
-              width: widthForm,
-              height: heightForm,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextFormFieldAuth(
-                      placeholder: "Password*",
-                      obscureText: true,
-                      setFieldState: setPassword1,
-                      validator: validator(type: "password"),
-                      errorStyle: errorStyle,
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Expanded(
-                    child: TextFormFieldAuth(
-                      placeholder: "Konfirmasi Password*",
-                      obscureText: true,
-                      setFieldState: setPassword2,
-                      validator: validator(type: "password"),
-                      errorStyle: errorStyle,
-                    ),
-                  ),
-                ],
+              const SizedBox(
+                width: 10,
               ),
-            ),
-            const SizedBox(height: 10.0),
-            SizedBox(
-              width: widthForm,
-              height: heightForm,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextFormFieldAuth(
-                      placeholder: "Nama depan*",
-                      setFieldState: setFirstname,
-                      validator: validator(),
-                      errorStyle: errorStyle,
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: TextFormFieldAuth(
-                      placeholder: "Nama belakang",
-                      setFieldState: setLastname,
-                      errorStyle: errorStyle,
-                    ),
-                  ),
-                ],
+              Expanded(
+                child: TextFormFieldAuth(
+                  placeholder: "Konfirmasi Password*",
+                  obscureText: true,
+                  setFieldState: setPassword2,
+                  validator: validator(type: "password"),
+                  errorStyle: errorStyle,
+                ),
               ),
-            ),
-            const SizedBox(height: 10.0),
-            SizedBox(
-              width: widthForm,
-              height: heightForm,
-              child: TextFormFieldAuth(
-                placeholder: "Email*",
-                setFieldState: setEmail,
-                validator: validator(type: "email"),
-                hintText: "Ex: sayangdibuang@gmail.com",
-                errorStyle: errorStyle,
+            ],
+          ),
+        ),
+        const SizedBox(height: 10.0),
+        SizedBox(
+          width: widthForm,
+          height: heightForm,
+          child: Row(
+            children: [
+              Expanded(
+                child: TextFormFieldAuth(
+                  placeholder: "Nama depan*",
+                  setFieldState: setFirstname,
+                  validator: validator(),
+                  errorStyle: errorStyle,
+                ),
               ),
-            ),
-            const SizedBox(height: 10.0),
-            SizedBox(
-              width: widthForm,
-              height: heightForm,
-              child: TextFormFieldAuth(
-                placeholder: "Nomor telepon*",
-                setFieldState: setTelephone,
-                validator: validator(type: "telephone"),
-                hintText: "+62/62/08xxx",
-                errorStyle: errorStyle,
+              const SizedBox(width: 10),
+              Expanded(
+                child: TextFormFieldAuth(
+                  placeholder: "Nama belakang",
+                  setFieldState: setLastname,
+                  errorStyle: errorStyle,
+                ),
               ),
-            ),
-            const SizedBox(height: 10.0),
-            SizedBox(
-              width: widthForm,
-              height: heightForm,
-              child: TextFormFieldAuth(
-                placeholder: "Nomor whatsapp",
-                setFieldState: setWhatsapp,
-                hintText: "+62/62/08xxx",
-                errorStyle: errorStyle,
-                validator: validator(type: "whatsapp"),
-              ),
-            ),
-            const SizedBox(height: 10.0),
-            SizedBox(
-              width: widthForm,
-              height: heightForm,
-              child: TextFormFieldAuth(
-                placeholder: "ID Line",
-                setFieldState: setLine,
-                errorStyle: errorStyle,
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            TextButton(
+            ],
+          ),
+        ),
+        const SizedBox(height: 10.0),
+        SizedBox(
+          width: widthForm,
+          height: heightForm,
+          child: TextFormFieldAuth(
+            placeholder: "Email*",
+            setFieldState: setEmail,
+            validator: validator(type: "email"),
+            hintText: "Ex: sayangdibuang@gmail.com",
+            errorStyle: errorStyle,
+          ),
+        ),
+        const SizedBox(height: 10.0),
+        SizedBox(
+          width: widthForm,
+          height: heightForm,
+          child: TextFormFieldAuth(
+            placeholder: "Nomor telepon*",
+            setFieldState: setTelephone,
+            validator: validator(type: "telephone"),
+            hintText: "+62/62/08xxx",
+            errorStyle: errorStyle,
+          ),
+        ),
+        const SizedBox(height: 10.0),
+        SizedBox(
+          width: widthForm,
+          height: heightForm,
+          child: TextFormFieldAuth(
+            placeholder: "Nomor whatsapp",
+            setFieldState: setWhatsapp,
+            hintText: "+62/62/08xxx",
+            errorStyle: errorStyle,
+            validator: validator(type: "whatsapp"),
+          ),
+        ),
+        const SizedBox(height: 10.0),
+        SizedBox(
+          width: widthForm,
+          height: heightForm,
+          child: TextFormFieldAuth(
+            placeholder: "ID Line",
+            setFieldState: setLine,
+            errorStyle: errorStyle,
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        Consumer<Loading>(
+            builder: (context, loading, child) {
+              return TextButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(ThemeColor.gold),
                 ),
@@ -403,14 +404,29 @@ class _RegisterFormState extends State<RegisterForm> {
                   if (!mounted) return;
                   context.read<Loading>().toggleLoading();
                 },
-                child: SizedBox(
-                    height: 40,
-                    width: 200,
-                    child: Center(
-                      child: Consumer<Loading>(
-                        builder: (context, loading, child) {
-                          return (!loading.isLoading())
-                              ? const Text(
+                child: child!,
+              );
+            },
+            child: SizedBox(
+                height: 40,
+                width: 200,
+                child: Center(
+                  child: Consumer<Loading>(
+                    builder: (context, loading, child) {
+                      return (!loading.isLoading())
+                          ? const Text(
+                              "Daftar",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: "PlusJakarta",
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Text(
                                   "Daftar",
                                   style: TextStyle(
                                     color: Colors.white,
@@ -418,33 +434,21 @@ class _RegisterFormState extends State<RegisterForm> {
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18,
                                   ),
-                                )
-                              : Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
-                                    Text(
-                                      "Daftar",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontFamily: "PlusJakarta",
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18,
-                                      ),
-                                    ),
-                                    SizedBox(width: 10),
-                                    SizedBox(
-                                      width: 10,
-                                      height: 10,
-                                      child: CircularProgressIndicator(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
-                                );
-                        },
-                      ),
-                    ))),
-          ],
-        ));
+                                ),
+                                SizedBox(width: 10),
+                                SizedBox(
+                                  width: 10,
+                                  height: 10,
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            );
+                    },
+                  ),
+                ))),
+      ]),
+    );
   }
 }
