@@ -116,6 +116,13 @@ class _RegisterFormState extends State<RegisterForm> {
   String whatsapp = "";
   String line = "";
 
+  bool usernameValid = true;
+  bool passwordValid = true;
+  bool firstnameValid = true;
+  bool emailValid = true;
+  bool telephoneValid = true;
+  bool whatsappValid = true;
+
   double widthForm = 300;
   double heightForm = 50;
 
@@ -187,11 +194,57 @@ class _RegisterFormState extends State<RegisterForm> {
     });
   }
 
-  String? validator(String? value) {
-    if (value == null || value.isEmpty) {
-      return "Field tidak boleh kosong";
-    }
-    return null;
+  validator({String? type}) {
+    return (String? value) {
+      switch (type) {
+        case "username":
+          if (!usernameValid) return "";
+          break;
+        case "password":
+          if (!passwordValid) return "";
+          break;
+        case "email":
+          if (!emailValid) return "";
+          break;
+        case "telephone":
+          if (!telephoneValid) return "";
+          break;
+        case "whatsapp":
+          if (!whatsappValid) return "";
+          return null;
+      }
+
+      if (value == null || value.isEmpty) {
+        return "";
+      }
+
+      return null;
+    };
+  }
+
+  void setValidState(ErrorMessage errorMessage) {
+    setState(() {
+      usernameValid = (errorMessage.username == null);
+      passwordValid = (errorMessage.password2 == null);
+      emailValid = (errorMessage.email == null);
+      telephoneValid = (errorMessage.telephone == null);
+      whatsappValid = (errorMessage.whatsapp == null);
+    });
+  }
+
+  void resetValidState() {
+    setState(() {
+      usernameValid = true;
+      passwordValid = true;
+      emailValid = true;
+      telephoneValid = true;
+      whatsappValid = true;
+    });
+  }
+
+  void checkInvalid(ErrorMessage errorMessage) {
+    setValidState(errorMessage);
+    _registerFormKey.currentState!.validate();
   }
 
   void togglePasswordView() {
@@ -213,7 +266,7 @@ class _RegisterFormState extends State<RegisterForm> {
               child: TextFormFieldAuth(
                 placeholder: "Username*",
                 setFieldState: setUsername,
-                validator: validator,
+                validator: validator(type: "username"),
                 errorStyle: errorStyle,
               ),
             ),
@@ -228,7 +281,7 @@ class _RegisterFormState extends State<RegisterForm> {
                       placeholder: "Password*",
                       obscureText: true,
                       setFieldState: setPassword1,
-                      validator: validator,
+                      validator: validator(type: "password"),
                       errorStyle: errorStyle,
                     ),
                   ),
@@ -240,7 +293,7 @@ class _RegisterFormState extends State<RegisterForm> {
                       placeholder: "Konfirmasi Password*",
                       obscureText: true,
                       setFieldState: setPassword2,
-                      validator: validator,
+                      validator: validator(type: "password"),
                       errorStyle: errorStyle,
                     ),
                   ),
@@ -257,7 +310,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     child: TextFormFieldAuth(
                       placeholder: "Nama depan*",
                       setFieldState: setFirstname,
-                      validator: validator,
+                      validator: validator(),
                       errorStyle: errorStyle,
                     ),
                   ),
@@ -279,7 +332,7 @@ class _RegisterFormState extends State<RegisterForm> {
               child: TextFormFieldAuth(
                 placeholder: "Email*",
                 setFieldState: setEmail,
-                validator: validator,
+                validator: validator(type: "email"),
                 hintText: "Ex: sayangdibuang@gmail.com",
                 errorStyle: errorStyle,
               ),
@@ -291,7 +344,7 @@ class _RegisterFormState extends State<RegisterForm> {
               child: TextFormFieldAuth(
                 placeholder: "Nomor telepon*",
                 setFieldState: setTelephone,
-                validator: validator,
+                validator: validator(type: "telephone"),
                 hintText: "+62/62/08xxx",
                 errorStyle: errorStyle,
               ),
@@ -305,6 +358,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 setFieldState: setWhatsapp,
                 hintText: "+62/62/08xxx",
                 errorStyle: errorStyle,
+                validator: validator(type: "whatsapp"),
               ),
             ),
             const SizedBox(height: 10.0),
@@ -325,6 +379,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   backgroundColor: MaterialStateProperty.all(ThemeColor.gold),
                 ),
                 onPressed: () async {
+                  resetValidState();
                   context.read<Loading>().toggleLoading();
                   if (_registerFormKey.currentState!.validate()) {
                     final response =
@@ -335,6 +390,7 @@ class _RegisterFormState extends State<RegisterForm> {
                           errorMessageFromJson(response);
                       if (!mounted) return;
                       myDialog(context, errorMessage.toString(), height: 300);
+                      checkInvalid(errorMessage);
                     } else {
                       if (!mounted) return;
                       myDialog(context, response);
