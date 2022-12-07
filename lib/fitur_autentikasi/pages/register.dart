@@ -98,6 +98,11 @@ class _RegisterFormState extends State<RegisterForm> {
   double widthForm = 300;
   double heightForm = 50;
 
+  TextStyle errorStyle = const TextStyle(
+    color: Colors.transparent,
+    fontSize: 0.01,
+  );
+
   void setUsername(String? value) {
     setState(() {
       username = value!;
@@ -176,83 +181,114 @@ class _RegisterFormState extends State<RegisterForm> {
               width: widthForm,
               height: heightForm,
               child: TextFormFieldAuth(
-                  placeholder: "Username",
-                  setFieldState: setUsername,
-                  validator: validator),
+                placeholder: "Username",
+                setFieldState: setUsername,
+                validator: validator,
+                errorStyle: errorStyle,
+              ),
+            ),
+            const SizedBox(height: 10.0),
+            SizedBox(
+              width: widthForm,
+              height: heightForm,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextFormFieldAuth(
+                      placeholder: "Password",
+                      obscureText: true,
+                      setFieldState: setPassword1,
+                      validator: validator,
+                      errorStyle: errorStyle,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: TextFormFieldAuth(
+                      placeholder: "Konfirmasi Password",
+                      obscureText: true,
+                      setFieldState: setPassword2,
+                      validator: validator,
+                      errorStyle: errorStyle,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 10.0),
+            SizedBox(
+              width: widthForm,
+              height: heightForm,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextFormFieldAuth(
+                      placeholder: "Nama depan",
+                      setFieldState: setFirstname,
+                      validator: validator,
+                      errorStyle: errorStyle,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: TextFormFieldAuth(
+                      placeholder: "Nama belakang",
+                      setFieldState: setLastname,
+                      validator: validator,
+                      errorStyle: errorStyle,
+                    ),
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 10.0),
             SizedBox(
               width: widthForm,
               height: heightForm,
               child: TextFormFieldAuth(
-                  placeholder: "Password",
-                  obscureText: true,
-                  setFieldState: setPassword1,
-                  validator: validator),
+                placeholder: "Email",
+                setFieldState: setEmail,
+                validator: validator,
+                hintText: "Ex: sayangdibuang@gmail.com",
+                errorStyle: errorStyle,
+              ),
             ),
             const SizedBox(height: 10.0),
             SizedBox(
               width: widthForm,
               height: heightForm,
               child: TextFormFieldAuth(
-                  placeholder: "Konfirmasi Password",
-                  obscureText: true,
-                  setFieldState: setPassword2,
-                  validator: validator),
+                placeholder: "Nomor telepon",
+                setFieldState: setTelephone,
+                validator: validator,
+                hintText: "+62/62/08xxx",
+                errorStyle: errorStyle,
+              ),
             ),
             const SizedBox(height: 10.0),
             SizedBox(
               width: widthForm,
               height: heightForm,
               child: TextFormFieldAuth(
-                  placeholder: "Nama depan",
-                  setFieldState: setFirstname,
-                  validator: validator),
+                placeholder: "Nomor whatsapp",
+                setFieldState: setWhatsapp,
+                validator: validator,
+                hintText: "+62/62/08xxx",
+                errorStyle: errorStyle,
+              ),
             ),
             const SizedBox(height: 10.0),
             SizedBox(
               width: widthForm,
               height: heightForm,
               child: TextFormFieldAuth(
-                  placeholder: "Nama belakang",
-                  setFieldState: setLastname,
-                  validator: validator),
-            ),
-            const SizedBox(height: 10.0),
-            SizedBox(
-              width: widthForm,
-              height: heightForm,
-              child: TextFormFieldAuth(
-                  placeholder: "Email (Ex: sayangdibuang@gmail.com)",
-                  setFieldState: setEmail,
-                  validator: validator),
-            ),
-            const SizedBox(height: 10.0),
-            SizedBox(
-              width: widthForm,
-              height: heightForm,
-              child: TextFormFieldAuth(
-                  placeholder: "Nomor telepon (+62/62/08xxx)",
-                  setFieldState: setTelephone,
-                  validator: validator),
-            ),
-            const SizedBox(height: 10.0),
-            SizedBox(
-              width: widthForm,
-              height: heightForm,
-              child: TextFormFieldAuth(
-                  placeholder: "Nomor whatsapp (+62/62/08xxx)",
-                  setFieldState: setWhatsapp,
-                  validator: validator),
-            ),
-            const SizedBox(height: 10.0),
-            SizedBox(
-              width: widthForm,
-              height: heightForm,
-              child: TextFormFieldAuth(
-                  placeholder: "ID Line",
-                  setFieldState: setLine,
-                  validator: validator),
+                placeholder: "ID Line",
+                setFieldState: setLine,
+                validator: validator,
+                errorStyle: errorStyle,
+              ),
             ),
             const SizedBox(
               height: 20,
