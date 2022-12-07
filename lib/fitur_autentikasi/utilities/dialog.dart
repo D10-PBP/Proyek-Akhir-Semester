@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-Future<T?> myDialog<T>(BuildContext context, String message) {
+Future<T?> myDialog<T>(BuildContext context, String message,
+    {double width = 300, double height = 150}) {
   return showDialog(
     context: context,
     builder: (context) {
@@ -10,8 +11,8 @@ Future<T?> myDialog<T>(BuildContext context, String message) {
         ),
         elevation: 15,
         child: SizedBox(
-          width: 300,
-          height: 150,
+          width: width,
+          height: height,
           child: Center(
             child: ListView(
               padding: const EdgeInsets.only(top: 20, bottom: 20),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/models/error_message.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/loading.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/auth.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/dialog.dart';
@@ -329,9 +330,15 @@ class _RegisterFormState extends State<RegisterForm> {
                     final response =
                         await register(mounted, request, registerUser);
 
-                    print(response);
-                    if (!mounted) return;
-                    myDialog(context, response);
+                    if (response.contains(RegExp("{.*}"))) {
+                      ErrorMessage errorMessage =
+                          errorMessageFromJson(response);
+                      if (!mounted) return;
+                      myDialog(context, errorMessage.toString(), height: 300);
+                    } else {
+                      if (!mounted) return;
+                      myDialog(context, response);
+                    }
                   } else {
                     myDialog(
                         context, "Field berbintang (*) tidak boleh kosong");
