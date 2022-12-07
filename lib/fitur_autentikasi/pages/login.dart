@@ -68,11 +68,13 @@ class _LoginFormState extends State<LoginForm> {
     });
   }
 
-  String? validator(String? value) {
-    if (value == null || value.isEmpty) {
-      return "Field tidak boleh kosong";
-    }
-    return null;
+  validator(String message) {
+    return (String? value) {
+      if (value == null || value.isEmpty) {
+        return message;
+      }
+      return null;
+    };
   }
 
   void togglePasswordView() {
@@ -91,13 +93,13 @@ class _LoginFormState extends State<LoginForm> {
             TextFormFieldAuth(
                 placeholder: "Username",
                 setFieldState: setUsername,
-                validator: validator),
+                validator: validator("Username tidak boleh kosong")),
             const SizedBox(height: 10.0),
             TextFormFieldAuth(
                 placeholder: "Password",
                 obscureText: !isPasswordVisible,
                 setFieldState: setPassword1,
-                validator: validator,
+                validator: validator("Password tidak boleh kosong"),
                 iconButton: IconButton(
                     onPressed: togglePasswordView,
                     icon: Icon(
