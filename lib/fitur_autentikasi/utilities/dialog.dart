@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 Future<T?> myDialog<T>(BuildContext context, String message,
-    {double width = 300, double height = 150}) {
+    {double width = 300, double height = 200}) {
   return showDialog(
     context: context,
     builder: (context) {
