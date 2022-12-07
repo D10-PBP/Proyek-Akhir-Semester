@@ -17,6 +17,7 @@ Future<T?> myDialog<T>(BuildContext context, String message) {
               padding: const EdgeInsets.only(top: 20, bottom: 20),
               shrinkWrap: true,
               children: <Widget>[
+                const Center(child: Text('Informasi Data')),
                 Padding(
                     padding: const EdgeInsets.all(10),
                     child: Text(
