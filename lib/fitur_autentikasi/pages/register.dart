@@ -123,7 +123,7 @@ class _RegisterFormState extends State<RegisterForm> {
   bool telephoneValid = true;
   bool whatsappValid = true;
 
-  double widthForm = 300;
+  double widthForm = double.infinity;
   double heightForm = 50;
 
   TextStyle errorStyle = const TextStyle(
