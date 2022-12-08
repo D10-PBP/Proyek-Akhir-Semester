@@ -4,9 +4,21 @@ import 'package:sayang_dibuang_mobile/crowdfunding/utils/fetch_crowdfund.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/widgets/user_crowdfunds.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/widgets/all_crowdfunds.dart';
 
-class CrowdfundingsPage extends StatelessWidget {
-  CrowdfundingsPage({super.key});
-  Future<List<Crowdfund>> crowdfunds = fetchAllCrowdfunds();
+class CrowdfundingsPage extends StatefulWidget {
+  const CrowdfundingsPage({super.key});
+
+  @override
+  State<CrowdfundingsPage> createState() => _CrowdfundingsPageState();
+}
+
+class _CrowdfundingsPageState extends State<CrowdfundingsPage> {
+  late Future<List<Crowdfund>> crowdfunds;
+
+  @override
+  void initState() {
+    super.initState();
+    crowdfunds = fetchAllCrowdfunds();
+  }
 
   @override
   Widget build(BuildContext context) {
