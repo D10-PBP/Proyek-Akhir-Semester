@@ -6,6 +6,7 @@ import 'package:sayang_dibuang_mobile/fitur_autentikasi/pages/profile.dart';
 class PageProvider extends ChangeNotifier {
   Widget currentPage;
   int currentPageIndex;
+  List<Widget> history = [];
   List<Widget> mainPages = [
     CrowdfundingsPage(), // nanti diganti sama Home
     BerandaBarangPage(),
@@ -15,8 +16,24 @@ class PageProvider extends ChangeNotifier {
     ProfilePage(),
   ];
 
-  PageProvider(
-      {this.currentPageIndex = 0, this.currentPage = const ProfilePage()});
+  PageProvider({
+    this.currentPageIndex = 0,
+    this.currentPage = const ProfilePage(),
+  });
+
+  void push(Widget prevPage, Widget newPage) {
+    addHistory(prevPage);
+    changeCurrentPage(newPage);
+  }
+
+  void pop() {
+    changeCurrentPage(history.removeLast());
+  }
+
+  void addHistory(Widget prevPage) {
+    history.add(prevPage);
+    notifyListeners();
+  }
 
   void changePageIndex(int newIndex) {
     currentPageIndex = newIndex;
