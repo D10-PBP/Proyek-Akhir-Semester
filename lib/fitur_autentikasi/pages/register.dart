@@ -22,7 +22,8 @@ class RegisterPage extends StatelessWidget {
             icon: const Icon(Icons.arrow_back, color: Colors.white),
             onPressed: () => Navigator.pop(context),
           ),
-          backgroundColor: ThemeColor.gold),
+          backgroundColor: ThemeColor.darkGreen,
+          shadowColor: Colors.transparent),
       body: ChangeNotifierProvider(
         create: (context) => Loading(),
         child: SafeArea(
@@ -30,9 +31,10 @@ class RegisterPage extends StatelessWidget {
             child: Container(
               margin: const EdgeInsets.all(20),
               padding: const EdgeInsets.only(
-                  top: 50, bottom: 50, left: 40, right: 40),
+                  top: 10, bottom: 10, left: 25, right: 25),
               width: (currentWidth > 500) ? 500 : double.infinity,
               height: currentHeight,
+              alignment: Alignment.center,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15.0),
                   color: ThemeColor.white),
@@ -41,7 +43,7 @@ class RegisterPage extends StatelessWidget {
           ),
         ),
       ),
-      backgroundColor: ThemeColor.sand,
+      backgroundColor: ThemeColor.darkGreen,
     );
   }
 }
@@ -262,19 +264,19 @@ class _RegisterFormState extends State<RegisterForm> {
         SizedBox(
           width: widthForm,
           height: heightForm,
-          child: TextFormFieldAuth(
-            placeholder: "Username*",
-            setFieldState: setUsername,
-            validator: validator(type: "username"),
-            errorStyle: errorStyle,
-          ),
-        ),
-        const SizedBox(height: 10.0),
-        SizedBox(
-          width: widthForm,
-          height: heightForm,
           child: Row(
             children: [
+              Expanded(
+                child: TextFormFieldAuth(
+                  placeholder: "Username*",
+                  setFieldState: setUsername,
+                  validator: validator(type: "username"),
+                  errorStyle: errorStyle,
+                ),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
               Expanded(
                 child: TextFormFieldAuth(
                   placeholder: "Password*",
@@ -284,18 +286,6 @@ class _RegisterFormState extends State<RegisterForm> {
                   errorStyle: errorStyle,
                 ),
               ),
-              const SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                child: TextFormFieldAuth(
-                  placeholder: "Konfirmasi Password*",
-                  obscureText: true,
-                  setFieldState: setPassword2,
-                  validator: validator(type: "password"),
-                  errorStyle: errorStyle,
-                ),
-              ),
             ],
           ),
         ),
@@ -303,25 +293,33 @@ class _RegisterFormState extends State<RegisterForm> {
         SizedBox(
           width: widthForm,
           height: heightForm,
-          child: Row(
-            children: [
-              Expanded(
-                child: TextFormFieldAuth(
-                  placeholder: "Nama depan*",
-                  setFieldState: setFirstname,
-                  validator: validator(),
-                  errorStyle: errorStyle,
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: TextFormFieldAuth(
-                  placeholder: "Nama belakang",
-                  setFieldState: setLastname,
-                  errorStyle: errorStyle,
-                ),
-              ),
-            ],
+          child: TextFormFieldAuth(
+            placeholder: "Konfirmasi Password*",
+            obscureText: true,
+            setFieldState: setPassword2,
+            validator: validator(type: "password"),
+            errorStyle: errorStyle,
+          ),
+        ),
+        const SizedBox(height: 10.0),
+        SizedBox(
+          width: widthForm,
+          height: heightForm,
+          child: TextFormFieldAuth(
+            placeholder: "Nama depan*",
+            setFieldState: setFirstname,
+            validator: validator(),
+            errorStyle: errorStyle,
+          ),
+        ),
+        const SizedBox(height: 10.0),
+        SizedBox(
+          width: widthForm,
+          height: heightForm,
+          child: TextFormFieldAuth(
+            placeholder: "Nama belakang",
+            setFieldState: setLastname,
+            errorStyle: errorStyle,
           ),
         ),
         const SizedBox(height: 10.0),

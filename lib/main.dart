@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
       BerandaBarangPage(), // nanti diganti sama Request
       CrowdfundingsPage(),
       CrowdfundingsPage(), // nanti diganti sama Leaderboard
-      ProfilePage(),
+      Profile(),
     ];
 
     return AnnotatedRegion<SystemUiOverlayStyle>(

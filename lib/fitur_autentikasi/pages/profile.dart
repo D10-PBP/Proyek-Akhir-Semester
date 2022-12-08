@@ -7,8 +7,8 @@ import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_p
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/auth.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/dialog.dart';
 
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+class Profile extends StatelessWidget {
+  const Profile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class ProfilePage extends StatelessWidget {
       child: Center(child: Consumer<CurrentUserProfileModel>(
         builder: ((context, profile, child) {
           return (profile.hasCurrentUser())
-              ? const ProfilePageUser()
+              ? const ProfileUser()
               : const ProfileLogin();
         }),
       )),
@@ -24,8 +24,8 @@ class ProfilePage extends StatelessWidget {
   }
 }
 
-class ProfilePageUser extends StatelessWidget {
-  const ProfilePageUser({super.key});
+class ProfileUser extends StatelessWidget {
+  const ProfileUser({super.key});
 
   final mounted = true;
 
@@ -53,9 +53,18 @@ class ProfilePageUser extends StatelessWidget {
 
   TableRow tableProfileRow(String name, String value) {
     return TableRow(children: [
-      Text(name),
-      const Text(':'),
-      Text(value),
+      Padding(
+        padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
+        child: Text(name),
+      ),
+      const Padding(
+        padding: EdgeInsets.only(top: 4.0, bottom: 4.0),
+        child: Text(':'),
+      ),
+      Padding(
+        padding: const EdgeInsets.only(top: 4.0, bottom: 4.0),
+        child: Text(value),
+      ),
     ]);
   }
 
@@ -72,9 +81,10 @@ class ProfilePageUser extends StatelessWidget {
           Container(
             margin: const EdgeInsets.all(20),
             padding:
-                const EdgeInsets.only(top: 50, bottom: 50, left: 25, right: 25),
+                const EdgeInsets.only(top: 35, bottom: 10, left: 25, right: 25),
             width: (currentWidth > 500) ? 500 : double.infinity,
             height: currentHeight * 7 / 10,
+            alignment: Alignment.center,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.0),
                 color: ThemeColor.white),
@@ -88,9 +98,9 @@ class ProfilePageUser extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         fontSize: 32),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 30),
                   tableProfile(profile),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 30),
                   TextButton(
                       style: ButtonStyle(
                         backgroundColor:
@@ -148,9 +158,10 @@ class ProfileLogin extends StatelessWidget {
     final currentWidth = MediaQuery.of(context).size.width;
     return Container(
       margin: const EdgeInsets.all(20),
-      padding: const EdgeInsets.only(top: 50, bottom: 50, left: 40, right: 40),
+      padding: const EdgeInsets.only(top: 40, bottom: 40, left: 40, right: 40),
       width: (currentWidth > 500) ? 500 : double.infinity,
-      height: currentHeight * 7 / 10,
+      height: currentHeight * 5 / 10,
+      alignment: Alignment.center,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.0), color: ThemeColor.white),
       child: const Login(),
