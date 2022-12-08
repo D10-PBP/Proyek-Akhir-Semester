@@ -21,7 +21,7 @@ class PageProvider extends ChangeNotifier {
 
   PageProvider({
     this.currentPageIndex = 0,
-    this.currentPage = const ProfilePage(),
+    this.currentPage = const Profile(),
   });
 
   void push(Widget prevPage, Widget newPage) {
