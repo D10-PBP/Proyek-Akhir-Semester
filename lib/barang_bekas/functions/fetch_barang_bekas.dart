@@ -1,6 +1,5 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:sayang_dibuang_mobile/barang_bekas/models/barang_bekas.dart';
+import 'package:sayang_dibuang_mobile/crowdfunding/models/crowdfund.dart';
 
 Future<List<BarangBekas>> fetchBarangBekas(request) async {
   var url = 'https://sayang-dibuang.up.railway.app/barang/all/mobile/';
@@ -19,6 +18,22 @@ Future<List<BarangBekas>> fetchBarangBekas(request) async {
   return listBarangBekas;
 }
 
+Future<List<Profile>> fetchOwner(request, id) async {
+  var url = "https://sayang-dibuang.up.railway.app/barang/owner/$id/";
+  var response = await request.get(
+    url,
+  );
+  var data = response;
+  List<Profile> owner = [];
+  for (var d in data) {
+    if (d != null) {
+      Profile profile = Profile.fromJson(d);
+      owner.add(profile);
+    }
+  }
+  return owner;
+}
+
 Future<List<String>> fetchKategori(request) async {
   var url = 'https://sayang-dibuang.up.railway.app/barang/kategori/';
   var response = await request.get(
@@ -28,7 +43,6 @@ Future<List<String>> fetchKategori(request) async {
   List<String> listKategori = [];
   for (var d in data) {
     if (d != null) {
-      // print(d);
       Kategori kat = Kategori.fromJson(d);
       listKategori.add(kat.jenis);
     }
@@ -52,22 +66,3 @@ Future<List<String>> fetchLokasi(request) async {
   }
   return listLokasi;
 }
-
-// Future<List<Lokasi>> fetchLokasi(request) async {
-//   var url = Uri.parse('https://sayang-dibuang.up.railway.app/lokasi/');
-//   var response = await request.get(
-//     url,
-//     headers: {
-//       "Access-Control-Allow-Origin": "*",
-//       "Content-Type": "application/json",
-//     },
-//   );
-//   var data = jsonDecode(utf8.decode(response.bodyBytes));
-//   List<Lokasi> listLokasi = [];
-//   for (var d in data) {
-//     if (d != null) {
-//       listLokasi.add(Lokasi.fromJson(d));
-//     }
-//   }
-//   return listLokasi;
-// }

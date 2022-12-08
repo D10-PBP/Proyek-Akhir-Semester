@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/functions/fetch_barang_bekas.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/pages/add_barang_form.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/pages/barang_detail.dart';
+import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
-import 'package:sayang_dibuang_mobile/crowdfunding/pages/crowdfundings.dart';
 
 class BerandaBarangPage extends StatefulWidget {
   const BerandaBarangPage({super.key});
@@ -15,14 +15,9 @@ class BerandaBarangPage extends StatefulWidget {
 }
 
 class _BerandaBarangPageState extends State<BerandaBarangPage> {
-  // masi error
-  // var cardImage =
-  // const NetworkImage('https://source.unsplash.com/random/800x600?house');
-
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
-    // TODO: implement build
     return FutureBuilder(
       future: fetchBarangBekas(request),
       builder: (context, AsyncSnapshot snapshot) {
@@ -39,27 +34,25 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
                     padding: const EdgeInsets.only(
                         left: 20.0, right: 20.0, top: 5.0),
                     child: GestureDetector(
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => BarangDetailPage(
-                            judul: snapshot.data![index].judul,
-                            deskripsi: snapshot.data![index].deskripsi,
-                            foto: snapshot.data![index].foto,
-                            kategori: snapshot.data![index].kategori,
-                            // owner: snapshot.data![index].profile
-                            //     .toString(), // ini baru pk gitu
-                            owner: "Test",
-                            noTelp: "099",
-                            line: "pooh",
-                            wa: "0899",
-                          ),
+                      onTap: () =>
+                          Provider.of<PageProvider>(context, listen: false)
+                              .changeCurrentPage(
+                        BarangDetailPage(
+                          judul: snapshot.data![index].judul,
+                          deskripsi: snapshot.data![index].deskripsi,
+                          foto: snapshot.data![index].foto,
+                          kategori: snapshot.data![index].kategori,
+                          owner: snapshot.data![index].profile,
+                          // noTelp: "099",
+                          // line: "pooh",
+                          // wa: "0899",
                         ),
+                        // ),
                       ),
                       child: Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(15.0),
-                          side: BorderSide(
+                          side: const BorderSide(
                             color: ThemeColor.darkGreen,
                           ),
                         ),
@@ -70,33 +63,33 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
                               width: 200,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15.0),
-                                color: Color.fromARGB(255, 199, 188, 155),
+                                color: const Color.fromARGB(255, 199, 188, 155),
                               ),
                               padding: new EdgeInsets.only(left: 10, right: 10),
                               child: Image.network(snapshot.data![index].foto),
                             ),
                             Flexible(
                               child: Container(
-                                padding:
-                                    new EdgeInsets.only(top: 25.0, left: 15.0),
+                                padding: const EdgeInsets.only(
+                                    top: 25.0, left: 15.0),
                                 width: MediaQuery.of(context).size.width,
                                 height: 200,
                                 child: Column(
                                   children: [
                                     Text(
                                       snapshot.data![index].judul,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontFamily: "Verona",
                                           fontWeight: FontWeight.bold,
                                           fontSize: 18),
                                     ),
                                     Container(
-                                      padding: EdgeInsets.all(12.0),
+                                      padding: const EdgeInsets.all(12.0),
                                       child: Text(
                                         snapshot.data![index].deskripsi,
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 2,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontSize: 14.0,
                                         ),
                                       ),
@@ -109,8 +102,8 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
                                             BorderRadius.circular(15.0),
                                         // color: ThemeColor.darkGreen,
                                       ),
-                                      margin: EdgeInsets.only(left: 15.0),
-                                      padding: EdgeInsets.all(
+                                      margin: const EdgeInsets.only(left: 15.0),
+                                      padding: const EdgeInsets.all(
                                           5), //apply padding to all four sides
                                       child:
                                           Text(snapshot.data![index].kategori),
@@ -138,18 +131,18 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
                     },
                     elevation: 2.0,
                     fillColor: ThemeColor.gold,
-                    child: Icon(
+                    padding: const EdgeInsets.all(15.0),
+                    shape: const CircleBorder(),
+                    child: const Icon(
                       Icons.add,
                       size: 35.0,
                     ),
-                    padding: EdgeInsets.all(15.0),
-                    shape: CircleBorder(),
                   ),
                 ),
               ],
             );
           } else if (snapshot.data!.length == 0) {
-            return Center(
+            return const Center(
               child: Text("Belum ada barang"),
             );
           }

@@ -1,17 +1,15 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:http/http.dart' as http;
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/functions/create_barang_bekas.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/functions/fetch_barang_bekas.dart';
-import 'package:sayang_dibuang_mobile/barang_bekas/models/barang_bekas.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/pages/beranda.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 
 class CreateBarangBekas extends StatefulWidget {
-  CreateBarangBekas({super.key});
+  const CreateBarangBekas({super.key});
 
   @override
   State<CreateBarangBekas> createState() => _CreateBarangBekas();
@@ -22,26 +20,25 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
 
   String? judul;
   String? deskripsi;
-  // foto?
-  String? foto; // blm fix
+  String? foto;
   File? image;
-  String? lokasi; // blm fix
-  String? kategori; // blm fix
+  String? lokasi;
+  String? kategori;
   // data: di bwh ini diambil dari user
   String? username;
   String? noTelp;
   String? line;
   String? wa;
 
-  ImagePicker picker = ImagePicker();
-  Future getImage() async {
-    var selectedImg = await picker.pickImage(source: ImageSource.gallery);
+  // ImagePicker picker = ImagePicker();
+  // Future getImage() async {
+  //   var selectedImg = await picker.pickImage(source: ImageSource.gallery);
 
-    setState(() {
-      image = File(selectedImg!.path);
-    });
-    print(image);
-  }
+  //   setState(() {
+  //     image = File(selectedImg!.path);
+  //   });
+
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -56,36 +53,6 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
                 margin: const EdgeInsets.all(15),
                 child: Column(
                   children: [
-                    // Padding(
-                    //   padding: const EdgeInsets.only(top: 30, bottom: 20),
-                    //   child: Text(
-                    //     "Upload Barang",
-                    //     style: TextStyle(
-                    //         fontFamily: "Verona",
-                    //         fontWeight: FontWeight.bold,
-                    //         fontSize: 20),
-                    //   ),
-                    // ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: [
-                    //     image == null
-                    //         ? Text(
-                    //             'Please Pick a image to Upload',
-                    //           )
-                    //         : Image.file(image!),
-                    //     SizedBox(
-                    //       width: 20,
-                    //     ),
-                    //     FloatingActionButton(
-                    //       backgroundColor: ThemeColor.gold,
-                    //       focusColor: Color.fromARGB(255, 48, 39, 12),
-                    //       onPressed: getImage,
-                    //       tooltip: 'Upload Image',
-                    //       child: Icon(Icons.add_a_photo),
-                    //     ),
-                    //   ],
-                    // ),
                     Padding(
                       // Menggunakan padding sebesar 8 pixels
                       padding: const EdgeInsets.all(10.0),
@@ -188,7 +155,7 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
                     ),
                     Container(
                       alignment: Alignment.center,
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -226,7 +193,7 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
                               }
                             },
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 40,
                           ),
                           FutureBuilder<List<String>>(
@@ -267,15 +234,12 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
                       ),
                     ),
                     TextButton(
-                      child: const Text(
-                        "Upload",
-                        style: TextStyle(color: Colors.white),
-                      ),
                       style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(ThemeColor.darkGreen),
                         padding: MaterialStateProperty.all<EdgeInsets>(
-                          EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                          const EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 16),
                         ),
                       ),
                       onPressed: () {
@@ -291,6 +255,10 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
                           );
                         }
                       },
+                      child: const Text(
+                        "Upload",
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ],
                 ),
@@ -299,7 +267,7 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
           ),
           Builder(
             builder: (context) => IconButton(
-              icon: new Icon(Icons.chevron_left_rounded, size: 35.0),
+              icon: const Icon(Icons.chevron_left_rounded, size: 35.0),
               onPressed: () => Navigator.pop(context),
             ),
           ),
