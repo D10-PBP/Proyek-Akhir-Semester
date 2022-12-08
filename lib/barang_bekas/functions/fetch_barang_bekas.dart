@@ -18,16 +18,18 @@ Future<List<BarangBekas>> fetchBarangBekas(request) async {
   return listBarangBekas;
 }
 
-Future<List<Profile>> fetchOwner(request, id) async {
+Future<List<Owner>> fetchOwner(request, id) async {
   var url = "https://sayang-dibuang.up.railway.app/barang/owner/$id/";
   var response = await request.get(
     url,
   );
   var data = response;
-  List<Profile> owner = [];
+  // print(data);
+  List<Owner> owner = [];
   for (var d in data) {
     if (d != null) {
-      Profile profile = Profile.fromJson(d);
+      // print(d);
+      Owner profile = Owner.fromJson(d);
       owner.add(profile);
     }
   }

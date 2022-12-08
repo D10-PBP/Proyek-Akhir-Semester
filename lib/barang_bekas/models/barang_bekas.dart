@@ -85,3 +85,44 @@ class Kategori {
         "jenis": jenis,
       };
 }
+
+class Owner {
+  Owner({
+    required this.model,
+    required this.pk,
+    required this.user,
+    required this.telephone,
+    required this.whatsapp,
+    required this.line,
+    required this.poin,
+  });
+
+  String model;
+  int pk;
+
+  int user;
+  String telephone;
+  String whatsapp;
+  String line;
+  int poin;
+
+  factory Owner.fromJson(Map<String, dynamic> json) => Owner(
+        model: json["model"],
+        pk: json["pk"],
+        user: json["fields"]["user"],
+        telephone: json["fields"]["telephone"],
+        whatsapp: json["fields"]["whatsapp"],
+        line: json["fields"]["line"],
+        poin: json["fields"]["poin"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "model": model,
+        "pk": pk,
+        "user": user,
+        "telephone": telephone,
+        "whatsapp": whatsapp,
+        "line": line,
+        "poin": poin,
+      };
+}

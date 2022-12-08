@@ -11,11 +11,10 @@ createBarang(
     request, username, judul, deskripsi, foto, lokasi, kategori) async {
   var response =
       await request.post('https://sayang-dibuang.up.railway.app/upload/ajax/', {
-    // TODO: body
     "username": username,
     "judul": judul,
     "deskripsi": deskripsi,
-    "foto": foto, // ini gmn
+    "foto": foto,
     "lokasi": lokasi,
     "kategori": kategori,
   });

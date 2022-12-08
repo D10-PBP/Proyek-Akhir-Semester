@@ -7,6 +7,8 @@ import 'package:sayang_dibuang_mobile/barang_bekas/pages/barang_detail.dart';
 import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 
+import '../../fitur_autentikasi/providers/current_user_profile.dart';
+
 class BerandaBarangPage extends StatefulWidget {
   const BerandaBarangPage({super.key});
 
@@ -18,6 +20,7 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
+    final profile = context.read<CurrentUserProfileModel>();
     return FutureBuilder(
       future: fetchBarangBekas(request),
       builder: (context, AsyncSnapshot snapshot) {
@@ -36,7 +39,8 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
                     child: GestureDetector(
                       onTap: () =>
                           Provider.of<PageProvider>(context, listen: false)
-                              .changeCurrentPage(
+                              .push(
+                        const BerandaBarangPage(),
                         BarangDetailPage(
                           judul: snapshot.data![index].judul,
                           deskripsi: snapshot.data![index].deskripsi,
@@ -118,27 +122,27 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
                     ),
                   ),
                 ),
-                Positioned(
-                  bottom: 10,
-                  right: 10,
-                  child: RawMaterialButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CreateBarangBekas()),
-                      );
-                    },
-                    elevation: 2.0,
-                    fillColor: ThemeColor.gold,
-                    padding: const EdgeInsets.all(15.0),
-                    shape: const CircleBorder(),
-                    child: const Icon(
-                      Icons.add,
-                      size: 35.0,
-                    ),
-                  ),
-                ),
+                profile.hasCurrentUser()
+                    ? Positioned(
+                        bottom: 10,
+                        right: 10,
+                        child: RawMaterialButton(
+                          onPressed: () {
+                            Provider.of<PageProvider>(context, listen: false)
+                                .push(const BerandaBarangPage(),
+                                    const CreateBarangBekas());
+                          },
+                          elevation: 2.0,
+                          fillColor: ThemeColor.gold,
+                          padding: const EdgeInsets.all(15.0),
+                          shape: const CircleBorder(),
+                          child: const Icon(
+                            Icons.add,
+                            size: 35.0,
+                          ),
+                        ),
+                      )
+                    : Container()
               ],
             );
           } else if (snapshot.data!.length == 0) {

@@ -1,12 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/functions/create_barang_bekas.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/functions/fetch_barang_bekas.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/pages/beranda.dart';
+import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 
 class CreateBarangBekas extends StatefulWidget {
   const CreateBarangBekas({super.key});
@@ -26,23 +27,11 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
   String? kategori;
   // data: di bwh ini diambil dari user
   String? username;
-  String? noTelp;
-  String? line;
-  String? wa;
-
-  // ImagePicker picker = ImagePicker();
-  // Future getImage() async {
-  //   var selectedImg = await picker.pickImage(source: ImageSource.gallery);
-
-  //   setState(() {
-  //     image = File(selectedImg!.path);
-  //   });
-
-  // }
 
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
+    final profile = context.read<CurrentUserProfileModel>();
     return Scaffold(
       body: Stack(
         children: [
@@ -166,43 +155,6 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
                                 var data = snapshot.data!;
                                 return DropdownButton(
                                   // Initial Value
-                                  value: kategori ?? data[0],
-
-                                  // Down Arrow Icon
-                                  icon: const Icon(Icons.keyboard_arrow_down),
-
-                                  // Array list of items
-                                  items: data.map((String items) {
-                                    return DropdownMenuItem(
-                                      value: items,
-                                      child: Text(items),
-                                    );
-                                  }).toList(),
-                                  // After selecting the desired option,it will
-                                  // change button value to selected value
-                                  onChanged: (String? newValue) {
-                                    setState(() {
-                                      kategori = newValue!;
-                                    });
-                                  },
-                                );
-                              } else if (snapshot.hasError) {
-                                return Text('${snapshot.error}');
-                              } else {
-                                return const CircularProgressIndicator();
-                              }
-                            },
-                          ),
-                          const SizedBox(
-                            width: 40,
-                          ),
-                          FutureBuilder<List<String>>(
-                            future: fetchKategori(request),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                var data = snapshot.data!;
-                                return DropdownButton(
-                                  // Initial Value
                                   value: lokasi ?? data[0],
 
                                   // Down Arrow Icon
@@ -230,6 +182,43 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
                               }
                             },
                           ),
+                          const SizedBox(
+                            width: 40,
+                          ),
+                          FutureBuilder<List<String>>(
+                            future: fetchKategori(request),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                var data = snapshot.data!;
+                                return DropdownButton(
+                                  // Initial Value
+                                  value: kategori ?? data[0],
+
+                                  // Down Arrow Icon
+                                  icon: const Icon(Icons.keyboard_arrow_down),
+
+                                  // Array list of items
+                                  items: data.map((String items) {
+                                    return DropdownMenuItem(
+                                      value: items,
+                                      child: Text(items),
+                                    );
+                                  }).toList(),
+                                  // After selecting the desired option,it will
+                                  // change button value to selected value
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      kategori = newValue!;
+                                    });
+                                  },
+                                );
+                              } else if (snapshot.hasError) {
+                                return Text('${snapshot.error}');
+                              } else {
+                                return const CircularProgressIndicator();
+                              }
+                            },
+                          ),
                         ],
                       ),
                     ),
@@ -244,15 +233,14 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
                       ),
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          // TODO:
-                          createBarang(request, username, judul, deskripsi,
-                              foto, lokasi, kategori);
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const BerandaBarangPage(),
-                            ),
-                          );
+                          createBarang(request, profile.user?.username, judul,
+                              deskripsi, foto, lokasi, kategori);
+                          // print(profile.user?.username);
+                          // print(
+                          //     " $judul , $deskripsi , $foto, $lokasi , $kategori");
+                          Provider.of<PageProvider>(context, listen: false)
+                              .push(const CreateBarangBekas(),
+                                  const BerandaBarangPage());
                         }
                       },
                       child: const Text(
@@ -268,7 +256,8 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
           Builder(
             builder: (context) => IconButton(
               icon: const Icon(Icons.chevron_left_rounded, size: 35.0),
-              onPressed: () => Navigator.pop(context),
+              onPressed: () =>
+                  Provider.of<PageProvider>(context, listen: false).pop(),
             ),
           ),
         ],
