@@ -12,11 +12,10 @@ class PageProvider extends ChangeNotifier {
     BerandaBarangPage(), // nanti diganti sama Request
     CrowdfundingsPage(),
     CrowdfundingsPage(), // nanti diganti sama Leaderboard
-    ProfilePage(),
+    Profile(),
   ];
 
-  PageProvider(
-      {this.currentPageIndex = 0, this.currentPage = const ProfilePage()});
+  PageProvider({this.currentPageIndex = 0, this.currentPage = const Profile()});
 
   void changePageIndex(int newIndex) {
     currentPageIndex = newIndex;
