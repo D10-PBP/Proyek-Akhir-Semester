@@ -18,8 +18,8 @@ class NeedLoginWidget extends StatelessWidget {
   }
 }
 
-class MainWidget extends StatelessWidget {
-  const MainWidget({super.key});
+class CurrentWidget extends StatelessWidget {
+  const CurrentWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
