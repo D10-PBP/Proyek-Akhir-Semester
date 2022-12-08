@@ -45,28 +45,30 @@ Fitur autentikasi memanfaatkan state management berupa [provider](https://pub.de
 Hal ini dapat dilakukan dengan memanfaatkan `Consumer<CurrentUserProfileModel>`. Berikut contoh bagaimana memvalidasi apakah user telah login untuk halaman profil.
 
     ```dart
-    class ProfilePage extends StatelessWidget {
-    const ProfilePage({super.key});
+    class Profile extends StatelessWidget {
+        const Profile({super.key});
 
-    @override
-    Widget build(BuildContext context) {
-        return SafeArea(
-        child: Center(child: Consumer<CurrentUserProfileModel>(
-            builder: ((context, profile, child) {
-            return (profile.hasCurrentUser())
-                ? const ProfilePageUser()
-                : const ProfileLogin();
-            }),
-        )),
-        );
-    }
+        @override
+        Widget build(BuildContext context) {
+            return SafeArea(
+            child: Center(child: Consumer<CurrentUserProfileModel>(
+                builder: ((context, profile, child) {
+                return (profile.hasCurrentUser())
+                    ? const ProfileUser()
+                    : const ProfileLogin();
+                }),
+            )),
+            );
+        }
     }
     ```
-    Pada contoh di atas, apabila `profile` yang merupakan instance dari `CurrentUserProfileModel` telah memiliki user yang sedang login, maka `child` dari widget `Center` adalah  `ProfilePageUser()`.
+    Pada contoh di atas, apabila `profile` yang merupakan instance dari `CurrentUserProfileModel` telah memiliki user yang sedang login, maka `child` dari widget `Center` adalah  `ProfileUser()`.
 
-    Perhatikan bahwa ketika instance dari `CurrentUserProfileModel` mengalami perubahan (ada pemanggilan fungsi `notifyListeners()`, seperti pada fungsi `addUser()` dan `removeUser()` pada `current_user_profile.dart`), fungsi `builder` dari widget `Consumer<CurrentUserProfileModel>` akan dipanggil untuk `rebuild`. Salah satu keuntungan penggunaan Consumer adalah widget di atasnya dalam Widget Tree tidak akan di-*rebuild*. Penjelasan Consumer dapat dilihat pada https://pub.dev/documentation/provider/latest/provider/Consumer-class.html dan https://docs.flutter.dev/development/data-and-backend/state-mgmt/simple
-
-
+    Perhatikan bahwa ketika instance dari `CurrentUserProfileModel` mengalami perubahan (ada pemanggilan fungsi `notifyListeners()`, seperti pada fungsi `addUser()` dan `removeUser()` pada `current_user_profile.dart`), fungsi `builder` dari widget `Consumer<CurrentUserProfileModel>` akan dipanggil untuk `rebuild`. Salah satu keuntungan penggunaan Consumer adalah widget di atasnya dalam widget tree tidak akan di-*rebuild*. 
+    
+    Penjelasan Consumer dapat dilihat pada link berikut.
+    1. https://pub.dev/documentation/provider/latest/provider/Consumer-class.html 
+    2. https://docs.flutter.dev/development/data-and-backend/state-mgmt/simple
 
 4. Redirect ke halaman login<br>
 Pembuat belum mengimplementasikan hal ini (ditunggu ya :sweat_smile:).
