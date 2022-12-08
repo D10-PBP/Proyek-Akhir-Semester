@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/pages/beranda.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/pages/crowdfundings_page.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/demo_pages/demo.dart';
@@ -8,6 +8,7 @@ import 'package:sayang_dibuang_mobile/fitur_autentikasi/widgets/redirect.dart';
 class PageProvider extends ChangeNotifier {
   Widget currentPage;
   int currentPageIndex;
+  List<Widget> history = [];
   List<Widget> mainPages = [
     CrowdfundingsPage(), // nanti diganti sama Home
     BerandaBarangPage(),
@@ -18,7 +19,24 @@ class PageProvider extends ChangeNotifier {
     Redirect(mainWidget: MainWidget(), loginMessageWidget: NeedLoginWidget()),
   ];
 
-  PageProvider({this.currentPageIndex = 0, this.currentPage = const Profile()});
+  PageProvider({
+    this.currentPageIndex = 0,
+    this.currentPage = const ProfilePage(),
+  });
+
+  void push(Widget prevPage, Widget newPage) {
+    addHistory(prevPage);
+    changeCurrentPage(newPage);
+  }
+
+  void pop() {
+    changeCurrentPage(history.removeLast());
+  }
+
+  void addHistory(Widget prevPage) {
+    history.add(prevPage);
+    notifyListeners();
+  }
 
   void changePageIndex(int newIndex) {
     currentPageIndex = newIndex;
