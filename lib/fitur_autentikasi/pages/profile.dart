@@ -160,7 +160,7 @@ class ProfileLogin extends StatelessWidget {
       margin: const EdgeInsets.all(20),
       padding: const EdgeInsets.only(top: 40, bottom: 40, left: 40, right: 40),
       width: (currentWidth > 500) ? 500 : double.infinity,
-      height: currentHeight * 5 / 10,
+      height: currentHeight * 6 / 10,
       alignment: Alignment.center,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.0), color: ThemeColor.white),
