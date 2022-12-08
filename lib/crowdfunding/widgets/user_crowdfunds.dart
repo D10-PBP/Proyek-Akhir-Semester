@@ -23,7 +23,10 @@ class UserCrowdfunds extends StatelessWidget {
           future: crowdfunds,
           builder: (context, AsyncSnapshot snapshot) {
             if (snapshot.data == null) {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(
+                  child: CircularProgressIndicator(
+                color: ThemeColor.gold,
+              ));
             }
             if (!snapshot.hasData) {
               return Column(
