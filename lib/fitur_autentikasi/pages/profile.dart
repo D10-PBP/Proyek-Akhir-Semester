@@ -112,7 +112,7 @@ class ProfileUser extends StatelessWidget {
                         if (context
                             .read<CurrentUserProfileModel>()
                             .hasCurrentUser()) {
-                          myDialog(context, response);
+                          messageDialog(context, response);
                         }
                       },
                       child: const SizedBox(

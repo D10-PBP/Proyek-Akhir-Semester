@@ -390,14 +390,15 @@ class _RegisterFormState extends State<RegisterForm> {
                       ErrorMessage errorMessage =
                           errorMessageFromJson(response);
                       if (!mounted) return;
-                      myDialog(context, errorMessage.toString(), height: 300);
+                      messageDialog(context, errorMessage.toString(),
+                          height: 300);
                       checkInvalid(errorMessage);
                     } else {
                       if (!mounted) return;
-                      myDialog(context, response);
+                      messageDialog(context, response);
                     }
                   } else {
-                    myDialog(
+                    messageDialog(
                         context, "Field berbintang (*) tidak boleh kosong");
                   }
 

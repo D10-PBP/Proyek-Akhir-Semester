@@ -24,12 +24,14 @@ class RedirectLogin extends StatelessWidget {
             padding:
                 const EdgeInsets.only(top: 10, bottom: 10, left: 25, right: 25),
             width: (currentWidth > 500) ? 500 : double.infinity,
-            height: currentHeight,
+            height: currentHeight * 6 / 10,
             alignment: Alignment.center,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.0),
                 color: ThemeColor.white),
-            child: const Login(),
+            child: const Login(
+              redirect: true,
+            ),
           ),
         ),
       ),

@@ -10,7 +10,9 @@ import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/dialog.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/widgets/form_field.dart';
 
 class Login extends StatelessWidget {
-  const Login({super.key});
+  const Login({super.key, this.redirect = false});
+
+  final bool redirect;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class Login extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            const LoginForm(),
+            LoginForm(redirect: redirect),
           ],
         ),
       ),
@@ -44,7 +46,9 @@ class Login extends StatelessWidget {
 }
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+  const LoginForm({super.key, this.redirect = false});
+
+  final bool redirect;
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -127,11 +131,20 @@ class _LoginFormState extends State<LoginForm> {
                               if (!context
                                   .read<CurrentUserProfileModel>()
                                   .hasCurrentUser()) {
-                                myDialog(context, response);
+                                messageDialog(context, response);
                               }
                             }
                             if (!mounted) return;
                             context.read<Loading>().toggleLoading();
+
+                            if (widget.redirect) {
+                              if (!mounted) return;
+                              if (context
+                                  .read<CurrentUserProfileModel>()
+                                  .hasCurrentUser()) {
+                                Navigator.pop(context);
+                              }
+                            }
                           }
                         : null,
                     child: child!,
