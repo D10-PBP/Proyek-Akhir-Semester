@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/pages/beranda.dart';
+import 'package:sayang_dibuang_mobile/base.dart';
 import 'package:sayang_dibuang_mobile/main.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/pages/login.dart';
@@ -16,7 +17,7 @@ class DrawerClass extends StatefulWidget {
     "Login",
   ];
   static final List<Widget> _listViewPages = [
-    const MyHomePage(),
+    const BasePage(),
     const BerandaBarangPage(),
     const Login(),
   ];
