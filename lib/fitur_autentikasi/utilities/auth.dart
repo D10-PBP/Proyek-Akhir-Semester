@@ -65,17 +65,7 @@ Future<dynamic> getUserData(CookieRequest request, String username) async {
 Future<String> register(
     bool mounted, CookieRequest request, RegisterUser registerUser) async {
   try {
-    final response = await request.post(URL.registerUrl, {
-      'username': registerUser.username,
-      'password1': registerUser.password1,
-      'password2': registerUser.password2,
-      'first_name': registerUser.first_name,
-      'last_name': registerUser.last_name,
-      'email': registerUser.email,
-      'telephone': registerUser.telephone,
-      'whatsapp': registerUser.whatsapp,
-      'line': registerUser.line,
-    });
+    final response = await request.post(URL.registerUrl, registerUser.toJson());
 
     return response["message"];
   } catch (e) {
