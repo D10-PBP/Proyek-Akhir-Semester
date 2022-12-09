@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/pages/beranda.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/pages/crowdfundings_page.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/demo_pages/demo.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/pages/profile.dart';
 
 class PageProvider extends ChangeNotifier {
@@ -13,12 +14,14 @@ class PageProvider extends ChangeNotifier {
     BerandaBarangPage(), // nanti diganti sama Request
     CrowdfundingsPage(),
     CrowdfundingsPage(), // nanti diganti sama Leaderboard
-    ProfilePage(),
+    Profile(),
+    MainWidget(),
+    // MessagePage()
   ];
 
   PageProvider({
     this.currentPageIndex = 0,
-    this.currentPage = const ProfilePage(),
+    this.currentPage = const Profile(),
   });
 
   void push(Widget prevPage, Widget newPage) {
