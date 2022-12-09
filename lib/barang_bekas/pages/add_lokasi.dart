@@ -5,17 +5,17 @@ import 'package:sayang_dibuang_mobile/barang_bekas/functions/create_barang_bekas
 import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 
-class CreateKategori extends StatefulWidget {
-  const CreateKategori({super.key});
+class CreateLokasi extends StatefulWidget {
+  const CreateLokasi({super.key});
 
   @override
-  State<CreateKategori> createState() => _CreateKategori();
+  State<CreateLokasi> createState() => _CreateLokasi();
 }
 
-class _CreateKategori extends State<CreateKategori> {
+class _CreateLokasi extends State<CreateLokasi> {
   final _formKey = GlobalKey<FormState>();
 
-  String? jenis;
+  String? nama;
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
@@ -35,7 +35,7 @@ class _CreateKategori extends State<CreateKategori> {
                         height: 40,
                       ),
                       const Text(
-                        "Tambah Kategori",
+                        "Tambah Lokasi",
                         style: TextStyle(
                             fontFamily: "Verona",
                             fontWeight: FontWeight.bold,
@@ -47,8 +47,8 @@ class _CreateKategori extends State<CreateKategori> {
                         padding: const EdgeInsets.all(10.0),
                         child: TextFormField(
                           decoration: InputDecoration(
-                            hintText: "Contoh: Botol",
-                            labelText: "Jenis Kategori",
+                            hintText: "Contoh: Jakarta",
+                            labelText: "Nama Lokasi",
                             // Menambahkan circular border agar lebih rapi
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0),
@@ -57,19 +57,19 @@ class _CreateKategori extends State<CreateKategori> {
                           // Menambahkan behavior saat nama diketik
                           onChanged: (String? value) {
                             setState(() {
-                              jenis = value!;
+                              nama = value!;
                             });
                           },
                           // Menambahkan behavior saat data disimpan
                           onSaved: (String? value) {
                             setState(() {
-                              jenis = value!;
+                              nama = value!;
                             });
                           },
                           // Validator sebagai validasi form
                           validator: (String? value) {
                             if (value == null || value.isEmpty) {
-                              return 'Kategori tidak boleh kosong!';
+                              return 'Lokasi tidak boleh kosong!';
                             }
                             return null;
                           },
@@ -86,7 +86,7 @@ class _CreateKategori extends State<CreateKategori> {
                         ),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            createKategori(request, jenis);
+                            createLokasi(request, nama);
                           }
                         },
                         child: const Text(

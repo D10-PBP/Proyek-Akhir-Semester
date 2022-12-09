@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/functions/create_barang_bekas.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/functions/fetch_barang_bekas.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/pages/add_kategori.dart';
+import 'package:sayang_dibuang_mobile/barang_bekas/pages/add_lokasi.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/pages/beranda.dart';
 import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
@@ -33,303 +34,305 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     final profile = context.read<CurrentUserProfileModel>();
-    return Scaffold(
-      body: Stack(
-        children: [
-          Form(
-            key: _formKey,
-            child: SingleChildScrollView(
-              child: Container(
-                margin: const EdgeInsets.all(15),
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 40,
-                    ),
-                    Padding(
-                      // Menggunakan padding sebesar 8 pixels
-                      padding: const EdgeInsets.all(10.0),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          hintText: "Contoh: Karton Aqua",
-                          labelText: "Judul",
-                          // Menambahkan circular border agar lebih rapi
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                        ),
-                        // Menambahkan behavior saat nama diketik
-                        onChanged: (String? value) {
-                          setState(() {
-                            judul = value!;
-                          });
-                        },
-                        // Menambahkan behavior saat data disimpan
-                        onSaved: (String? value) {
-                          setState(() {
-                            judul = value!;
-                          });
-                        },
-                        // Validator sebagai validasi form
-                        validator: (String? value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Judul tidak boleh kosong!';
-                          }
-                          return null;
-                        },
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            Form(
+              key: _formKey,
+              child: SingleChildScrollView(
+                child: Container(
+                  margin: const EdgeInsets.all(15),
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 40,
                       ),
-                    ),
-                    Padding(
-                      // Menggunakan padding sebesar 8 pixels
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          hintText:
-                              "Contoh: Karton sebanyak 2 lusin. Kondisi pristine.",
-                          labelText: "Deskripsi",
-                          // Menambahkan circular border agar lebih rapi
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                        ),
-                        // Menambahkan behavior saat nama diketik
-                        onChanged: (String? value) {
-                          setState(() {
-                            deskripsi = value!;
-                          });
-                        },
-                        // Menambahkan behavior saat data disimpan
-                        onSaved: (String? value) {
-                          setState(() {
-                            deskripsi = value!;
-                          });
-                        },
-                        // Validator sebagai validasi form
-                        validator: (String? value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Deskripsi tidak boleh kosong!';
-                          }
-                          return null;
-                        },
+                      const Text(
+                        "UPLOAD BARANG BEKAS",
+                        style: TextStyle(
+                            fontFamily: "Verona",
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                            color: ThemeColor.gold),
                       ),
-                    ),
-                    Padding(
-                      // Menggunakan padding sebesar 8 pixels
-                      padding: const EdgeInsets.all(8.0),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          hintText: "Contoh: www.blabla.jpg",
-                          labelText: "Image URL",
-                          // Menambahkan circular border agar lebih rapi
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                        ),
-                        // Menambahkan behavior saat nama diketik
-                        onChanged: (String? value) {
-                          setState(() {
-                            foto = value!;
-                          });
-                        },
-                        // Menambahkan behavior saat data disimpan
-                        onSaved: (String? value) {
-                          setState(() {
-                            foto = value!;
-                          });
-                        },
-                        // Validator sebagai validasi form
-                        validator: (String? value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Image URL tidak boleh kosong!';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          FutureBuilder<List<String>>(
-                            future: fetchLokasi(request),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                var data = snapshot.data!;
-                                return DropdownButton(
-                                  // Initial Value
-                                  value: lokasi ?? data[0],
-
-                                  // Down Arrow Icon
-                                  icon: const Icon(Icons.keyboard_arrow_down),
-
-                                  // Array list of items
-                                  items: data.map((String items) {
-                                    return DropdownMenuItem(
-                                      value: items,
-                                      child: Text(items),
-                                    );
-                                  }).toList(),
-                                  // After selecting the desired option,it will
-                                  // change button value to selected value
-                                  onChanged: (String? newValue) {
-                                    setState(() {
-                                      lokasi = newValue!;
-                                    });
-                                  },
-                                );
-                              } else if (snapshot.hasError) {
-                                return Text('${snapshot.error}');
-                              } else {
-                                return const CircularProgressIndicator();
-                              }
-                            },
-                          ),
-                          const SizedBox(
-                            width: 40,
-                          ),
-                          FutureBuilder<List<String>>(
-                            future: fetchKategori(request),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                var data = snapshot.data!;
-                                return DropdownButton(
-                                  // Initial Value
-                                  value: kategori ?? data[0],
-
-                                  // Down Arrow Icon
-                                  icon: const Icon(Icons.keyboard_arrow_down),
-
-                                  // Array list of items
-                                  items: data.map((String items) {
-                                    return DropdownMenuItem(
-                                      value: items,
-                                      child: Text(items),
-                                    );
-                                  }).toList(),
-                                  // After selecting the desired option,it will
-                                  // change button value to selected value
-                                  onChanged: (String? newValue) {
-                                    setState(() {
-                                      kategori = newValue!;
-                                    });
-                                  },
-                                );
-                              } else if (snapshot.hasError) {
-                                return Text('${snapshot.error}');
-                              } else {
-                                return const CircularProgressIndicator();
-                              }
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                    TextButton(
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(ThemeColor.darkGreen),
-                        padding: MaterialStateProperty.all<EdgeInsets>(
-                          const EdgeInsets.symmetric(
-                              horizontal: 24, vertical: 16),
-                        ),
-                      ),
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          createBarang(request, profile.user?.username, judul,
-                              deskripsi, foto, lokasi, kategori);
-                          // await request.post(
-                          //     'https://sayang-dibuang.up.railway.app/barang/upload/ajax/',
-                          //     {
-                          //       "username": profile.user?.username,
-                          //       "judul": judul,
-                          //       "deskripsi": deskripsi,
-                          //       "foto": foto,
-                          //       "lokasi": lokasi,
-                          //       "kategori": kategori
-                          //     }).then(
-                          //   (value) => {
-                          //     showDialog(
-                          //       context: context,
-                          //       builder: (context) {
-                          //         return Dialog(
-                          //           shape: RoundedRectangleBorder(
-                          //             borderRadius: BorderRadius.circular(10),
-                          //           ),
-                          //           elevation: 15,
-                          //           child: ListView(
-                          //             padding: const EdgeInsets.only(
-                          //                 top: 20, bottom: 20),
-                          //             shrinkWrap: true,
-                          //             children: <Widget>[
-                          //               const Center(
-                          //                   child: Text(
-                          //                       'Data sudah berhasil dibuat')),
-                          //               const SizedBox(height: 20),
-                          //               TextButton(
-                          //                 onPressed: () {
-                          //                   Provider.of<PageProvider>(context,
-                          //                           listen: false)
-                          //                       .push(const CreateBarangBekas(),
-                          //                           const BerandaBarangPage());
-                          //                 },
-                          //                 child: const Text('Kembali'),
-                          //               ),
-                          //             ],
-                          //           ),
-                          //         );
-                          //       },
-                          //     )
-                          //   },
-                          // );
-
-                          Provider.of<PageProvider>(context, listen: false)
-                              .push(const CreateBarangBekas(),
-                                  const BerandaBarangPage());
-                        }
-                      },
-                      child: const Text(
-                        "Upload",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    Row(
-                      children: [
-                        TextButton(
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(ThemeColor.darkGreen),
-                            padding: MaterialStateProperty.all<EdgeInsets>(
-                              const EdgeInsets.symmetric(
-                                  horizontal: 24, vertical: 16),
+                      Padding(
+                        // Menggunakan padding sebesar 8 pixels
+                        padding: const EdgeInsets.all(10.0),
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            hintText: "Contoh: Karton Aqua",
+                            labelText: "Judul",
+                            // Menambahkan circular border agar lebih rapi
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0),
                             ),
                           ),
-                          onPressed: () {
+                          // Menambahkan behavior saat nama diketik
+                          onChanged: (String? value) {
+                            setState(() {
+                              judul = value!;
+                            });
+                          },
+                          // Menambahkan behavior saat data disimpan
+                          onSaved: (String? value) {
+                            setState(() {
+                              judul = value!;
+                            });
+                          },
+                          // Validator sebagai validasi form
+                          validator: (String? value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Judul tidak boleh kosong!';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Padding(
+                        // Menggunakan padding sebesar 8 pixels
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            hintText:
+                                "Contoh: Karton sebanyak 2 lusin. Kondisi pristine.",
+                            labelText: "Deskripsi",
+                            // Menambahkan circular border agar lebih rapi
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
+                          ),
+                          // Menambahkan behavior saat nama diketik
+                          onChanged: (String? value) {
+                            setState(() {
+                              deskripsi = value!;
+                            });
+                          },
+                          // Menambahkan behavior saat data disimpan
+                          onSaved: (String? value) {
+                            setState(() {
+                              deskripsi = value!;
+                            });
+                          },
+                          // Validator sebagai validasi form
+                          validator: (String? value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Deskripsi tidak boleh kosong!';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Padding(
+                        // Menggunakan padding sebesar 8 pixels
+                        padding: const EdgeInsets.all(8.0),
+                        child: TextFormField(
+                          decoration: InputDecoration(
+                            hintText: "Contoh: www.blabla.jpg",
+                            labelText: "Image URL",
+                            // Menambahkan circular border agar lebih rapi
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
+                          ),
+                          // Menambahkan behavior saat nama diketik
+                          onChanged: (String? value) {
+                            setState(() {
+                              foto = value!;
+                            });
+                          },
+                          // Menambahkan behavior saat data disimpan
+                          onSaved: (String? value) {
+                            setState(() {
+                              foto = value!;
+                            });
+                          },
+                          // Validator sebagai validasi form
+                          validator: (String? value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Image URL tidak boleh kosong!';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.all(10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            FutureBuilder<List<String>>(
+                              future: fetchLokasi(request),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  var data = snapshot.data!;
+                                  return DropdownButton(
+                                    // Initial Value
+                                    value: lokasi ?? data[0],
+
+                                    // Down Arrow Icon
+                                    icon: const Icon(Icons.keyboard_arrow_down),
+
+                                    // Array list of items
+                                    items: data.map((String items) {
+                                      return DropdownMenuItem(
+                                        value: items,
+                                        child: Text(items),
+                                      );
+                                    }).toList(),
+                                    // After selecting the desired option,it will
+                                    // change button value to selected value
+                                    onChanged: (String? newValue) {
+                                      setState(() {
+                                        lokasi = newValue!;
+                                      });
+                                    },
+                                  );
+                                } else if (snapshot.hasError) {
+                                  return Text('${snapshot.error}');
+                                } else {
+                                  return const CircularProgressIndicator();
+                                }
+                              },
+                            ),
+                            const SizedBox(
+                              width: 40,
+                            ),
+                            FutureBuilder<List<String>>(
+                              future: fetchKategori(request),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  var data = snapshot.data!;
+                                  return DropdownButton(
+                                    // Initial Value
+                                    value: kategori ?? data[0],
+
+                                    // Down Arrow Icon
+                                    icon: const Icon(Icons.keyboard_arrow_down),
+
+                                    // Array list of items
+                                    items: data.map((String items) {
+                                      return DropdownMenuItem(
+                                        value: items,
+                                        child: Text(items),
+                                      );
+                                    }).toList(),
+                                    // After selecting the desired option,it will
+                                    // change button value to selected value
+                                    onChanged: (String? newValue) {
+                                      setState(() {
+                                        kategori = newValue!;
+                                      });
+                                    },
+                                  );
+                                } else if (snapshot.hasError) {
+                                  return Text('${snapshot.error}');
+                                } else {
+                                  return const CircularProgressIndicator();
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      TextButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(ThemeColor.darkGreen),
+                          padding: MaterialStateProperty.all<EdgeInsets>(
+                            const EdgeInsets.symmetric(
+                                horizontal: 24, vertical: 16),
+                          ),
+                        ),
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            createBarang(request, profile.user?.username, judul,
+                                deskripsi, foto, lokasi, kategori);
+
                             Provider.of<PageProvider>(context, listen: false)
                                 .push(const CreateBarangBekas(),
-                                    const CreateKategori());
-                          },
-                          child: const Text("Tambah Kategori"),
+                                    const BerandaBarangPage());
+                          }
+                        },
+                        child: const Text(
+                          "Upload",
+                          style: TextStyle(color: Colors.white),
                         ),
-                      ],
-                    )
-                  ],
+                      ),
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          OutlinedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(ThemeColor.sand),
+                                padding: MaterialStateProperty.all<EdgeInsets>(
+                                  const EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 8),
+                                ),
+                                side: MaterialStateProperty.all(
+                                    const BorderSide(
+                                        color: Colors.black,
+                                        width: 1.0,
+                                        style: BorderStyle.solid))),
+                            onPressed: () {
+                              Provider.of<PageProvider>(context, listen: false)
+                                  .push(const CreateBarangBekas(),
+                                      const CreateKategori());
+                            },
+                            child: const Text(
+                              "Tambah Kategori",
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 37, 33, 23)),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          OutlinedButton(
+                            style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all(ThemeColor.sand),
+                                padding: MaterialStateProperty.all<EdgeInsets>(
+                                  const EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 8),
+                                ),
+                                side: MaterialStateProperty.all(
+                                    const BorderSide(
+                                        color: Colors.black,
+                                        width: 1.0,
+                                        style: BorderStyle.solid))),
+                            onPressed: () {
+                              Provider.of<PageProvider>(context, listen: false)
+                                  .push(const CreateBarangBekas(),
+                                      const CreateLokasi());
+                            },
+                            child: const Text(
+                              "Tambah Lokasi",
+                              style: TextStyle(
+                                  color: Color.fromARGB(255, 37, 33, 23)),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          Builder(
-            builder: (context) => IconButton(
-              icon: const Icon(Icons.chevron_left_rounded, size: 35.0),
-              onPressed: () =>
-                  Provider.of<PageProvider>(context, listen: false).pop(),
+            Builder(
+              builder: (context) => IconButton(
+                icon: const Icon(Icons.chevron_left_rounded, size: 35.0),
+                onPressed: () =>
+                    Provider.of<PageProvider>(context, listen: false).pop(),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
