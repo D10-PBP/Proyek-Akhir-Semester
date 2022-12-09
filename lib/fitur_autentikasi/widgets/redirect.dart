@@ -6,11 +6,16 @@ import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_p
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/dialog.dart';
 
 class Redirect extends StatelessWidget {
-  const Redirect(
-      {super.key, required this.mainWidget, required this.destinationWidget});
+  const Redirect({
+    super.key,
+    required this.currentWidget,
+    required this.mainWidget,
+    required this.destinationWidget,
+  });
 
-  final Widget destinationWidget;
+  final Widget currentWidget;
   final Widget mainWidget;
+  final Widget destinationWidget;
 
   static pushToLogin(BuildContext context) {
     return () {
@@ -19,19 +24,23 @@ class Redirect extends StatelessWidget {
     };
   }
 
-  static loginHandler(BuildContext context,
-      {String message = "Anda harus login untuk mengakses fitur ini",
-      required Widget currentWidget,
-      required Widget mainWidget,
-      required Widget destinationWidget}) {
+  static loginHandler(
+    BuildContext context, {
+    String message = "Anda harus login untuk mengakses fitur ini",
+    required Widget currentWidget,
+    required Widget mainWidget,
+    required Widget destinationWidget,
+  }) {
     return () {
       if (!context.read<CurrentUserProfileModel>().hasCurrentUser()) {
         loginDialog(context, message, "Login");
       }
-      context.read<PageProvider>().push(
-          currentWidget,
-          Redirect(
-              mainWidget: mainWidget, destinationWidget: destinationWidget));
+
+      context.read<PageProvider>().changeCurrentPage(Redirect(
+            currentWidget: currentWidget,
+            mainWidget: mainWidget,
+            destinationWidget: destinationWidget,
+          ));
     };
   }
 
@@ -39,7 +48,14 @@ class Redirect extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<CurrentUserProfileModel>(
       builder: ((context, profile, child) {
-        return (profile.hasCurrentUser()) ? destinationWidget : mainWidget;
+        if (profile.hasCurrentUser()) {
+          // print(context.read<PageProvider>().history);
+          // Provider.of<PageProvider>(context, listen: false)
+          //     .addHistory(currentWidget);
+          return destinationWidget;
+        } else {
+          return mainWidget;
+        }
       }),
     );
   }

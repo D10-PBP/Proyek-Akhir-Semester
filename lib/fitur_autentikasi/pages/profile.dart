@@ -13,10 +13,14 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
-      child: Center(
-          child: Redirect(
-              mainWidget: ProfileLogin(), destinationWidget: ProfileUser())),
+    return SafeArea(
+      child: Center(child: Consumer<CurrentUserProfileModel>(
+        builder: ((context, profile, child) {
+          return (profile.hasCurrentUser())
+              ? const ProfileUser()
+              : const ProfileLogin();
+        }),
+      )),
     );
   }
 }
