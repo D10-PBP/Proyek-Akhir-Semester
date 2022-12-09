@@ -42,6 +42,7 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
                               .push(
                         const BerandaBarangPage(),
                         BarangDetailPage(
+                          pk: snapshot.data![index].pk,
                           judul: snapshot.data![index].judul,
                           deskripsi: snapshot.data![index].deskripsi,
                           foto: snapshot.data![index].foto,

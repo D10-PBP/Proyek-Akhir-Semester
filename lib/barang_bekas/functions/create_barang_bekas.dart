@@ -1,38 +1,28 @@
-import 'dart:convert';
-import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:image_picker/image_picker.dart';
-import 'package:sayang_dibuang_mobile/barang_bekas/models/barang_bekas.dart';
-import 'package:path/path.dart';
-import 'package:async/async.dart';
-
 createBarang(
     request, username, judul, deskripsi, foto, lokasi, kategori) async {
-  var response =
-      await request.post('https://sayang-dibuang.up.railway.app/upload/ajax/', {
+  var response = await request
+      .post('https://sayang-dibuang.up.railway.app/barang/upload/ajax/', {
     "username": username,
+    "foto": foto,
     "judul": judul,
     "deskripsi": deskripsi,
-    "foto": foto,
     "lokasi": lokasi,
-    "kategori": kategori,
+    "kategori": kategori
   });
-  return response['status'];
+
+  return response["message"];
 }
 
 createKategori(request, jenis) async {
-  var response = await request
-      .post('https://sayang-dibuang.up.railway.app/add/kategori/', {
-    "jenis": jenis,
-  });
+  var response = await request.post(
+      'https://sayang-dibuang.up.railway.app/barang/add/kategori/m/',
+      {"jenis": jenis});
   return response['status'];
 }
 
 createLokasi(request, nama) async {
-  var response =
-      await request.post('https://sayang-dibuang.up.railway.app/add/lokasi/', {
-    "nama": nama,
-  });
+  var response = await request.post(
+      'https://sayang-dibuang.up.railway.app/barang/add/lokasi/m/',
+      {"nama": nama});
   return response['status'];
 }

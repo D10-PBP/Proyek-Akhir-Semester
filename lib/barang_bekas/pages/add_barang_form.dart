@@ -4,6 +4,7 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/functions/create_barang_bekas.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/functions/fetch_barang_bekas.dart';
+import 'package:sayang_dibuang_mobile/barang_bekas/pages/add_kategori.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/pages/beranda.dart';
 import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
@@ -42,6 +43,9 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
                 margin: const EdgeInsets.all(15),
                 child: Column(
                   children: [
+                    const SizedBox(
+                      height: 40,
+                    ),
                     Padding(
                       // Menggunakan padding sebesar 8 pixels
                       padding: const EdgeInsets.all(10.0),
@@ -235,9 +239,51 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
                         if (_formKey.currentState!.validate()) {
                           createBarang(request, profile.user?.username, judul,
                               deskripsi, foto, lokasi, kategori);
-                          // print(profile.user?.username);
-                          // print(
-                          //     " $judul , $deskripsi , $foto, $lokasi , $kategori");
+                          // await request.post(
+                          //     'https://sayang-dibuang.up.railway.app/barang/upload/ajax/',
+                          //     {
+                          //       "username": profile.user?.username,
+                          //       "judul": judul,
+                          //       "deskripsi": deskripsi,
+                          //       "foto": foto,
+                          //       "lokasi": lokasi,
+                          //       "kategori": kategori
+                          //     }).then(
+                          //   (value) => {
+                          //     showDialog(
+                          //       context: context,
+                          //       builder: (context) {
+                          //         return Dialog(
+                          //           shape: RoundedRectangleBorder(
+                          //             borderRadius: BorderRadius.circular(10),
+                          //           ),
+                          //           elevation: 15,
+                          //           child: ListView(
+                          //             padding: const EdgeInsets.only(
+                          //                 top: 20, bottom: 20),
+                          //             shrinkWrap: true,
+                          //             children: <Widget>[
+                          //               const Center(
+                          //                   child: Text(
+                          //                       'Data sudah berhasil dibuat')),
+                          //               const SizedBox(height: 20),
+                          //               TextButton(
+                          //                 onPressed: () {
+                          //                   Provider.of<PageProvider>(context,
+                          //                           listen: false)
+                          //                       .push(const CreateBarangBekas(),
+                          //                           const BerandaBarangPage());
+                          //                 },
+                          //                 child: const Text('Kembali'),
+                          //               ),
+                          //             ],
+                          //           ),
+                          //         );
+                          //       },
+                          //     )
+                          //   },
+                          // );
+
                           Provider.of<PageProvider>(context, listen: false)
                               .push(const CreateBarangBekas(),
                                   const BerandaBarangPage());
@@ -248,6 +294,29 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    Row(
+                      children: [
+                        TextButton(
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(ThemeColor.darkGreen),
+                            padding: MaterialStateProperty.all<EdgeInsets>(
+                              const EdgeInsets.symmetric(
+                                  horizontal: 24, vertical: 16),
+                            ),
+                          ),
+                          onPressed: () {
+                            Provider.of<PageProvider>(context, listen: false)
+                                .push(const CreateBarangBekas(),
+                                    const CreateKategori());
+                          },
+                          child: const Text("Tambah Kategori"),
+                        ),
+                      ],
+                    )
                   ],
                 ),
               ),

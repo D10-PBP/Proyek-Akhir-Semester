@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:sayang_dibuang_mobile/barang_bekas/functions/delete_barang.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/functions/fetch_barang_bekas.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/models/barang_bekas.dart';
 import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
@@ -8,6 +9,7 @@ import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 
 class BarangDetailPage extends StatefulWidget {
+  final int pk;
   final String judul;
   final String deskripsi;
   final String foto;
@@ -16,6 +18,7 @@ class BarangDetailPage extends StatefulWidget {
 
   const BarangDetailPage({
     super.key,
+    required this.pk,
     required this.judul,
     required this.deskripsi,
     required this.foto,
@@ -182,6 +185,73 @@ class _BarangDetailPageState extends State<BarangDetailPage> {
                       }
                     },
                   ),
+                  if (profile.user?.pk == widget.owner)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        // RawMaterialButton(
+                        //   onPressed: () {},
+                        //   elevation: 2.0,
+                        //   fillColor: ThemeColor.white,
+                        //   padding: const EdgeInsets.all(15.0),
+                        //   shape: const CircleBorder(),
+                        //   child: const Icon(
+                        //     Icons.edit,
+                        //     size: 35.0,
+                        //     color: ThemeColor.gold,
+                        //   ),
+                        // ),
+                        RawMaterialButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (_) {
+                                return Dialog(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  elevation: 15,
+                                  child: ListView(
+                                    padding: const EdgeInsets.only(
+                                        top: 20, bottom: 20),
+                                    shrinkWrap: true,
+                                    children: <Widget>[
+                                      const Center(
+                                          child: Text(
+                                              'Apa anda yakin ingin menghapus?')),
+                                      const SizedBox(height: 20),
+                                      TextButton(
+                                        onPressed: () {
+                                          var pk = widget.pk;
+                                          deleteBarang(request, pk);
+                                          Navigator.pop(context);
+                                          Provider.of<PageProvider>(context,
+                                                  listen: false)
+                                              .pop();
+                                        },
+                                        child: const Text('Hapus'),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          elevation: 2.0,
+                          fillColor: ThemeColor.white,
+                          padding: const EdgeInsets.all(15.0),
+                          shape: const CircleBorder(),
+                          child: const Icon(
+                            Icons.delete,
+                            size: 35.0,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ],
+                    ),
+                  SizedBox(
+                    height: 20,
+                  )
                 ],
               ),
             ),
