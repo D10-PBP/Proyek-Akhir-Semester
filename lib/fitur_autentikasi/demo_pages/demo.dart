@@ -119,6 +119,5 @@ class MessagePage extends StatelessWidget {
         ],
       ),
     )));
-    ;
   }
 }

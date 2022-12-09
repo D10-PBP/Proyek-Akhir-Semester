@@ -39,6 +39,5 @@ class TextFormFieldAuth extends StatelessWidget {
       onSaved: setFieldState,
       validator: validator,
     );
-    ;
   }
 }

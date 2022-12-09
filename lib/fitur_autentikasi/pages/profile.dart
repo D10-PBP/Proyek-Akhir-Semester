@@ -6,7 +6,6 @@ import 'package:sayang_dibuang_mobile/fitur_autentikasi/pages/login.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/auth.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/dialog.dart';
-import 'package:sayang_dibuang_mobile/fitur_autentikasi/widgets/redirect.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
