@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/models/crowdfund.dart';
+import 'package:sayang_dibuang_mobile/crowdfunding/pages/crowdfundings_no_user_page.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/utils/fetch_crowdfund.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/widgets/user_crowdfunds.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/widgets/all_crowdfunds.dart';
+import 'package:provider/provider.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
 
 class CrowdfundingsPage extends StatefulWidget {
   const CrowdfundingsPage({super.key});
@@ -15,13 +18,13 @@ class _CrowdfundingsPageState extends State<CrowdfundingsPage> {
   late Future<List<Crowdfund>> crowdfunds;
 
   @override
-  void initState() {
-    super.initState();
-    crowdfunds = fetchAllCrowdfunds();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
+    if (!request.loggedIn) {
+      return const CrowdfundingsNoUserPage();
+    }
+
+    crowdfunds = fetchAllCrowdfunds();
     return SafeArea(
       child: Center(
         child: Column(
