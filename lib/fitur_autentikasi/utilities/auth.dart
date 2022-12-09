@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/models/user_profile.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/models/register_user.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 
 class URL {
@@ -11,10 +12,13 @@ class URL {
       "https://sayang-dibuang.up.railway.app/login/ajax";
   static const String logoutUrl =
       "https://sayang-dibuang.up.railway.app/logout/ajax";
+  static const String registerUrl =
+      "https://sayang-dibuang.up.railway.app/register/ajax";
   // static String userDataURL(username) =>
   //     "http://127.0.0.1:8000/user-data/$username";
   // static const String loginUrl = "http://127.0.0.1:8000/login/ajax";
   // static const String logoutUrl = "http://127.0.0.1:8000/logout/ajax";
+  // static const String registerUrl = "http://127.0.0.1:8000/register/ajax";
 }
 
 Future<String> login(BuildContext context, bool mounted, CookieRequest request,
@@ -56,4 +60,15 @@ Future<String> logout(BuildContext context, CookieRequest request,
 Future<dynamic> getUserData(CookieRequest request, String username) async {
   final userDataJson = await request.get(URL.userDataURL(username));
   return userDataJson;
+}
+
+Future<String> register(
+    bool mounted, CookieRequest request, RegisterUser registerUser) async {
+  try {
+    final response = await request.post(URL.registerUrl, registerUser.toJson());
+
+    return response["message"];
+  } catch (e) {
+    return e.toString();
+  }
 }

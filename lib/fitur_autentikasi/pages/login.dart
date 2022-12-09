@@ -5,9 +5,14 @@ import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/loading.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/auth.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/pages/register.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/dialog.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/widgets/form_field.dart';
 
 class Login extends StatelessWidget {
-  const Login({super.key});
+  const Login({super.key, this.redirect = false});
+
+  final bool redirect;
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +31,13 @@ class Login extends StatelessWidget {
             Text(
               "Masuk ke Akun Anda",
               style: TextStyle(
-                fontFamily: "PlusJakarta",
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
                 color: Colors.grey[600],
               ),
             ),
             const SizedBox(height: 30),
-            const LoginForm(),
+            LoginForm(redirect: redirect),
           ],
         ),
       ),
@@ -42,7 +46,9 @@ class Login extends StatelessWidget {
 }
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+  const LoginForm({super.key, this.redirect = false});
+
+  final bool redirect;
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -51,15 +57,35 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   final _loginFormKey = GlobalKey<FormState>();
   bool isPasswordVisible = false;
+  String username = "";
+  String password1 = "";
+
+  void setUsername(String? value) {
+    setState(() {
+      username = value!;
+    });
+  }
+
+  void setPassword1(String? value) {
+    setState(() {
+      password1 = value!;
+    });
+  }
+
+  validator(String message) {
+    return (String? value) {
+      if (value == null || value.isEmpty) {
+        return message;
+      }
+      return null;
+    };
+  }
 
   void togglePasswordView() {
     setState(() {
       isPasswordVisible = !isPasswordVisible;
     });
   }
-
-  String username = "";
-  String password1 = "";
 
   @override
   Widget build(BuildContext context) {
@@ -68,126 +94,61 @@ class _LoginFormState extends State<LoginForm> {
         key: _loginFormKey,
         child: Column(
           children: [
-            TextFormField(
-              style: const TextStyle(fontFamily: "PlusJakarta'", fontSize: 15),
-              decoration: InputDecoration(
-                labelText: "Username",
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                hoverColor: ThemeColor.sand,
-              ),
-              onChanged: (String? value) {
-                setState(() {
-                  username = value!;
-                });
-              },
-              onSaved: (String? value) {
-                setState(() {
-                  username = value!;
-                });
-              },
-              validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return 'Username tidak boleh kosong!';
-                }
-                return null;
-              },
-            ),
+            TextFormFieldAuth(
+                placeholder: "Username",
+                setFieldState: setUsername,
+                validator: validator("Username tidak boleh kosong")),
             const SizedBox(height: 10.0),
-            TextFormField(
-              obscureText: !isPasswordVisible,
-              style: const TextStyle(fontFamily: "PlusJakarta'", fontSize: 15),
-              decoration: InputDecoration(
-                  labelText: "Password",
-                  filled: true,
-                  fillColor: Colors.white,
-                  hoverColor: ThemeColor.sand,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                  suffixIcon: IconButton(
-                      onPressed: togglePasswordView,
-                      icon: Icon(
-                        isPasswordVisible
-                            ? Icons.visibility
-                            : Icons.visibility_off,
-                      ))),
-              onChanged: (String? value) {
-                setState(() {
-                  password1 = value!;
-                });
-              },
-              onSaved: (String? value) {
-                setState(() {
-                  password1 = value!;
-                });
-              },
-              validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return 'Password tidak boleh kosong!';
-                }
-                return null;
-              },
-            ),
+            TextFormFieldAuth(
+                placeholder: "Password",
+                obscureText: !isPasswordVisible,
+                setFieldState: setPassword1,
+                validator: validator("Password tidak boleh kosong"),
+                iconButton: IconButton(
+                    onPressed: togglePasswordView,
+                    icon: Icon(
+                      (isPasswordVisible)
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                    ))),
             const SizedBox(
               height: 20,
             ),
-            TextButton(
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(ThemeColor.gold),
-                ),
-                onPressed: () async {
-                  context.read<Loading>().toggleLoading();
-                  if (_loginFormKey.currentState!.validate()) {
-                    final response = await login(
-                        context, mounted, request, username, password1);
-                    if (!mounted) return;
-                    if (!context
-                        .read<CurrentUserProfileModel>()
-                        .hasCurrentUser()) {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return Dialog(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            elevation: 15,
-                            child: SizedBox(
-                              width: 300,
-                              height: 150,
-                              child: Center(
-                                child: ListView(
-                                  padding: const EdgeInsets.only(
-                                      top: 20, bottom: 20),
-                                  shrinkWrap: true,
-                                  children: <Widget>[
-                                    Padding(
-                                        padding: const EdgeInsets.all(10),
-                                        child: Text(
-                                          response,
-                                          textAlign: TextAlign.center,
-                                        )),
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Text('Kembali'),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      );
-                    }
-                  }
-                  if (!mounted) return;
-                  context.read<Loading>().toggleLoading();
+            Consumer<Loading>(
+                builder: (context, loading, child) {
+                  return TextButton(
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(ThemeColor.gold),
+                    ),
+                    onPressed: (!loading.isLoading())
+                        ? () async {
+                            context.read<Loading>().toggleLoading();
+                            if (_loginFormKey.currentState!.validate()) {
+                              final response = await login(context, mounted,
+                                  request, username, password1);
+                              if (!mounted) return;
+                              if (!context
+                                  .read<CurrentUserProfileModel>()
+                                  .hasCurrentUser()) {
+                                messageDialog(context, response);
+                              }
+                            }
+                            if (!mounted) return;
+                            context.read<Loading>().toggleLoading();
+
+                            if (widget.redirect) {
+                              if (!mounted) return;
+                              if (context
+                                  .read<CurrentUserProfileModel>()
+                                  .hasCurrentUser()) {
+                                Navigator.pop(context);
+                              }
+                            }
+                          }
+                        : null,
+                    child: child!,
+                  );
                 },
                 child: SizedBox(
                     height: 40,
@@ -230,6 +191,18 @@ class _LoginFormState extends State<LoginForm> {
                         },
                       ),
                     ))),
+            const SizedBox(height: 5),
+            InkWell(
+              hoverColor: Colors.blue[50],
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const RegisterPage()));
+              },
+              child: Text("Buat akun baru",
+                  style: TextStyle(color: Colors.blue[400])),
+            )
           ],
         ));
   }
