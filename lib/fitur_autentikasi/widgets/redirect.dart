@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/pages/redirect_login.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/dialog.dart';
@@ -19,9 +20,18 @@ class Redirect extends StatelessWidget {
   }
 
   static loginHandler(BuildContext context,
-      {String message = "Anda harus login untuk mengakses fitur ini"}) {
+      {String message = "Anda harus login untuk mengakses fitur ini",
+      required Widget currentWidget,
+      required Widget mainWidget,
+      required Widget destinationWidget}) {
     return () {
-      redirectDialog(context, message, pushToLogin(context), "Login");
+      if (!context.read<CurrentUserProfileModel>().hasCurrentUser()) {
+        loginDialog(context, message, "Login");
+      }
+      context.read<PageProvider>().push(
+          currentWidget,
+          Redirect(
+              mainWidget: mainWidget, destinationWidget: destinationWidget));
     };
   }
 
