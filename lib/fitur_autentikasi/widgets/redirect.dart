@@ -6,10 +6,10 @@ import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/dialog.dart';
 
 class Redirect extends StatelessWidget {
   const Redirect(
-      {super.key, required this.sourceWidget, required this.destinationWidget});
+      {super.key, required this.mainWidget, required this.destinationWidget});
 
   final Widget destinationWidget;
-  final Widget sourceWidget;
+  final Widget mainWidget;
 
   static pushToLogin(BuildContext context) {
     return () {
@@ -29,7 +29,7 @@ class Redirect extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<CurrentUserProfileModel>(
       builder: ((context, profile, child) {
-        return (profile.hasCurrentUser()) ? destinationWidget : sourceWidget;
+        return (profile.hasCurrentUser()) ? destinationWidget : mainWidget;
       }),
     );
   }

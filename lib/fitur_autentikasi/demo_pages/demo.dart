@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/widgets/redirect.dart';
 
-class AuthenticatedWidget extends StatelessWidget {
-  const AuthenticatedWidget({super.key});
+class DestinationWidget extends StatelessWidget {
+  const DestinationWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +18,8 @@ class AuthenticatedWidget extends StatelessWidget {
   }
 }
 
-class LoginMessageWidget extends StatelessWidget {
-  const LoginMessageWidget({super.key});
+class MainWidget extends StatelessWidget {
+  const MainWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
