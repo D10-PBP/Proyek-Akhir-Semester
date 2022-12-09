@@ -6,8 +6,7 @@ import 'package:sayang_dibuang_mobile/barang_bekas/pages/add_barang_form.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/pages/barang_detail.dart';
 import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
-
-import '../../fitur_autentikasi/providers/current_user_profile.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 
 class BerandaBarangPage extends StatefulWidget {
   const BerandaBarangPage({super.key});
@@ -31,7 +30,6 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
                 width: MediaQuery.of(context).size.width,
                 height: 240,
                 decoration: const BoxDecoration(
-                  // borderRadius: BorderRadius.circular(15.0),
                   color: ThemeColor.darkGreen,
                 ),
                 padding: const EdgeInsets.all(10),
@@ -215,27 +213,6 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
                   );
                 },
               ),
-              // profile.hasCurrentUser()
-              //     ? Positioned(
-              //         bottom: 10,
-              //         right: 10,
-              //         child: RawMaterialButton(
-              //           onPressed: () {
-              //             Provider.of<PageProvider>(context, listen: false)
-              //                 .push(const BerandaBarangPage(),
-              //                     const CreateBarangBekas());
-              //           },
-              //           elevation: 2.0,
-              //           fillColor: ThemeColor.gold,
-              //           padding: const EdgeInsets.all(15.0),
-              //           shape: const CircleBorder(),
-              //           child: const Icon(
-              //             Icons.add,
-              //             size: 35.0,
-              //           ),
-              //         ),
-              //       )
-              //     : Container(),
               const SizedBox(
                 height: 20,
               ),

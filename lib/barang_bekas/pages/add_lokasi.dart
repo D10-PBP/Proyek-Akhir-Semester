@@ -19,7 +19,6 @@ class _CreateLokasi extends State<CreateLokasi> {
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
-    // final profile = context.read<CurrentUserProfileModel>();
     return SafeArea(
       child: Scaffold(
         body: Stack(

@@ -27,7 +27,6 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
   File? image;
   String? lokasi;
   String? kategori;
-  // data: di bwh ini diambil dari user
   String? username;
 
   @override

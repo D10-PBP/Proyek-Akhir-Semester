@@ -51,12 +51,9 @@ class _BarangDetailPageState extends State<BarangDetailPage> {
               margin: const EdgeInsets.only(top: 35),
               padding: const EdgeInsets.all(10.0),
               child: SingleChildScrollView(
-                // child: Expanded(
-                //   flex: 1,
                 child: Column(
                   children: [
                     Container(
-                      // height sesuai gbr
                       height: 450,
                       width: (MediaQuery.of(context).size.width),
                       decoration: BoxDecoration(
@@ -190,18 +187,6 @@ class _BarangDetailPageState extends State<BarangDetailPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          // RawMaterialButton(
-                          //   onPressed: () {},
-                          //   elevation: 2.0,
-                          //   fillColor: ThemeColor.white,
-                          //   padding: const EdgeInsets.all(15.0),
-                          //   shape: const CircleBorder(),
-                          //   child: const Icon(
-                          //     Icons.edit,
-                          //     size: 35.0,
-                          //     color: ThemeColor.gold,
-                          //   ),
-                          // ),
                           RawMaterialButton(
                             onPressed: () {
                               showDialog(
