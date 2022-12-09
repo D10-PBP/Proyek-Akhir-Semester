@@ -6,20 +6,17 @@ import 'package:sayang_dibuang_mobile/fitur_autentikasi/pages/login.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/auth.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/dialog.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/widgets/redirect.dart';
 
 class Profile extends StatelessWidget {
   const Profile({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Center(child: Consumer<CurrentUserProfileModel>(
-        builder: ((context, profile, child) {
-          return (profile.hasCurrentUser())
-              ? const ProfileUser()
-              : const ProfileLogin();
-        }),
-      )),
+    return const SafeArea(
+      child: Center(
+          child: Redirect(
+              mainWidget: ProfileLogin(), destinationWidget: ProfileUser())),
     );
   }
 }
