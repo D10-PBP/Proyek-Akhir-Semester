@@ -16,7 +16,7 @@ class PageProvider extends ChangeNotifier {
     CrowdfundingsPage(),
     CrowdfundingsPage(), // nanti diganti sama Leaderboard
     Profile(),
-    Redirect(mainWidget: MainWidget(), destinationWidget: DestinationWidget()),
+    MainWidget()
   ];
 
   PageProvider({
