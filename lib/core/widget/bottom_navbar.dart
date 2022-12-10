@@ -50,6 +50,9 @@ class _BottomNavbarState extends State<BottomNavbar> {
               GButton(
                 icon: Icons.account_circle_outlined,
               ),
+              GButton(
+                icon: Icons.launch,
+              ),
             ]),
       ),
     );
