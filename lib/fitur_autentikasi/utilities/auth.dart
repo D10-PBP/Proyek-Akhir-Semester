@@ -7,23 +7,23 @@ import 'package:sayang_dibuang_mobile/fitur_autentikasi/models/register_user.dar
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 
 class URL {
-  // static String userDataURL(username) =>
-  //     "https://sayang-dibuang.up.railway.app/user-data/$username";
-  // static const String loginUrl =
-  //     "https://sayang-dibuang.up.railway.app/login/ajax";
-  // static const String logoutUrl =
-  //     "https://sayang-dibuang.up.railway.app/logout/ajax";
-  // static const String registerUrl =
-  //     "https://sayang-dibuang.up.railway.app/register/ajax";
-  // static String updateUrl(username) =>
-  //     "https://sayang-dibuang.up.railway.app/update-user-data/$username";
   static String userDataURL(username) =>
-      "http://127.0.0.1:8000/user-data/$username";
-  static const String loginUrl = "http://127.0.0.1:8000/login/ajax";
-  static const String logoutUrl = "http://127.0.0.1:8000/logout/ajax";
-  static const String registerUrl = "http://127.0.0.1:8000/register/ajax";
+      "https://sayang-dibuang.up.railway.app/user-data/$username";
+  static const String loginUrl =
+      "https://sayang-dibuang.up.railway.app/login/ajax";
+  static const String logoutUrl =
+      "https://sayang-dibuang.up.railway.app/logout/ajax";
+  static const String registerUrl =
+      "https://sayang-dibuang.up.railway.app/register/ajax";
   static String updateUrl(username) =>
-      "http://127.0.0.1:8000/update-user-data/$username";
+      "https://sayang-dibuang.up.railway.app/update-user-data/$username";
+  // static String userDataURL(username) =>
+  //     "http://127.0.0.1:8000/user-data/$username";
+  // static const String loginUrl = "http://127.0.0.1:8000/login/ajax";
+  // static const String logoutUrl = "http://127.0.0.1:8000/logout/ajax";
+  // static const String registerUrl = "http://127.0.0.1:8000/register/ajax";
+  // static String updateUrl(username) =>
+  //     "http://127.0.0.1:8000/update-user-data/$username";
 }
 
 Future<String> login(CurrentUserProfileModel profile, bool mounted,
