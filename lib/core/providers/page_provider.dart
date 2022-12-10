@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/pages/beranda.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/pages/crowdfundings_page.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/pages/profile.dart';
+import 'package:sayang_dibuang_mobile/information/pages/information.dart';
 
 class PageProvider extends ChangeNotifier {
   Widget currentPage;
@@ -9,7 +10,7 @@ class PageProvider extends ChangeNotifier {
   List<Widget> history = [];
   List<Widget> mainPages = [
     CrowdfundingsPage(), // nanti diganti sama Home
-    BerandaBarangPage(),
+    InformationPage(),
     BerandaBarangPage(), // nanti diganti sama Request
     CrowdfundingsPage(),
     CrowdfundingsPage(), // nanti diganti sama Leaderboard
