@@ -26,8 +26,8 @@ class URL {
       "http://127.0.0.1:8000/update-user-data/$username";
 }
 
-Future<String> login(BuildContext context, bool mounted, CookieRequest request,
-    String username, String password1) async {
+Future<String> login(CurrentUserProfileModel profile, bool mounted,
+    CookieRequest request, String username, String password1) async {
   try {
     // 'username' and 'password' should be the values of the user login form.
     final response = await request.login(URL.loginUrl, {
@@ -39,7 +39,7 @@ Future<String> login(BuildContext context, bool mounted, CookieRequest request,
       final userDataJson = await getUserData(request, username);
       UserProfile userProfile = UserProfile.fromJson(userDataJson[0]);
       if (!mounted) return "";
-      context.read<CurrentUserProfileModel>().addUser(userProfile);
+      profile.addUser(userProfile);
       return response["message"];
     } else {
       // Code here will run if the login failed (wrong username/password).
@@ -50,12 +50,12 @@ Future<String> login(BuildContext context, bool mounted, CookieRequest request,
   }
 }
 
-Future<String> logout(BuildContext context, CookieRequest request,
+Future<String> logout(CurrentUserProfileModel profile, CookieRequest request,
     [bool mounted = true]) async {
   try {
     final response = await request.logout(URL.logoutUrl);
     if (!mounted) return "";
-    context.read<CurrentUserProfileModel>().removeUser();
+    profile.removeUser();
     return response["message"];
   } catch (e) {
     return "Logout Failed Try Again";
@@ -78,7 +78,7 @@ Future<String> register(
   }
 }
 
-Future<String> updateUserData(BuildContext context, bool mounted,
+Future<String> updateUserData(CurrentUserProfileModel profile, bool mounted,
     CookieRequest request, UpdateUser updateUser) async {
   try {
     final response = await request.post(URL.updateUrl(updateUser.username),
@@ -86,18 +86,11 @@ Future<String> updateUserData(BuildContext context, bool mounted,
 
     // Update firstname dan lastname
     if (!mounted) return "";
-    context.read<CurrentUserProfileModel>().user!.firstName =
-        updateUser.firstName;
-    context.read<CurrentUserProfileModel>().user!.lastName =
-        updateUser.lastName;
+    profile.updateName(updateUser);
 
     if (response.runtimeType != String) {
       if (!mounted) return "";
-      context.read<CurrentUserProfileModel>().user!.telephone =
-          updateUser.telephone;
-      context.read<CurrentUserProfileModel>().user!.whatsapp =
-          updateUser.whatsapp;
-      context.read<CurrentUserProfileModel>().user!.line = updateUser.line;
+      profile.updateContact(updateUser);
       return response["message"];
     } else {
       return response;

@@ -72,9 +72,11 @@ class ProfileUser extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
+    final profileWatch = context.watch<CurrentUserProfileModel>();
     final profile = context.read<CurrentUserProfileModel>();
     final currentHeight = MediaQuery.of(context).size.height;
     final currentWidth = MediaQuery.of(context).size.width;
+
     return Stack(
         alignment: Alignment.center,
         clipBehavior: Clip.none,
@@ -114,7 +116,7 @@ class ProfileUser extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(height: 30),
-                  tableProfile(profile),
+                  tableProfile(profileWatch),
                   const SizedBox(height: 30),
                   TextButton(
                       style: ButtonStyle(
@@ -122,11 +124,9 @@ class ProfileUser extends StatelessWidget {
                             MaterialStateProperty.all(ThemeColor.darkGreen),
                       ),
                       onPressed: () async {
-                        final response = await logout(context, request);
+                        final response = await logout(profile, request);
                         if (!mounted) return;
-                        if (context
-                            .read<CurrentUserProfileModel>()
-                            .hasCurrentUser()) {
+                        if (profile.hasCurrentUser()) {
                           messageDialog(context, response);
                         }
                       },

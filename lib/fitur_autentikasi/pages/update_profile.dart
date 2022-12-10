@@ -307,7 +307,7 @@ class _UpdateProfileFormState extends State<UpdateProfileForm> {
                   context.read<Loading>().toggleLoading();
                   if (_updateProfileFormKey.currentState!.validate()) {
                     final response = await updateUserData(
-                        context, mounted, request, updateUser);
+                        profile, mounted, request, updateUser);
 
                     if (response.contains(RegExp("{.*}"))) {
                       ErrorMessage errorMessage =
