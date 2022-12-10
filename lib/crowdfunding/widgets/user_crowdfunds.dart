@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/models/crowdfund.dart';
 import 'package:provider/provider.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/pages/crowdfundings_page.dart';
+import 'package:sayang_dibuang_mobile/crowdfunding/utils/crowdfund_api_handler.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 import 'package:flutter_html/flutter_html.dart';
 
@@ -16,6 +18,7 @@ class UserCrowdfunds extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     final profile = context.read<CurrentUserProfileModel>();
 
     return Container(
@@ -97,6 +100,128 @@ class UserCrowdfunds extends StatelessWidget {
                                                   style: TextStyle(
                                                       color: ThemeColor.sand)),
                                             )),
+                                      ),
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          showModalBottomSheet(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(16.0),
+                                                    topRight:
+                                                        Radius.circular(16.0)),
+                                              ),
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return Container(
+                                                  height: 200,
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          Expanded(
+                                                            child: ClipRRect(
+                                                              borderRadius: const BorderRadius
+                                                                      .only(
+                                                                  topLeft: Radius
+                                                                      .circular(
+                                                                          16.0),
+                                                                  topRight: Radius
+                                                                      .circular(
+                                                                          16.0)),
+                                                              child: Container(
+                                                                color:
+                                                                    ThemeColor
+                                                                        .sand,
+                                                                child:
+                                                                    const Padding(
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              16.0),
+                                                                  child: Text(
+                                                                      "Menghapus Crowdfund",
+                                                                      style: TextStyle(
+                                                                          fontFamily:
+                                                                              'Verona',
+                                                                          fontSize:
+                                                                              20,
+                                                                          fontWeight:
+                                                                              FontWeight.bold)),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      SizedBox(height: 16.0),
+                                                      Center(
+                                                        child: Column(
+                                                          children: [
+                                                            const Text(
+                                                                "Apakah kamu yakin ingin menghapus crowdfund ini?"),
+                                                            SizedBox(
+                                                                height: 8.0),
+                                                            GestureDetector(
+                                                              onTap: () {
+                                                                int crowdfundId =
+                                                                    snapshot.data[
+                                                                            index]
+                                                                        ['id'];
+                                                                final response =
+                                                                    CrowdfundAPIHandler.deleteCrowdfund(
+                                                                        request,
+                                                                        crowdfundId);
+                                                              },
+                                                              child: ClipRRect(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            4.0),
+                                                                child: Container(
+                                                                    color: Colors.red,
+                                                                    child: const Padding(
+                                                                      padding: EdgeInsets.symmetric(
+                                                                          horizontal:
+                                                                              12.0,
+                                                                          vertical:
+                                                                              8.0),
+                                                                      child: Text(
+                                                                          "Hapus",
+                                                                          style:
+                                                                              TextStyle(color: ThemeColor.sand)),
+                                                                    )),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                );
+                                              });
+                                        },
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(4.0),
+                                          child: Container(
+                                              color: Colors.red,
+                                              child: const Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 12.0,
+                                                    vertical: 8.0),
+                                                child: Text("Hapus",
+                                                    style: TextStyle(
+                                                        color:
+                                                            ThemeColor.sand)),
+                                              )),
+                                        ),
                                       ),
                                     ],
                                   )

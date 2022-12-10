@@ -22,4 +22,11 @@ class CrowdfundAPIHandler {
         crowdfund);
     return response;
   }
+
+  static Future<dynamic> deleteCrowdfund(CookieRequest request, int id) async {
+    final response = await request.post(
+        'https://sayang-dibuang.up.railway.app/crowdfundings/delete/${id}',
+        {'csrfmiddlewaretoken': request.cookies['csrftoken']});
+    return response;
+  }
 }
