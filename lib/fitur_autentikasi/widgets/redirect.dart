@@ -18,10 +18,8 @@ class Redirect extends StatelessWidget {
   final Widget destinationWidget;
 
   static pushToLogin(BuildContext context) {
-    return () {
-      Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const RedirectLogin()));
-    };
+    return Navigator.push(context,
+        MaterialPageRoute(builder: (context) => const RedirectLogin()));
   }
 
   static loginHandler(
