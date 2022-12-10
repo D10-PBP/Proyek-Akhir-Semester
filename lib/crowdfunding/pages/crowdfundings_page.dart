@@ -24,7 +24,6 @@ class _CrowdfundingsPageState extends State<CrowdfundingsPage> {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     crowdfunds = CrowdfundAPIHandler.fetchAllCrowdfunds(request);
-    print("jalan");
 
     return SafeArea(
       child: Center(
@@ -76,7 +75,9 @@ class _CrowdfundingsPageState extends State<CrowdfundingsPage> {
               ),
             ),
 
-            UserCrowdfunds(),
+            UserCrowdfunds(
+              crowdfunds: crowdfunds,
+            ),
 
             // All Crowdfunds
             const Padding(

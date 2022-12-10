@@ -11,7 +11,8 @@ import 'package:flutter_html/flutter_html.dart';
 import '../pages/user_crowdfund_page.dart';
 
 class UserCrowdfunds extends StatefulWidget {
-  UserCrowdfunds({Key? key}) : super(key: key);
+  late Future<dynamic> crowdfunds;
+  UserCrowdfunds({Key? key, required this.crowdfunds}) : super(key: key);
 
   @override
   State<UserCrowdfunds> createState() => _UserCrowdfundsState();
@@ -22,13 +23,11 @@ class _UserCrowdfundsState extends State<UserCrowdfunds> {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     final profile = context.read<CurrentUserProfileModel>();
-    Future<dynamic> crowdfunds =
-        CrowdfundAPIHandler.fetchAllCrowdfunds(request);
 
     return Container(
       height: 210,
       child: FutureBuilder(
-          future: crowdfunds,
+          future: widget.crowdfunds,
           builder: (context, AsyncSnapshot snapshot) {
             if (snapshot.data == null) {
               return const Center(
@@ -184,18 +183,10 @@ class _UserCrowdfundsState extends State<UserCrowdfunds> {
                                                                         request,
                                                                         crowdfundId);
 
-                                                                // ask the page to be rebuilt with the new crowdfunds data
-                                                                setState(() {
-                                                                  crowdfunds =
-                                                                      CrowdfundAPIHandler
-                                                                          .fetchAllCrowdfunds(
-                                                                              request);
-
-                                                                  // close the modal
-                                                                  Navigator.of(
-                                                                          context)
-                                                                      .pop();
-                                                                });
+                                                                // close the modal
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
                                                               },
                                                               child: ClipRRect(
                                                                 borderRadius:
