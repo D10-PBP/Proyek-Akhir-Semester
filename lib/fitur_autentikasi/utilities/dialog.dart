@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/pages/redirect_login.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/widgets/redirect.dart';
 
 Future<T?> messageDialog<T>(BuildContext context, String message,
     {double width = 300, double height = 200}) {
@@ -70,10 +71,7 @@ Future<T?> loginDialog<T>(
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context);
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const RedirectLogin()));
+                    Redirect.pushToLogin(context);
                   },
                   child: Text(redirectTitle),
                 ),

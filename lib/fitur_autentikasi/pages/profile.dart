@@ -3,6 +3,7 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/pages/login.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/pages/update_profile.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/auth.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/dialog.dart';
@@ -71,9 +72,11 @@ class ProfileUser extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
+    final profileWatch = context.watch<CurrentUserProfileModel>();
     final profile = context.read<CurrentUserProfileModel>();
     final currentHeight = MediaQuery.of(context).size.height;
     final currentWidth = MediaQuery.of(context).size.width;
+
     return Stack(
         alignment: Alignment.center,
         clipBehavior: Clip.none,
@@ -91,15 +94,29 @@ class ProfileUser extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const Text(
-                    "Profil",
-                    style: TextStyle(
-                        fontFamily: "Verona",
-                        fontWeight: FontWeight.bold,
-                        fontSize: 32),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Profil",
+                        style: TextStyle(
+                            fontFamily: "Verona",
+                            fontWeight: FontWeight.bold,
+                            fontSize: 32),
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const UpdateProfilePage()));
+                          },
+                          icon: const Icon(Icons.edit))
+                    ],
                   ),
                   const SizedBox(height: 30),
-                  tableProfile(profile),
+                  tableProfile(profileWatch),
                   const SizedBox(height: 30),
                   TextButton(
                       style: ButtonStyle(
@@ -107,11 +124,9 @@ class ProfileUser extends StatelessWidget {
                             MaterialStateProperty.all(ThemeColor.darkGreen),
                       ),
                       onPressed: () async {
-                        final response = await logout(context, request);
+                        final response = await logout(profile, request);
                         if (!mounted) return;
-                        if (context
-                            .read<CurrentUserProfileModel>()
-                            .hasCurrentUser()) {
+                        if (profile.hasCurrentUser()) {
                           messageDialog(context, response);
                         }
                       },
