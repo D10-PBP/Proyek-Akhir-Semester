@@ -5,7 +5,7 @@ import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/models/crowdfund.dart';
-import 'package:sayang_dibuang_mobile/crowdfunding/utils/fetch_crowdfund.dart';
+import 'package:sayang_dibuang_mobile/crowdfunding/utils/crowdfund_api_handler.dart';
 
 class EditCrowdfundPage extends StatefulWidget {
   EditCrowdfundPage({super.key, required this.crowdfund});
