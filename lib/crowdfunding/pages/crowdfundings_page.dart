@@ -15,16 +15,13 @@ class CrowdfundingsPage extends StatefulWidget {
 }
 
 class _CrowdfundingsPageState extends State<CrowdfundingsPage> {
-  late Future<List<Crowdfund>> crowdfunds;
+  late Future<dynamic> crowdfunds;
 
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
-    if (!request.loggedIn) {
-      return const CrowdfundingsNoUserPage();
-    }
+    crowdfunds = CrowdfundAPIHandler.fetchAllCrowdfunds(request);
 
-    crowdfunds = fetchAllCrowdfunds();
     return SafeArea(
       child: Center(
         child: Column(

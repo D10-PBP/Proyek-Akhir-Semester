@@ -10,7 +10,7 @@ import 'package:flutter_html/flutter_html.dart';
 import '../pages/user_crowdfund_page.dart';
 
 class UserCrowdfunds extends StatelessWidget {
-  Future<List<Crowdfund>> crowdfunds;
+  Future<dynamic> crowdfunds;
 
   UserCrowdfunds({Key? key, required this.crowdfunds}) : super(key: key);
 
@@ -46,9 +46,10 @@ class UserCrowdfunds extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) {
-                  if (snapshot.data[index].userId == profile.user!.pk) {
+                  if (snapshot.data[index]['user_id'] == profile.user!.pk) {
                     return GestureDetector(
                       onTap: () {
+                        print('taptaptap');
                         Provider.of<PageProvider>(context, listen: false).push(
                             const CrowdfundingsPage(),
                             UserCrowdfundPage(
@@ -68,14 +69,16 @@ class UserCrowdfunds extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    snapshot.data[index].title,
+                                    snapshot.data[index]['title'],
                                     style: const TextStyle(
                                         fontFamily: "Verona", fontSize: 20),
                                   ),
                                   const SizedBox(
                                     height: 16,
                                   ),
-                                  Html(data: snapshot.data[index].description),
+                                  Html(
+                                      data: snapshot.data[index]
+                                          ['description']),
                                   const SizedBox(
                                     height: 8,
                                   ),
