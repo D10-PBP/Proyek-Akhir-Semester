@@ -49,7 +49,6 @@ class UserCrowdfunds extends StatelessWidget {
                   if (snapshot.data[index]['user_id'] == profile.user!.pk) {
                     return GestureDetector(
                       onTap: () {
-                        print('taptaptap');
                         Provider.of<PageProvider>(context, listen: false).push(
                             const CrowdfundingsPage(),
                             UserCrowdfundPage(

@@ -7,6 +7,14 @@ class CrowdfundAPIHandler {
     return response;
   }
 
+  static Future<dynamic> createCrowdfund(
+      CookieRequest request, Map<String, dynamic> crowdfund) async {
+    final response = await request.post(
+        'https://sayang-dibuang.up.railway.app/crowdfundings/create/mobile',
+        crowdfund);
+    return response;
+  }
+
   static Future<dynamic> editCrowdfund(
       CookieRequest request, int id, Map<String, dynamic> crowdfund) async {
     final response = await request.post(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/models/crowdfund.dart';
+import 'package:sayang_dibuang_mobile/crowdfunding/pages/create_crowdfund_page.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/pages/crowdfundings_no_user_page.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/utils/crowdfund_api_handler.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/widgets/user_crowdfunds.dart';
@@ -44,11 +46,33 @@ class _CrowdfundingsPageState extends State<CrowdfundingsPage> {
             ),
 
             // User Crowdfunds
-            const Padding(
-              padding: EdgeInsets.only(left: 16.0),
-              child: Text(
-                "Kampanyeku",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    "Kampanyeku",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CreateCrowdfundPage()));
+                    },
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: Container(
+                            color: ThemeColor.gold,
+                            child: const Icon(
+                              Icons.add,
+                              color: ThemeColor.white,
+                              size: 30,
+                            ))),
+                  ),
+                ],
               ),
             ),
 
