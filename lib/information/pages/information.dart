@@ -11,6 +11,7 @@ import 'package:accordion/accordion.dart';
 import 'package:accordion/controllers.dart';
 
 import 'package:sayang_dibuang_mobile/information/pages/review.dart';
+import 'package:sayang_dibuang_mobile/information/pages/teams.dart';
 
 class InformationPage extends StatefulWidget {
   const InformationPage({super.key});
@@ -19,6 +20,7 @@ class InformationPage extends StatefulWidget {
   State<InformationPage> createState() => _InformationPageState();
 }
 
+// masi ngasal
 final List<String> imgList = [
   'https://github.com/khansajovita/imgTugasPBP_UAS/blob/main/slide1flutter.png',
   'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
@@ -27,9 +29,9 @@ final List<String> imgList = [
 final List<Widget> imageSliders = imgList
     .map((item) => Container(
           child: Container(
-            margin: EdgeInsets.all(10.0),
+            margin: const EdgeInsets.all(10.0),
             child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                 child: Stack(
                   children: <Widget>[
                     Image.network(item, fit: BoxFit.cover, width: 1000.0),
@@ -134,73 +136,145 @@ class _InformationPageState extends State<InformationPage> {
                   height: 100,
                 ),
 
-                Center(
-                  child: Container(
-                    width: 400,
-                    height: 200,
-                    padding: EdgeInsets.all(10.0),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          elevation: 10,
-                          backgroundColor: ThemeColor.darkGreen,
-                          shape: const RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(15)))),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        // ignore: prefer_const_literals_to_create_immutables
-                        children: [
-                          const Text(
-                            "Cape banget bos",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ],
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const ReviewPage()));
-                      },
-                    ),
-                  ),
+                const Text(
+                  "Kamu mau tidur? aku juga",
+                  style: TextStyle(fontSize: 30),
                 ),
 
+                // buat review
                 Center(
                   child: Container(
-                    width: 400,
-                    height: 200,
-                    padding: EdgeInsets.all(10.0),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          elevation: 10,
-                          backgroundColor: ThemeColor.darkGreen,
+                      width: 400,
+                      height: 200,
+                      padding: const EdgeInsets.all(10.0),
+                      child: GestureDetector(
+                        onTap: () => {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const ReviewPage()))
+                        },
+                        child: Card(
+                          elevation: 50,
+                          shadowColor: Colors.black,
+                          color: ThemeColor.darkGreen,
                           shape: const RoundedRectangleBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(15)))),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        // ignore: prefer_const_literals_to_create_immutables
-                        children: [
-                          const Text(
-                            "Mau jadi awan aja",
-                            style: TextStyle(color: Colors.white),
+                                  BorderRadius.all(Radius.circular(15))),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            // ignore: prefer_const_literals_to_create_immutables
+                            children: [
+                              ClipRRect(
+                                borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(15),
+                                    bottomLeft: Radius.circular(15)),
+                                child: Image.asset(
+                                  "information/review-overlay.jpg",
+                                  height: 400,
+                                  width: 150,
+                                  fit: BoxFit.fitHeight,
+                                ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                    padding: const EdgeInsets.all(20),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: const [
+                                        Text(
+                                          "See Our Review!",
+                                          style: TextStyle(
+                                              fontFamily: "Verona",
+                                              color: Colors.white,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          '"Never refuse to reuse." - Anonymous',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontStyle: FontStyle.italic),
+                                        ),
+                                      ],
+                                    )),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const ReviewPage()));
-                      },
-                    ),
-                  ),
+                        ),
+                      )),
+                ),
+
+                // buat team
+                Center(
+                  child: Container(
+                      width: 400,
+                      height: 200,
+                      padding: const EdgeInsets.all(10.0),
+                      child: GestureDetector(
+                        onTap: () => {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const TeamPage()))
+                        },
+                        child: Card(
+                          elevation: 50,
+                          shadowColor: Colors.black,
+                          color: ThemeColor.darkGreen,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(15))),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            // ignore: prefer_const_literals_to_create_immutables
+                            children: [
+                              ClipRRect(
+                                borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(15),
+                                    bottomLeft: Radius.circular(15)),
+                                child: Image.asset(
+                                  "information/our-team.jpg",
+                                  height: 400,
+                                  width: 150,
+                                  fit: BoxFit.fitHeight,
+                                ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                    padding: const EdgeInsets.all(20),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: const [
+                                        Text(
+                                          "Meet Our Team!",
+                                          style: TextStyle(
+                                              fontFamily: "Verona",
+                                              color: Colors.white,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Text(
+                                          '"Let us all be the leaders we wish we had." - Simon Sinek',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontStyle: FontStyle.italic),
+                                        ),
+                                      ],
+                                    )),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )),
                 ),
                 const SizedBox(
                   height: 100,
                 ),
 
+                // buat FAQ
                 const Center(
                   child: Text(
                     "FAQ",
@@ -211,6 +285,7 @@ class _InformationPageState extends State<InformationPage> {
                   ),
                 ),
 
+                // reference : https://pub.dev/packages/accordion/example
                 Accordion(
                   maxOpenSections: 2,
                   scaleWhenAnimating: true,
