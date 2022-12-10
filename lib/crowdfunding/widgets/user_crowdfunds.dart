@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
-import 'package:sayang_dibuang_mobile/crowdfunding/models/crowdfund.dart';
 import 'package:provider/provider.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/pages/crowdfundings_page.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/utils/crowdfund_api_handler.dart';
@@ -11,15 +10,20 @@ import 'package:flutter_html/flutter_html.dart';
 
 import '../pages/user_crowdfund_page.dart';
 
-class UserCrowdfunds extends StatelessWidget {
-  Future<dynamic> crowdfunds;
+class UserCrowdfunds extends StatefulWidget {
+  UserCrowdfunds({Key? key}) : super(key: key);
 
-  UserCrowdfunds({Key? key, required this.crowdfunds}) : super(key: key);
+  @override
+  State<UserCrowdfunds> createState() => _UserCrowdfundsState();
+}
 
+class _UserCrowdfundsState extends State<UserCrowdfunds> {
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     final profile = context.read<CurrentUserProfileModel>();
+    Future<dynamic> crowdfunds =
+        CrowdfundAPIHandler.fetchAllCrowdfunds(request);
 
     return Container(
       height: 210,
@@ -170,6 +174,7 @@ class UserCrowdfunds extends StatelessWidget {
                                                                 height: 8.0),
                                                             GestureDetector(
                                                               onTap: () {
+                                                                // hit delete endpoint
                                                                 int crowdfundId =
                                                                     snapshot.data[
                                                                             index]
@@ -178,6 +183,19 @@ class UserCrowdfunds extends StatelessWidget {
                                                                     CrowdfundAPIHandler.deleteCrowdfund(
                                                                         request,
                                                                         crowdfundId);
+
+                                                                // ask the page to be rebuilt with the new crowdfunds data
+                                                                setState(() {
+                                                                  crowdfunds =
+                                                                      CrowdfundAPIHandler
+                                                                          .fetchAllCrowdfunds(
+                                                                              request);
+
+                                                                  // close the modal
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop();
+                                                                });
                                                               },
                                                               child: ClipRRect(
                                                                 borderRadius:

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/models/crowdfund.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/pages/create_crowdfund_page.dart';
@@ -23,6 +24,7 @@ class _CrowdfundingsPageState extends State<CrowdfundingsPage> {
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     crowdfunds = CrowdfundAPIHandler.fetchAllCrowdfunds(request);
+    print("jalan");
 
     return SafeArea(
       child: Center(
@@ -57,10 +59,8 @@ class _CrowdfundingsPageState extends State<CrowdfundingsPage> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CreateCrowdfundPage()));
+                      Provider.of<PageProvider>(context, listen: false)
+                          .push(widget, CreateCrowdfundPage());
                     },
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(16),
@@ -76,9 +76,7 @@ class _CrowdfundingsPageState extends State<CrowdfundingsPage> {
               ),
             ),
 
-            UserCrowdfunds(
-              crowdfunds: crowdfunds,
-            ),
+            UserCrowdfunds(),
 
             // All Crowdfunds
             const Padding(
