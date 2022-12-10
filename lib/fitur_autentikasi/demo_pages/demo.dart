@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/widgets/redirect.dart';
+
+import '../providers/current_user_profile.dart';
 
 // DestinationWidget hanya dapat diakses oleh pengguna yang telah terautentikasi
 class DestinationWidget extends StatelessWidget {
@@ -119,5 +122,22 @@ class MessagePage extends StatelessWidget {
         ],
       ),
     )));
+  }
+}
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // Perhatikan widget yang di-return bisa tidak harus Column
+    // Penggunaan Column di sini hanya untuk mempermudah
+    return Column(children: [
+      Consumer<CurrentUserProfileModel>(
+        builder: (context, profile, child) {
+          return Text(profile.user!.poin.toString());
+        },
+      ), // tipe data poin adalah int
+    ]);
   }
 }

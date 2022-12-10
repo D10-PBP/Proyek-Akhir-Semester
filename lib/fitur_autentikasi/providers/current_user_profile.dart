@@ -28,6 +28,11 @@ class CurrentUserProfileModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void addUserPoin(int poin) {
+    _user!.fields.poin += poin;
+    notifyListeners();
+  }
+
   bool hasCurrentUser() => _user != null;
 
   // Getter
