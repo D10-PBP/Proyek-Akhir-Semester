@@ -10,8 +10,8 @@ class PageProvider extends ChangeNotifier {
   int currentPageIndex;
   List<Widget> history = [];
   List<Widget> mainPages = [
-    CrowdfundingsPage(), // nanti diganti sama Home
-    InformationPage(),
+    InformationPage(), // nanti diganti sama Home
+    BerandaBarangPage(),
     BerandaBarangPage(), // nanti diganti sama Request
     CrowdfundingsPage(),
     CrowdfundingsPage(), // nanti diganti sama Leaderboard
