@@ -3,14 +3,15 @@ import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/models/error_message.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/models/update_user.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/loading.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/auth.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/dialog.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/widgets/form_field.dart';
-import 'package:sayang_dibuang_mobile/fitur_autentikasi/models/register_user.dart';
 
-class RegisterPage extends StatelessWidget {
-  const RegisterPage({super.key});
+class UpdateProfilePage extends StatelessWidget {
+  const UpdateProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,7 @@ class RegisterPage extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15.0),
                   color: ThemeColor.white),
-              child: const Register(),
+              child: const UpdateProfile(),
             ),
           ),
         ),
@@ -48,80 +49,61 @@ class RegisterPage extends StatelessWidget {
   }
 }
 
-class Register extends StatelessWidget {
-  const Register({super.key});
+class UpdateProfile extends StatelessWidget {
+  const UpdateProfile({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        children: [
-          const Text(
-            "Register",
+        children: const [
+          Text(
+            "Perbauri Profil",
             style: TextStyle(
                 fontFamily: "Verona",
                 fontWeight: FontWeight.bold,
                 fontSize: 32),
           ),
-          Text(
-            "Buat Akun Anda",
-            style: TextStyle(
-              fontFamily: "PlusJakarta",
-              fontWeight: FontWeight.bold,
-              fontSize: 18,
-              color: Colors.grey[600],
-            ),
-          ),
-          const SizedBox(height: 20),
-          const RegisterForm(),
+          SizedBox(height: 20),
+          UpdateProfileForm(),
         ],
       ),
     );
   }
 }
 
-class RegisterForm extends StatefulWidget {
-  const RegisterForm({super.key});
+class UpdateProfileForm extends StatefulWidget {
+  const UpdateProfileForm({super.key});
 
   @override
-  State<RegisterForm> createState() => _RegisterFormState();
+  State<UpdateProfileForm> createState() => _UpdateProfileFormState();
 }
 
-class _RegisterFormState extends State<RegisterForm> {
-  final _registerFormKey = GlobalKey<FormState>();
+class _UpdateProfileFormState extends State<UpdateProfileForm> {
+  final _updateProfileFormKey = GlobalKey<FormState>();
   bool isPasswordVisible = false;
-  late final RegisterUser registerUser;
+  late final UpdateUser updateUser;
 
   @override
   void initState() {
     super.initState();
 
-    registerUser = RegisterUser(
-        username: username,
-        password1: password1,
-        password2: password2,
-        firstName: first_name,
-        lastName: last_name,
-        email: email,
-        telephone: telephone,
-        whatsapp: whatsapp,
-        line: line);
+    updateUser = UpdateUser(
+        username: context.read<CurrentUserProfileModel>().user!.username,
+        firstName: context.read<CurrentUserProfileModel>().user!.firstName,
+        lastName: context.read<CurrentUserProfileModel>().user!.lastName,
+        telephone: context.read<CurrentUserProfileModel>().user!.telephone,
+        whatsapp: context.read<CurrentUserProfileModel>().user!.whatsapp,
+        line: context.read<CurrentUserProfileModel>().user!.line);
   }
 
-  String username = "";
-  String password1 = "";
-  String password2 = "";
   String first_name = "";
   String last_name = "";
-  String email = "";
   String telephone = "";
   String whatsapp = "";
   String line = "";
 
-  bool usernameValid = true;
-  bool passwordValid = true;
   bool firstnameValid = true;
-  bool emailValid = true;
   bool telephoneValid = true;
   bool whatsappValid = true;
 
@@ -133,81 +115,44 @@ class _RegisterFormState extends State<RegisterForm> {
     fontSize: 0.01,
   );
 
-  void setUsername(String? value) {
-    setState(() {
-      username = value!;
-      registerUser.username = value;
-    });
-  }
-
-  void setPassword1(String? value) {
-    setState(() {
-      password1 = value!;
-      registerUser.password1 = value;
-    });
-  }
-
-  void setPassword2(String? value) {
-    setState(() {
-      password2 = value!;
-      registerUser.password2 = value;
-    });
-  }
-
   void setFirstname(String? value) {
     setState(() {
       first_name = value!;
-      registerUser.firstName = value;
+      updateUser.firstName = value;
     });
   }
 
   void setLastname(String? value) {
     setState(() {
       last_name = value!;
-      registerUser.lastName = value;
-    });
-  }
-
-  void setEmail(String? value) {
-    setState(() {
-      email = value!;
-      registerUser.email = value;
+      updateUser.lastName = value;
     });
   }
 
   void setTelephone(String? value) {
     setState(() {
       telephone = value!;
-      registerUser.telephone = value;
+      updateUser.telephone = value;
     });
   }
 
   void setWhatsapp(String? value) {
     setState(() {
       whatsapp = value!;
-      registerUser.whatsapp = value;
+      updateUser.whatsapp = value;
     });
   }
 
   void setLine(String? value) {
     setState(() {
       line = value!;
-      registerUser.line = value;
+      updateUser.line = value;
     });
   }
 
   validator({String? type}) {
     return (String? value) {
       switch (type) {
-        case "username":
-          if (!usernameValid) return "";
-          break;
-        case "password":
-          if (!passwordValid) return "";
-          break;
-        case "email":
-          if (!emailValid) return "";
-          break;
         case "telephone":
           if (!telephoneValid) return "";
           break;
@@ -226,9 +171,6 @@ class _RegisterFormState extends State<RegisterForm> {
 
   void setValidState(ErrorMessage errorMessage) {
     setState(() {
-      usernameValid = (errorMessage.username == null);
-      passwordValid = (errorMessage.password2 == null);
-      emailValid = (errorMessage.email == null);
       telephoneValid = (errorMessage.telephone == null);
       whatsappValid = (errorMessage.whatsapp == null);
     });
@@ -236,9 +178,6 @@ class _RegisterFormState extends State<RegisterForm> {
 
   void resetValidState() {
     setState(() {
-      usernameValid = true;
-      passwordValid = true;
-      emailValid = true;
       telephoneValid = true;
       whatsappValid = true;
     });
@@ -246,7 +185,7 @@ class _RegisterFormState extends State<RegisterForm> {
 
   void checkInvalid(ErrorMessage errorMessage) {
     setValidState(errorMessage);
-    _registerFormKey.currentState!.validate();
+    _updateProfileFormKey.currentState!.validate();
   }
 
   void togglePasswordView() {
@@ -258,35 +197,18 @@ class _RegisterFormState extends State<RegisterForm> {
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
+    final profile = context.read<CurrentUserProfileModel>();
     return Form(
-      key: _registerFormKey,
+      key: _updateProfileFormKey,
       child: Column(children: [
+        const SizedBox(height: 10.0),
         SizedBox(
           width: widthForm,
           height: heightForm,
-          child: Row(
-            children: [
-              Expanded(
-                child: TextFormFieldAuth(
-                  placeholder: "Username*",
-                  setFieldState: setUsername,
-                  validator: validator(type: "username"),
-                  errorStyle: errorStyle,
-                ),
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Expanded(
-                child: TextFormFieldAuth(
-                  placeholder: "Password*",
-                  obscureText: true,
-                  setFieldState: setPassword1,
-                  validator: validator(type: "password"),
-                  errorStyle: errorStyle,
-                ),
-              ),
-            ],
+          child: TextFormFieldAuth(
+            placeholder: "Username",
+            initialValue: profile.user!.username,
+            enabled: false,
           ),
         ),
         const SizedBox(height: 10.0),
@@ -294,11 +216,19 @@ class _RegisterFormState extends State<RegisterForm> {
           width: widthForm,
           height: heightForm,
           child: TextFormFieldAuth(
-            placeholder: "Konfirmasi Password*",
-            obscureText: true,
-            setFieldState: setPassword2,
-            validator: validator(type: "password"),
-            errorStyle: errorStyle,
+            placeholder: "Email",
+            initialValue: profile.user!.email,
+            enabled: false,
+          ),
+        ),
+        const SizedBox(height: 10.0),
+        SizedBox(
+          width: widthForm,
+          height: heightForm,
+          child: TextFormFieldAuth(
+            placeholder: "Poin",
+            initialValue: profile.user!.poin.toString(),
+            enabled: false,
           ),
         ),
         const SizedBox(height: 10.0),
@@ -310,6 +240,7 @@ class _RegisterFormState extends State<RegisterForm> {
             setFieldState: setFirstname,
             validator: validator(),
             errorStyle: errorStyle,
+            initialValue: profile.user!.firstName,
           ),
         ),
         const SizedBox(height: 10.0),
@@ -320,18 +251,7 @@ class _RegisterFormState extends State<RegisterForm> {
             placeholder: "Nama belakang",
             setFieldState: setLastname,
             errorStyle: errorStyle,
-          ),
-        ),
-        const SizedBox(height: 10.0),
-        SizedBox(
-          width: widthForm,
-          height: heightForm,
-          child: TextFormFieldAuth(
-            placeholder: "Email*",
-            setFieldState: setEmail,
-            validator: validator(type: "email"),
-            hintText: "Ex: sayangdibuang@gmail.com",
-            errorStyle: errorStyle,
+            initialValue: profile.user!.lastName,
           ),
         ),
         const SizedBox(height: 10.0),
@@ -345,6 +265,7 @@ class _RegisterFormState extends State<RegisterForm> {
             hintText: "+62/62/08xxx",
             errorStyle: errorStyle,
             numberOnly: true,
+            initialValue: profile.user!.telephone,
           ),
         ),
         const SizedBox(height: 10.0),
@@ -358,6 +279,7 @@ class _RegisterFormState extends State<RegisterForm> {
             errorStyle: errorStyle,
             validator: validator(type: "whatsapp"),
             numberOnly: true,
+            initialValue: profile.user!.whatsapp,
           ),
         ),
         const SizedBox(height: 10.0),
@@ -368,6 +290,7 @@ class _RegisterFormState extends State<RegisterForm> {
             placeholder: "ID Line",
             setFieldState: setLine,
             errorStyle: errorStyle,
+            initialValue: profile.user!.line,
           ),
         ),
         const SizedBox(
@@ -382,9 +305,9 @@ class _RegisterFormState extends State<RegisterForm> {
                 onPressed: () async {
                   resetValidState();
                   context.read<Loading>().toggleLoading();
-                  if (_registerFormKey.currentState!.validate()) {
-                    final response =
-                        await register(mounted, request, registerUser);
+                  if (_updateProfileFormKey.currentState!.validate()) {
+                    final response = await updateUserData(
+                        profile, mounted, request, updateUser);
 
                     if (response.contains(RegExp("{.*}"))) {
                       ErrorMessage errorMessage =
@@ -416,7 +339,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     builder: (context, loading, child) {
                       return (!loading.isLoading())
                           ? const Text(
-                              "Daftar",
+                              "Perbarui",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontFamily: "PlusJakarta",

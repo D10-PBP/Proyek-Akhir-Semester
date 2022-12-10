@@ -184,7 +184,55 @@ Fitur autentikasi bertujuan agar fitur tertentu hanya dapat diakses ketika pengg
     > Untuk mencoba hal di atas, kalian tinggal *uncomment* `MessagePage(),` dalam list `mainPages`.
 
 6. Memperbarui poin user<br>
-    Pembuat belum mengimplementasikan hal ini (ditunggu ya :sweat_smile:).
+    Setiap kali poin user bertambah, kalian harus memanggil fungsi `addUserPoin()` agar *instance* dari `CurrentUserProfileModel` menyimpan poin yang sesuai.
+
+    ```dart
+    // current_user_profile.dart
+
+    void addUserPoin(int poin) {
+        _user!.fields.poin += poin;
+        notifyListeners();
+    }
+    ```
+
+    Selain itu, untuk menampilkan poin user yang bisa berubah-ubah, kalian harus menggunakan `watch` agar widget kalian *listen* ke perubahan yang terjadi pada `CurrentUserProfileModel`. Ketika perubahan poin terjadi pada *instance* dari `CurrentUserProfileModel`, widget yang mengandung `profileWatch` akan direbuild.
+
+    ```dart
+    // build method pada stateless ataupun stateful widget
+    @override
+    Widget build(BuildContext context) {
+        final profileWatch = context.watch<CurrentUserProfileModel>();
+        
+        // Perhatikan widget yang di-return bisa tidak harus Column
+        // Penggunaan Column di sini hanya untuk mempermudah
+        return Column(
+            children: [
+                Text(profileWatch.user!.poin.toString()), // tipe data poin adalah int
+            ]);
+    }
+    ```
+
+    Kalian dapat melakukan optimisasi dengan memanfaatkan `Consumer` agar widget parent dan/atau child yang tidak perlu di-rebuild tidak akan di-rebuild.
+
+    ```dart
+    // build method pada stateless ataupun stateful widget
+    class MyWidget extends StatelessWidget {
+        const MyWidget({super.key});
+
+        @override
+        Widget build(BuildContext context) {
+            // Perhatikan widget yang di-return bisa tidak harus Column
+            // Penggunaan Column di sini hanya untuk mempermudah
+            return Column(children: [
+                Consumer<CurrentUserProfileModel>(
+                    builder: (context, profile, child) {
+                    return Text(profile.user!.poin.toString()); // tipe data poin adalah int
+                    },
+                ), 
+            ]);
+        }
+    }
+    ```
 
 
 ## Akun Dummy untuk Testing

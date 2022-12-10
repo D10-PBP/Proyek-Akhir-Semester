@@ -90,6 +90,7 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
+    final profile = context.read<CurrentUserProfileModel>();
     return Form(
         key: _loginFormKey,
         child: Column(
@@ -125,12 +126,10 @@ class _LoginFormState extends State<LoginForm> {
                         ? () async {
                             context.read<Loading>().toggleLoading();
                             if (_loginFormKey.currentState!.validate()) {
-                              final response = await login(context, mounted,
+                              final response = await login(profile, mounted,
                                   request, username, password1);
                               if (!mounted) return;
-                              if (!context
-                                  .read<CurrentUserProfileModel>()
-                                  .hasCurrentUser()) {
+                              if (!profile.hasCurrentUser()) {
                                 messageDialog(context, response);
                               }
                             }
@@ -139,9 +138,7 @@ class _LoginFormState extends State<LoginForm> {
 
                             if (widget.redirect) {
                               if (!mounted) return;
-                              if (context
-                                  .read<CurrentUserProfileModel>()
-                                  .hasCurrentUser()) {
+                              if (profile.hasCurrentUser()) {
                                 Navigator.pop(context);
                               }
                             }

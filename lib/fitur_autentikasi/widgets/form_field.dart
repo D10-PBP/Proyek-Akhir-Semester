@@ -3,17 +3,18 @@ import 'package:flutter/services.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/style.dart';
 
 class TextFormFieldAuth extends StatelessWidget {
-  const TextFormFieldAuth({
-    super.key,
-    required this.placeholder,
-    required this.setFieldState,
-    this.validator,
-    this.iconButton,
-    this.obscureText = false,
-    this.hintText,
-    this.errorStyle,
-    this.numberOnly = false,
-  });
+  const TextFormFieldAuth(
+      {super.key,
+      required this.placeholder,
+      this.setFieldState,
+      this.validator,
+      this.iconButton,
+      this.obscureText = false,
+      this.hintText,
+      this.errorStyle,
+      this.numberOnly = false,
+      this.initialValue,
+      this.enabled = true});
 
   final String placeholder;
   final dynamic setFieldState;
@@ -23,6 +24,9 @@ class TextFormFieldAuth extends StatelessWidget {
   final String? hintText;
   final TextStyle? errorStyle;
   final bool numberOnly;
+
+  final String? initialValue;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +42,8 @@ class TextFormFieldAuth extends StatelessWidget {
       onChanged: setFieldState,
       onSaved: setFieldState,
       validator: validator,
+      enabled: enabled,
+      initialValue: initialValue,
     );
   }
 }

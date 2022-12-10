@@ -44,6 +44,26 @@ class UserProfile {
   String get line => fields.line;
   int get poin => fields.poin;
 
+  set firstName(String firstName) {
+    fields.user.firstName = firstName;
+  }
+
+  set lastName(String lastName) {
+    fields.user.lastName = lastName;
+  }
+
+  set telephone(String telephone) {
+    fields.telephone = telephone;
+  }
+
+  set whatsapp(String whatsapp) {
+    fields.whatsapp = whatsapp;
+  }
+
+  set line(String line) {
+    fields.line = line;
+  }
+
   @override
   String toString() {
     return """
