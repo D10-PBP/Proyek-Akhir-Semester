@@ -32,6 +32,10 @@ class PageProvider extends ChangeNotifier {
     this.currentPage = const Profile(),
   });
 
+  void resetTabHistories() {
+    tabHistories = [[], [], [], [], [], [], []];
+  }
+
   void pushInTab(Widget prevPage, Widget newPage) {
     tabHistories[currentPageIndex].add(currentPage);
     changeCurrentPage(newPage);
