@@ -128,6 +128,8 @@ class ProfileUser extends StatelessWidget {
                         if (!mounted) return;
                         if (profile.hasCurrentUser()) {
                           messageDialog(context, response);
+                        } else {
+                          // TODO: add resetTabHistories
                         }
                       },
                       child: const SizedBox(

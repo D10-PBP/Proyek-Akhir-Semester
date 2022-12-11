@@ -34,9 +34,8 @@ class DestinationWidget extends StatelessWidget {
                 style: TextStyle(color: ThemeColor.white),
               )),
           IconButton(
-            icon: const Icon(Icons.arrow_back, color: ThemeColor.darkGreen),
-            onPressed: () => context.read<PageProvider>().pop(),
-          ),
+              icon: const Icon(Icons.arrow_back, color: ThemeColor.darkGreen),
+              onPressed: () => context.read<PageProvider>().popInTab()),
         ],
       ),
     )));
@@ -60,7 +59,7 @@ class DestinationWidgetTwo extends StatelessWidget {
             const Text("Halaman Kedua Demo", style: TextStyle(fontSize: 32)),
             IconButton(
               icon: const Icon(Icons.arrow_back, color: ThemeColor.darkGreen),
-              onPressed: () => context.read<PageProvider>().pop(),
+              onPressed: () => context.read<PageProvider>().popInTab(),
             ),
           ],
         ),
