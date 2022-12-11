@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
-import 'package:sayang_dibuang_mobile/crowdfunding/pages/crowdfundings_page.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/widgets/redirect.dart';
 
 class CrowdfundingsNoUserPage extends StatelessWidget {
