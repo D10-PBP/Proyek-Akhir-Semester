@@ -47,39 +47,53 @@ class _BarangDetailPageState extends State<BarangDetailPage> {
       child: Scaffold(
         backgroundColor: ThemeColor.sand,
         body: Stack(
+          // alignment: Alignment.center,
           children: [
-            Builder(
-              builder: (context) => IconButton(
-                icon: const Icon(Icons.chevron_left_rounded, size: 35.0),
-                onPressed: () =>
-                    Provider.of<PageProvider>(context, listen: false).pushInTab(
-                        BarangDetailPage(
-                            pk: widget.pk,
-                            judul: widget.judul,
-                            deskripsi: widget.deskripsi,
-                            foto: widget.foto,
-                            kategori: widget.kategori,
-                            owner: widget.owner,
-                            lokasi: widget.lokasi,
-                            available: widget.available),
-                        const BerandaBarangPage()),
-              ),
-            ),
             Container(
               margin: const EdgeInsets.only(top: 35),
               padding: const EdgeInsets.all(10.0),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Container(
-                      height: 450,
-                      width: (MediaQuery.of(context).size.width),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15.0),
-                        color: ThemeColor.gold,
-                      ),
-                      padding: const EdgeInsets.all(10.0),
-                      child: Image.network(widget.foto),
+                    Stack(
+                      children: [
+                        Container(
+                          height: 450,
+                          width: (MediaQuery.of(context).size.width),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15.0),
+                            color: ThemeColor.gold,
+                          ),
+                          padding: const EdgeInsets.all(10.0),
+                          child: Image.network(widget.foto),
+                        ),
+                        !widget.available
+                            ? Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  color: Colors.blueGrey.withOpacity(0.5),
+                                ),
+                                width: MediaQuery.of(context).size.width,
+                                height: 450,
+                                alignment: Alignment.center,
+                                child: const Text(
+                                  "NOT AVAILABLE",
+                                  style: TextStyle(
+                                    fontSize: 34,
+                                    fontWeight: FontWeight.w900,
+                                    shadows: [
+                                      Shadow(
+                                        blurRadius: 12.0,
+                                        color:
+                                            Color.fromARGB(255, 255, 255, 255),
+                                        offset: Offset(2.0, 1.0),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              )
+                            : Container(),
+                      ],
                     ),
                     Container(
                       padding: const EdgeInsets.only(top: 12.0),
@@ -308,7 +322,23 @@ class _BarangDetailPageState extends State<BarangDetailPage> {
                 ),
               ),
             ),
-            // ),
+            Builder(
+              builder: (context) => IconButton(
+                icon: const Icon(Icons.chevron_left_rounded, size: 35.0),
+                onPressed: () =>
+                    Provider.of<PageProvider>(context, listen: false).pushInTab(
+                        BarangDetailPage(
+                            pk: widget.pk,
+                            judul: widget.judul,
+                            deskripsi: widget.deskripsi,
+                            foto: widget.foto,
+                            kategori: widget.kategori,
+                            owner: widget.owner,
+                            lokasi: widget.lokasi,
+                            available: widget.available),
+                        const BerandaBarangPage()),
+              ),
+            ),
           ],
         ),
       ),
