@@ -246,9 +246,8 @@ class _AllCrowdfundPageState extends State<AllCrowdfundPage> {
                                                               onPressed: () {
                                                                 String
                                                                     telephone =
-                                                                    widget.crowdfund['profile']
-                                                                            [
-                                                                            'user']
+                                                                    widget.crowdfund[
+                                                                            'profile']
                                                                         [
                                                                         'telephone'];
                                                                 _launchUrl(
