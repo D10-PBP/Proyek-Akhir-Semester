@@ -57,7 +57,7 @@ class _CrowdfundingsPageState extends State<CrowdfundingsPage> {
                   GestureDetector(
                     onTap: () {
                       Provider.of<PageProvider>(context, listen: false)
-                          .push(widget, CreateCrowdfundPage());
+                          .pushInTab(widget, CreateCrowdfundPage());
                     },
                     child: ClipRRect(
                         borderRadius: BorderRadius.circular(16),

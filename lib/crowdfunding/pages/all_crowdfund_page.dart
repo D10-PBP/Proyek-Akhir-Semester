@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/utils/crowdfund_api_handler.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AllCrowdfundPage extends StatefulWidget {
@@ -27,6 +28,7 @@ class _AllCrowdfundPageState extends State<AllCrowdfundPage> {
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
+    final profile = context.watch<CurrentUserProfileModel>();
 
     return SafeArea(
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -208,6 +210,15 @@ class _AllCrowdfundPageState extends State<AllCrowdfundPage> {
                                                                           widget
                                                                               .crowdfund['id']);
 
+                                                                  // add user point in flutter
+                                                                  if (response[
+                                                                          'poin'] !=
+                                                                      null) {
+                                                                    profile
+                                                                        .addUserPoin(
+                                                                            5);
+                                                                  }
+
                                                                   // pop twice
                                                                   Navigator.of(
                                                                           context)
@@ -302,6 +313,15 @@ class _AllCrowdfundPageState extends State<AllCrowdfundPage> {
                                                                           widget
                                                                               .crowdfund['id']);
 
+                                                                  // add user point in flutter
+                                                                  if (response[
+                                                                          'poin'] !=
+                                                                      null) {
+                                                                    profile
+                                                                        .addUserPoin(
+                                                                            5);
+                                                                  }
+
                                                                   // pop twice
                                                                   Navigator.of(
                                                                           context)
@@ -388,6 +408,15 @@ class _AllCrowdfundPageState extends State<AllCrowdfundPage> {
                                                                         request,
                                                                         widget.crowdfund[
                                                                             'id']);
+
+                                                                // add user point in flutter
+                                                                if (response[
+                                                                        'poin'] !=
+                                                                    null) {
+                                                                  profile
+                                                                      .addUserPoin(
+                                                                          5);
+                                                                }
 
                                                                 // pop twice
                                                                 Navigator.of(
@@ -476,6 +505,15 @@ class _AllCrowdfundPageState extends State<AllCrowdfundPage> {
                                                                         request,
                                                                         widget.crowdfund[
                                                                             'id']);
+
+                                                                // add user point in flutter
+                                                                if (response[
+                                                                        'poin'] !=
+                                                                    null) {
+                                                                  profile
+                                                                      .addUserPoin(
+                                                                          5);
+                                                                }
 
                                                                 // pop twice
                                                                 Navigator.of(

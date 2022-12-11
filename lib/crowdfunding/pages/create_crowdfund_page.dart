@@ -215,11 +215,10 @@ class _CreateCrowdfundPageState extends State<CreateCrowdfundPage> {
                                   backgroundColor: MaterialStateProperty.all(
                                       ThemeColor.darkGreen),
                                 ),
-                                onPressed: () {
+                                onPressed: () async {
                                   if (_formKey.currentState!.validate()) {
-                                    final response =
-                                        CrowdfundAPIHandler.createCrowdfund(
-                                            request, {
+                                    final response = await CrowdfundAPIHandler
+                                        .createCrowdfund(request, {
                                       'csrfmiddlewaretoken':
                                           request.cookies['csrftoken'],
                                       'title': _title,
@@ -227,6 +226,11 @@ class _CreateCrowdfundPageState extends State<CreateCrowdfundPage> {
                                       'received': _received.toString(),
                                       'target': _target.toString(),
                                     });
+
+                                    // add user point in Flutter
+                                    if (response['message'] != null) {
+                                      profile.addUserPoin(10);
+                                    }
 
                                     // Go back to crowdfunding main page (pop once)
                                     Provider.of<PageProvider>(context,
