@@ -138,7 +138,8 @@ class _InformationPageState extends State<InformationPage> {
                       child: GestureDetector(
                         onTap: () => Provider.of<PageProvider>(context,
                                 listen: false)
-                            .push(const InformationPage(), const ReviewPage()),
+                            .pushInTab(
+                                const InformationPage(), const ReviewPage()),
                         child: Card(
                           elevation: 50,
                           shadowColor: Colors.black,
@@ -198,9 +199,10 @@ class _InformationPageState extends State<InformationPage> {
                       height: 200,
                       padding: const EdgeInsets.all(10.0),
                       child: GestureDetector(
-                        onTap: () => Provider.of<PageProvider>(context,
-                                listen: false)
-                            .push(const InformationPage(), const TeamPage()),
+                        onTap: () =>
+                            Provider.of<PageProvider>(context, listen: false)
+                                .pushInTab(
+                                    const InformationPage(), const TeamPage()),
                         child: Card(
                           elevation: 50,
                           shadowColor: Colors.black,

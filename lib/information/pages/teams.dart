@@ -19,7 +19,7 @@ class _TeamPageState extends State<TeamPage> {
           leading: IconButton(
               icon: const Icon(Icons.arrow_back, color: Colors.white),
               onPressed: () {
-                Provider.of<PageProvider>(context, listen: false).pop();
+                Provider.of<PageProvider>(context, listen: false).popInTab();
               }),
           backgroundColor: ThemeColor.darkGreen,
           shadowColor: Colors.transparent),

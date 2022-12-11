@@ -1,14 +1,28 @@
 import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
-import 'package:sayang_dibuang_mobile/information/pages/addreview_page.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
+import 'package:sayang_dibuang_mobile/information/lain-lain/deletereview.dart';
 
 class ReviewdetailPage extends StatefulWidget {
-  const ReviewdetailPage({super.key});
+  final String username;
+  final String judul;
+  final String deskripsi;
+  final DateTime created;
+  final int pk;
 
+  const ReviewdetailPage({
+    super.key,
+    required this.username,
+    required this.judul,
+    required this.deskripsi,
+    required this.created,
+    required this.pk,
+  });
   @override
   State<ReviewdetailPage> createState() => _ReviewdetailPageState();
 }
@@ -16,6 +30,9 @@ class ReviewdetailPage extends StatefulWidget {
 class _ReviewdetailPageState extends State<ReviewdetailPage> {
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
+    final profile = context.read<CurrentUserProfileModel>();
+
     return SafeArea(
       child: Scaffold(
           backgroundColor: ThemeColor.white,
@@ -41,7 +58,7 @@ class _ReviewdetailPageState extends State<ReviewdetailPage> {
                                 onPressed: () => Provider.of<PageProvider>(
                                         context,
                                         listen: false)
-                                    .pop(),
+                                    .popInTab(),
                               )
                             ],
                           ),
@@ -58,16 +75,14 @@ class _ReviewdetailPageState extends State<ReviewdetailPage> {
                                 const SizedBox(
                                   width: 20,
                                 ),
-
-                                // BELOM KELARR
-                                const Text(
-                                  "Cie penasaran",
-                                  style: TextStyle(fontSize: 15),
+                                Text(
+                                  widget.username,
+                                  style: const TextStyle(fontSize: 30),
                                 ),
                               ],
                             ),
                           ),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 10),
                           SizedBox(
                               width: MediaQuery.of(context).size.width,
                               child: Card(
@@ -79,48 +94,99 @@ class _ReviewdetailPageState extends State<ReviewdetailPage> {
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
-                                        children: const [
+                                        children: [
                                           Text(
-                                            "ini kaga jelas banget",
-                                            style: TextStyle(
+                                            widget.judul,
+                                            style: const TextStyle(
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           Text(
-                                            "sadlkdlshdhlashduahld",
-                                            style: TextStyle(
+                                            widget.deskripsi,
+                                            style: const TextStyle(
                                                 fontWeight: FontWeight.bold),
                                           ),
                                         ],
                                       )))),
                           const SizedBox(height: 10),
+                          // if (profile.user?.pk == widget.username)
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.end,
+                          //   children: [
+                          //     RawMaterialButton(
+                          //       onPressed: () {
+                          //         showDialog(
+                          //           context: context,
+                          //           builder: (_) {
+                          //             return Dialog(
+                          //               shape: RoundedRectangleBorder(
+                          //                 borderRadius:
+                          //                     BorderRadius.circular(10),
+                          //               ),
+                          //               elevation: 15,
+                          //               child: ListView(
+                          //                 padding: const EdgeInsets.only(
+                          //                     top: 20, bottom: 20),
+                          //                 shrinkWrap: true,
+                          //                 children: <Widget>[
+                          //                   const Center(
+                          //                       child: Text(
+                          //                           'Apa anda yakin ingin menghapus?')),
+                          //                   const SizedBox(height: 20),
+                          //                   TextButton(
+                          //                     onPressed: () {
+                          //                       var pk = widget.pk;
+                          //                       deleteReview(request, pk);
+                          //                       Navigator.popInTab(context);
+                          //                       Provider.of<PageProvider>(
+                          //                               context,
+                          //                               listen: false)
+                          //                           .popInTabp();
+                          //                     },
+                          //                     child: const Text('Hapus'),
+                          //                   ),
+                          //                 ],
+                          //               ),
+                          //             );
+                          //           },
+                          //         );
+                          //       },
+                          //       elevation: 2.0,
+                          //       fillColor: ThemeColor.white,
+                          //       padding: const EdgeInsets.all(15.0),
+                          //       shape: const CircleBorder(),
+                          //       child: const Icon(
+                          //         Icons.delete,
+                          //         size: 35.0,
+                          //         color: Colors.red,
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
+                          // OutlinedButton(
+                          //   style: ButtonStyle(
+                          //     backgroundColor:
+                          //         MaterialStateProperty.all(ThemeColor.gold),
+                          //     padding: MaterialStateProperty.all<EdgeInsets>(
+                          //       const EdgeInsets.symmetric(
+                          //           horizontal: 20, vertical: 15),
+                          //     ),
+                          //   ),
 
-                          // BELOM KELARRR
-                          const Text("DIBUAT PADA TANGGAL : "),
-                          const SizedBox(height: 10),
-                          OutlinedButton(
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all(ThemeColor.gold),
-                              padding: MaterialStateProperty.all<EdgeInsets>(
-                                const EdgeInsets.symmetric(
-                                    horizontal: 20, vertical: 15),
-                              ),
-                            ),
-
-                            // delete nya blom
-                            onPressed: () {
-                              Provider.of<PageProvider>(context, listen: false)
-                                  .push(const ReviewdetailPage(),
-                                      const AddreviewPage());
-                            },
-                            child: const Text(
-                              "Delete",
-                              style: TextStyle(
-                                color: ThemeColor.white,
-                              ),
-                            ),
-                          ),
+                          //   // delete nya blom
+                          //   onPressed: () {
+                          //     Provider.of<PageProvider>(context,
+                          //             listen: false)
+                          //         .pushInTab(const TeamPage(),
+                          //             const AddreviewPage());
+                          //   },
+                          //   child: const Text(
+                          //     "Delete",
+                          //     style: TextStyle(
+                          //       color: ThemeColor.white,
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
                     )),

@@ -170,15 +170,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-<<<<<<< HEAD
-  get:
-    dependency: transitive
-    description:
-      name: get
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "4.6.5"
-=======
   font_awesome_flutter:
     dependency: "direct main"
     description:
@@ -186,7 +177,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "10.3.0"
->>>>>>> d326258761c214407be40010477a5d6a2f636de5
+  get:
+    dependency: transitive
+    description:
+      name: get
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.6.5"
   google_nav_bar:
     dependency: "direct main"
     description:
