@@ -20,7 +20,6 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
-    final profile = context.read<CurrentUserProfileModel>();
 
     return SafeArea(
       child: Scaffold(
@@ -87,11 +86,6 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
                           currentWidget: const BerandaBarangPage(),
                           mainWidget: const BerandaBarangPage(),
                           destinationWidget: const CreateBarangBekas()),
-                      // onPressed: () {
-                      //   Provider.of<PageProvider>(context, listen: false)
-                      //       .push(const BerandaBarangPage(),
-                      //           const CreateBarangBekas());
-                      // },
                       child: const Text(
                         "Upload",
                         style: TextStyle(
@@ -120,7 +114,7 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
                           child: GestureDetector(
                             onTap: () => Provider.of<PageProvider>(context,
                                     listen: false)
-                                .push(
+                                .pushInTab(
                               const BerandaBarangPage(),
                               BarangDetailPage(
                                 pk: snapshot.data![index].pk,
@@ -128,6 +122,8 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
                                 deskripsi: snapshot.data![index].deskripsi,
                                 foto: snapshot.data![index].foto,
                                 kategori: snapshot.data![index].kategori,
+                                lokasi: snapshot.data![index].lokasi,
+                                available: snapshot.data![index].available,
                                 owner: snapshot.data![index].profile,
                               ),
                             ),
@@ -140,18 +136,51 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
                               ),
                               child: Row(
                                 children: [
-                                  Container(
-                                    height: 200,
-                                    width: 200,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                      color: const Color.fromARGB(
-                                          255, 199, 188, 155),
-                                    ),
-                                    padding: const EdgeInsets.only(
-                                        left: 10, right: 10),
-                                    child: Image.network(
-                                        snapshot.data![index].foto),
+                                  Stack(
+                                    children: [
+                                      Container(
+                                        height: 200,
+                                        width: 200,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
+                                          color: const Color.fromARGB(
+                                              255, 199, 188, 155),
+                                        ),
+                                        padding: const EdgeInsets.only(
+                                            left: 10, right: 10),
+                                        child: Image.network(
+                                            snapshot.data![index].foto),
+                                      ),
+                                      !snapshot.data![index].available
+                                          ? Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(15.0),
+                                                color: Colors.blueGrey
+                                                    .withOpacity(0.5),
+                                              ),
+                                              width: 200,
+                                              height: 200,
+                                              alignment: Alignment.center,
+                                              child: const Text(
+                                                "NOT AVAILABLE",
+                                                style: TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.w900,
+                                                  shadows: [
+                                                    Shadow(
+                                                      blurRadius: 12.0,
+                                                      color: Color.fromARGB(
+                                                          255, 255, 255, 255),
+                                                      offset: Offset(2.0, 1.0),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            )
+                                          : Container(),
+                                    ],
                                   ),
                                   Flexible(
                                     child: Container(
@@ -193,6 +222,25 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
                                                 5), //apply padding to all four sides
                                             child: Text(
                                                 snapshot.data![index].kategori),
+                                          ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Wrap(
+                                            crossAxisAlignment:
+                                                WrapCrossAlignment.center,
+                                            children: [
+                                              const Icon(
+                                                Icons.pin_drop,
+                                                color: Color.fromARGB(
+                                                    255, 186, 48, 48),
+                                              ),
+                                              const SizedBox(
+                                                width: 4,
+                                              ),
+                                              Text(
+                                                  snapshot.data![index].lokasi),
+                                            ],
                                           ),
                                         ],
                                       ),
