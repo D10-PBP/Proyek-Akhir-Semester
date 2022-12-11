@@ -48,7 +48,9 @@ class Redirect extends StatelessWidget {
     final pageProvider = context.read<PageProvider>();
 
     if (profileWatch.hasCurrentUser()) {
-      pageProvider.history.add(currentWidget);
+      pageProvider.tabHistories[pageProvider.currentPageIndex]
+          .add(currentWidget);
+      // pageProvider.history.add(currentWidget);
       // print(pageProvider.history);
       return destinationWidget;
     } else {

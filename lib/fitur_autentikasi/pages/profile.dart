@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/pages/login.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/pages/update_profile.dart';
@@ -74,6 +75,7 @@ class ProfileUser extends StatelessWidget {
     final request = context.watch<CookieRequest>();
     final profileWatch = context.watch<CurrentUserProfileModel>();
     final profile = context.read<CurrentUserProfileModel>();
+    final pageProvider = context.read<PageProvider>();
     final currentHeight = MediaQuery.of(context).size.height;
     final currentWidth = MediaQuery.of(context).size.width;
 
@@ -128,6 +130,9 @@ class ProfileUser extends StatelessWidget {
                         if (!mounted) return;
                         if (profile.hasCurrentUser()) {
                           messageDialog(context, response);
+                        } else {
+                          // TODO: add resetTabHistories
+                          pageProvider.resetTabHistories();
                         }
                       },
                       child: const SizedBox(

@@ -7,6 +7,7 @@ import 'package:sayang_dibuang_mobile/barang_bekas/pages/barang_detail.dart';
 import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/widgets/redirect.dart';
 
 class BerandaBarangPage extends StatefulWidget {
   const BerandaBarangPage({super.key});
@@ -69,31 +70,35 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
                     const SizedBox(
                       height: 10,
                     ),
-                    if (profile.hasCurrentUser())
-                      OutlinedButton(
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(ThemeColor.sand),
-                            padding: MaterialStateProperty.all<EdgeInsets>(
-                              const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 8),
-                            ),
-                            side: MaterialStateProperty.all(const BorderSide(
-                                color: ThemeColor.sand,
-                                width: 2.0,
-                                style: BorderStyle.solid))),
-                        onPressed: () {
-                          Provider.of<PageProvider>(context, listen: false)
-                              .push(const BerandaBarangPage(),
-                                  const CreateBarangBekas());
-                        },
-                        child: const Text(
-                          "Upload",
-                          style: TextStyle(
-                            color: ThemeColor.darkGreen,
+                    // if (profile.hasCurrentUser())
+                    OutlinedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(ThemeColor.sand),
+                          padding: MaterialStateProperty.all<EdgeInsets>(
+                            const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 8),
                           ),
+                          side: MaterialStateProperty.all(const BorderSide(
+                              color: ThemeColor.sand,
+                              width: 2.0,
+                              style: BorderStyle.solid))),
+                      onPressed: Redirect.loginHandler(context,
+                          currentWidget: const BerandaBarangPage(),
+                          mainWidget: const BerandaBarangPage(),
+                          destinationWidget: const CreateBarangBekas()),
+                      // onPressed: () {
+                      //   Provider.of<PageProvider>(context, listen: false)
+                      //       .push(const BerandaBarangPage(),
+                      //           const CreateBarangBekas());
+                      // },
+                      child: const Text(
+                        "Upload",
+                        style: TextStyle(
+                          color: ThemeColor.darkGreen,
                         ),
                       ),
+                    ),
                   ],
                 ),
               ),
