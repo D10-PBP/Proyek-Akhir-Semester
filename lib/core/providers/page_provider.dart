@@ -12,7 +12,7 @@ class PageProvider extends ChangeNotifier {
   int currentPageIndex;
   List<Widget> history = [];
 
-  List<List<Widget>> tabHistories = [[], [], [], [], [], []];
+  List<List<Widget>> tabHistories = [[], [], [], [], [], [], []];
 
   List<Widget> mainPages = [
     CrowdfundingsNoUserPage(), // nanti diganti sama Home
@@ -24,6 +24,7 @@ class PageProvider extends ChangeNotifier {
         destinationWidget: CrowdfundingsPage()),
     LeaderboardPage(),
     Profile(),
+    MainWidget(),
   ];
 
   PageProvider({
