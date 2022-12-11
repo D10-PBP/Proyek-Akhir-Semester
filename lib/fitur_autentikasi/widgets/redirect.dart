@@ -42,21 +42,6 @@ class Redirect extends StatelessWidget {
     };
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Consumer<CurrentUserProfileModel>(
-  //     builder: ((context, profile, child) {
-  //       if (profile.hasCurrentUser()) {
-  //         // print(context.read<PageProvider>().history);
-  //         // Provider.of<PageProvider>(context, listen: false)
-  //         //     .addHistory(currentWidget);
-  //         return destinationWidget;
-  //       } else {
-  //         return mainWidget;
-  //       }
-  //     }),
-  //   );
-  // }
   @override
   Widget build(BuildContext context) {
     final profileWatch = context.watch<CurrentUserProfileModel>();
