@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/functions/delete_barang.dart';
+import 'package:sayang_dibuang_mobile/barang_bekas/functions/edit_barang_bekas.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/functions/fetch_barang_bekas.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/models/barang_bekas.dart';
+import 'package:sayang_dibuang_mobile/barang_bekas/pages/beranda.dart';
+import 'package:sayang_dibuang_mobile/barang_bekas/pages/edit_barang_form.dart';
 import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
@@ -14,6 +17,9 @@ class BarangDetailPage extends StatefulWidget {
   final String deskripsi;
   final String foto;
   final String kategori;
+  final String lokasi;
+  final bool available;
+
   final int owner;
 
   const BarangDetailPage({
@@ -24,6 +30,8 @@ class BarangDetailPage extends StatefulWidget {
     required this.foto,
     required this.kategori,
     required this.owner,
+    required this.lokasi,
+    required this.available,
   });
 
   @override
@@ -44,7 +52,17 @@ class _BarangDetailPageState extends State<BarangDetailPage> {
               builder: (context) => IconButton(
                 icon: const Icon(Icons.chevron_left_rounded, size: 35.0),
                 onPressed: () =>
-                    Provider.of<PageProvider>(context, listen: false).pop(),
+                    Provider.of<PageProvider>(context, listen: false).pushInTab(
+                        BarangDetailPage(
+                            pk: widget.pk,
+                            judul: widget.judul,
+                            deskripsi: widget.deskripsi,
+                            foto: widget.foto,
+                            kategori: widget.kategori,
+                            owner: widget.owner,
+                            lokasi: widget.lokasi,
+                            available: widget.available),
+                        const BerandaBarangPage()),
               ),
             ),
             Container(
@@ -92,6 +110,19 @@ class _BarangDetailPageState extends State<BarangDetailPage> {
                       padding: const EdgeInsets.all(
                           5), //apply padding to all four sides
                       child: Text(widget.kategori),
+                    ),
+                    Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      children: [
+                        const Icon(
+                          Icons.pin_drop,
+                          color: Color.fromARGB(255, 186, 48, 48),
+                        ),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        Text(widget.lokasi),
+                      ],
                     ),
                     FutureBuilder<List<Owner>>(
                       future: fetchOwner(request, widget.owner),
@@ -189,6 +220,41 @@ class _BarangDetailPageState extends State<BarangDetailPage> {
                         children: [
                           RawMaterialButton(
                             onPressed: () {
+                              // print(widget.kategori);
+                              Provider.of<PageProvider>(context, listen: false)
+                                  .pushInTab(
+                                      BarangDetailPage(
+                                        pk: widget.pk,
+                                        judul: widget.judul,
+                                        deskripsi: widget.deskripsi,
+                                        foto: widget.foto,
+                                        kategori: widget.kategori,
+                                        lokasi: widget.lokasi,
+                                        available: widget.available,
+                                        owner: widget.owner,
+                                      ),
+                                      EditBarangBekas(
+                                          pk: widget.pk,
+                                          owner: widget.owner,
+                                          judul: widget.judul,
+                                          deskripsi: widget.deskripsi,
+                                          foto: widget.foto,
+                                          lokasi: widget.lokasi,
+                                          kategori: widget.kategori,
+                                          isAvailable: widget.available));
+                            },
+                            elevation: 2.0,
+                            fillColor: ThemeColor.white,
+                            padding: const EdgeInsets.all(15.0),
+                            shape: const CircleBorder(),
+                            child: const Icon(
+                              Icons.edit,
+                              size: 35.0,
+                              color: ThemeColor.gold,
+                            ),
+                          ),
+                          RawMaterialButton(
+                            onPressed: () {
                               showDialog(
                                 context: context,
                                 builder: (_) {
@@ -235,7 +301,7 @@ class _BarangDetailPageState extends State<BarangDetailPage> {
                           ),
                         ],
                       ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     )
                   ],

@@ -1,33 +1,60 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/functions/create_barang_bekas.dart';
+import 'package:sayang_dibuang_mobile/barang_bekas/functions/edit_barang_bekas.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/functions/fetch_barang_bekas.dart';
-import 'package:sayang_dibuang_mobile/barang_bekas/pages/add_kategori.dart';
-import 'package:sayang_dibuang_mobile/barang_bekas/pages/add_lokasi.dart';
-import 'package:sayang_dibuang_mobile/barang_bekas/pages/beranda.dart';
+import 'package:sayang_dibuang_mobile/barang_bekas/pages/barang_detail.dart';
 import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 
-class CreateBarangBekas extends StatefulWidget {
-  const CreateBarangBekas({super.key});
+class EditBarangBekas extends StatefulWidget {
+  const EditBarangBekas(
+      {super.key,
+      required this.pk,
+      required this.owner,
+      required this.judul,
+      required this.deskripsi,
+      required this.foto,
+      required this.kategori,
+      required this.lokasi,
+      required this.isAvailable});
+
+  final int pk;
+  final int owner;
+  final String judul;
+  final String deskripsi;
+  final String foto;
+  final String kategori;
+  final String lokasi;
+  final bool isAvailable;
 
   @override
-  State<CreateBarangBekas> createState() => _CreateBarangBekas();
+  State<EditBarangBekas> createState() => _EditBarangBekas();
 }
 
-class _CreateBarangBekas extends State<CreateBarangBekas> {
+class _EditBarangBekas extends State<EditBarangBekas> {
   final _formKey = GlobalKey<FormState>();
 
+  int? pk;
   String? judul;
   String? deskripsi;
   String? foto;
-  File? image;
   String? lokasi;
   String? kategori;
-  String? username;
+  bool? isAvailable;
+  @override
+  void initState() {
+    super.initState();
+    pk = widget.pk;
+    judul = widget.judul;
+    deskripsi = widget.deskripsi;
+    foto = widget.foto;
+    lokasi = widget.lokasi;
+    kategori = widget.kategori;
+    isAvailable = widget.isAvailable;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +75,7 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
                         height: 40,
                       ),
                       const Text(
-                        "UPLOAD BARANG BEKAS",
+                        "EDIT BARANG BEKAS",
                         style: TextStyle(
                             fontFamily: "Verona",
                             fontWeight: FontWeight.bold,
@@ -59,6 +86,7 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
                         // Menggunakan padding sebesar 8 pixels
                         padding: const EdgeInsets.all(10.0),
                         child: TextFormField(
+                          initialValue: judul,
                           decoration: InputDecoration(
                             hintText: "Contoh: Karton Aqua",
                             labelText: "Judul",
@@ -92,6 +120,7 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
                         // Menggunakan padding sebesar 8 pixels
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
+                          initialValue: deskripsi,
                           decoration: InputDecoration(
                             hintText:
                                 "Contoh: Karton sebanyak 2 lusin. Kondisi pristine.",
@@ -126,6 +155,7 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
                         // Menggunakan padding sebesar 8 pixels
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
+                          initialValue: foto,
                           decoration: InputDecoration(
                             hintText: "Contoh: www.blabla.jpg",
                             labelText: "Image URL",
@@ -157,6 +187,15 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
                           },
                         ),
                       ),
+                      CheckboxListTile(
+                        title: const Text('Available'),
+                        value: isAvailable,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            isAvailable = value;
+                          });
+                        },
+                      ),
                       Container(
                         alignment: Alignment.center,
                         padding: const EdgeInsets.all(10),
@@ -168,7 +207,6 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
                                   var data = snapshot.data!;
-                                  lokasi = data[0];
                                   return DropdownButton(
                                     // Initial Value
                                     value: lokasi ?? data[0],
@@ -206,7 +244,6 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
                                   var data = snapshot.data!;
-                                  kategori = data[0];
                                   return DropdownButton(
                                     // Initial Value
                                     value: kategori ?? data[0],
@@ -250,79 +287,43 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
                         ),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            print("$kategori $lokasi");
-                            createBarang(request, profile.user?.username, judul,
-                                deskripsi, foto, lokasi, kategori);
+                            editBarang(request, pk, judul, deskripsi, foto,
+                                lokasi, kategori, isAvailable);
 
+                            // Provider.of<PageProvider>(context, listen: false)
+                            //     .popInTab();
                             Provider.of<PageProvider>(context, listen: false)
-                                .push(const CreateBarangBekas(),
-                                    const BerandaBarangPage());
+                                .push(
+                                    EditBarangBekas(
+                                      pk: widget.pk,
+                                      judul: widget.judul,
+                                      deskripsi: widget.deskripsi,
+                                      foto: widget.foto,
+                                      lokasi: widget.lokasi,
+                                      kategori: widget.kategori,
+                                      isAvailable: widget.isAvailable,
+                                      owner: widget.owner,
+                                    ),
+                                    BarangDetailPage(
+                                      pk: widget.pk,
+                                      judul: judul!,
+                                      deskripsi: deskripsi!,
+                                      foto: foto!,
+                                      lokasi: lokasi!,
+                                      kategori: kategori!,
+                                      available: isAvailable!,
+                                      owner: widget.owner,
+                                    ));
                           }
                         },
                         child: const Text(
-                          "Upload",
+                          "Edit",
                           style: TextStyle(color: Colors.white),
                         ),
                       ),
                       const SizedBox(
                         height: 50,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          OutlinedButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(ThemeColor.sand),
-                                padding: MaterialStateProperty.all<EdgeInsets>(
-                                  const EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 8),
-                                ),
-                                side: MaterialStateProperty.all(
-                                    const BorderSide(
-                                        color: Colors.black,
-                                        width: 1.0,
-                                        style: BorderStyle.solid))),
-                            onPressed: () {
-                              Provider.of<PageProvider>(context, listen: false)
-                                  .push(const CreateBarangBekas(),
-                                      const CreateKategori());
-                            },
-                            child: const Text(
-                              "Tambah Kategori",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 37, 33, 23)),
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          OutlinedButton(
-                            style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all(ThemeColor.sand),
-                                padding: MaterialStateProperty.all<EdgeInsets>(
-                                  const EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 8),
-                                ),
-                                side: MaterialStateProperty.all(
-                                    const BorderSide(
-                                        color: Colors.black,
-                                        width: 1.0,
-                                        style: BorderStyle.solid))),
-                            onPressed: () {
-                              Provider.of<PageProvider>(context, listen: false)
-                                  .push(const CreateBarangBekas(),
-                                      const CreateLokasi());
-                            },
-                            child: const Text(
-                              "Tambah Lokasi",
-                              style: TextStyle(
-                                  color: Color.fromARGB(255, 37, 33, 23)),
-                            ),
-                          ),
-                        ],
-                      )
                     ],
                   ),
                 ),
