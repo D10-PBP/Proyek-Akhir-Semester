@@ -29,7 +29,7 @@ class CrowdfundingsNoUserPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // Image
-                  Image.asset('crowdfunding/login_asset.png'),
+                  Image.asset('assets/crowdfunding/login_asset.png'),
 
                   // Text
                   const Text(

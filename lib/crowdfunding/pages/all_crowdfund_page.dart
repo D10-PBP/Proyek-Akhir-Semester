@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
+import 'package:sayang_dibuang_mobile/crowdfunding/utils/crowdfund_api_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AllCrowdfundPage extends StatefulWidget {
@@ -24,6 +26,8 @@ class _AllCrowdfundPageState extends State<AllCrowdfundPage> {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
+
     return SafeArea(
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         // Back Button
@@ -132,6 +136,7 @@ class _AllCrowdfundPageState extends State<AllCrowdfundPage> {
                                             height: 200,
                                             child: Column(
                                               children: [
+                                                // Header
                                                 Row(
                                                   children: [
                                                     Expanded(
@@ -168,7 +173,10 @@ class _AllCrowdfundPageState extends State<AllCrowdfundPage> {
                                                     ),
                                                   ],
                                                 ),
+
                                                 const SizedBox(height: 24.0),
+
+                                                // Contact Buttons
                                                 Padding(
                                                   padding:
                                                       const EdgeInsets.all(8.0),
@@ -177,6 +185,7 @@ class _AllCrowdfundPageState extends State<AllCrowdfundPage> {
                                                         MainAxisAlignment
                                                             .spaceAround,
                                                     children: [
+                                                      // LINE
                                                       if (widget.crowdfund[
                                                                   'profile']
                                                               ['line'] !=
@@ -184,13 +193,72 @@ class _AllCrowdfundPageState extends State<AllCrowdfundPage> {
                                                         Column(
                                                           children: [
                                                             IconButton(
-                                                                onPressed: () {
+                                                                onPressed:
+                                                                    () async {
                                                                   String
                                                                       lineId =
                                                                       widget.crowdfund[
                                                                               'profile']
                                                                           [
                                                                           'line'];
+
+                                                                  final response =
+                                                                      await CrowdfundAPIHandler.addUserPointWhenContacting(
+                                                                          request,
+                                                                          widget
+                                                                              .crowdfund['id']);
+
+                                                                  // pop twice
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop();
+                                                                  Provider.of<PageProvider>(
+                                                                          context,
+                                                                          listen:
+                                                                              false)
+                                                                      .pop();
+
+                                                                  // show thank you message
+                                                                  showModalBottomSheet(
+                                                                      shape:
+                                                                          const RoundedRectangleBorder(
+                                                                        borderRadius: BorderRadius.only(
+                                                                            topLeft:
+                                                                                Radius.circular(16.0),
+                                                                            topRight: Radius.circular(16.0)),
+                                                                      ),
+                                                                      context:
+                                                                          context,
+                                                                      builder:
+                                                                          (BuildContext
+                                                                              context) {
+                                                                        return Container(
+                                                                          height:
+                                                                              200,
+                                                                          child:
+                                                                              Center(
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.all(8.0),
+                                                                              child: Row(
+                                                                                children: [
+                                                                                  Image.asset('assets/crowdfunding/thank_you_asset.png'),
+                                                                                  SizedBox(
+                                                                                    width: 16,
+                                                                                  ),
+                                                                                  Flexible(
+                                                                                    child: Text(
+                                                                                      "${response['message']}",
+                                                                                      style: TextStyle(fontFamily: 'Verona', fontWeight: FontWeight.bold, fontSize: 18),
+                                                                                    ),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        );
+                                                                      });
+
                                                                   _launchUrl(
                                                                       "https://line.me/R/ti/p/~${lineId}");
                                                                 },
@@ -210,6 +278,8 @@ class _AllCrowdfundPageState extends State<AllCrowdfundPage> {
                                                             )
                                                           ],
                                                         ),
+
+                                                      // WhatsApp
                                                       if (widget.crowdfund[
                                                                   'profile']
                                                               ['whatsapp'] !=
@@ -217,13 +287,72 @@ class _AllCrowdfundPageState extends State<AllCrowdfundPage> {
                                                         Column(
                                                           children: [
                                                             IconButton(
-                                                                onPressed: () {
+                                                                onPressed:
+                                                                    () async {
                                                                   String
                                                                       number =
                                                                       widget.crowdfund[
                                                                               'profile']
                                                                           [
                                                                           'whatsapp'];
+
+                                                                  final response =
+                                                                      await CrowdfundAPIHandler.addUserPointWhenContacting(
+                                                                          request,
+                                                                          widget
+                                                                              .crowdfund['id']);
+
+                                                                  // pop twice
+                                                                  Navigator.of(
+                                                                          context)
+                                                                      .pop();
+                                                                  Provider.of<PageProvider>(
+                                                                          context,
+                                                                          listen:
+                                                                              false)
+                                                                      .pop();
+
+                                                                  // show thank you message
+                                                                  showModalBottomSheet(
+                                                                      shape:
+                                                                          const RoundedRectangleBorder(
+                                                                        borderRadius: BorderRadius.only(
+                                                                            topLeft:
+                                                                                Radius.circular(16.0),
+                                                                            topRight: Radius.circular(16.0)),
+                                                                      ),
+                                                                      context:
+                                                                          context,
+                                                                      builder:
+                                                                          (BuildContext
+                                                                              context) {
+                                                                        return Container(
+                                                                          height:
+                                                                              200,
+                                                                          child:
+                                                                              Center(
+                                                                            child:
+                                                                                Padding(
+                                                                              padding: const EdgeInsets.all(8.0),
+                                                                              child: Row(
+                                                                                children: [
+                                                                                  Image.asset('assets/crowdfunding/thank_you_asset.png'),
+                                                                                  SizedBox(
+                                                                                    width: 16,
+                                                                                  ),
+                                                                                  Flexible(
+                                                                                    child: Text(
+                                                                                      "${response['message']}",
+                                                                                      style: TextStyle(fontFamily: 'Verona', fontWeight: FontWeight.bold, fontSize: 18),
+                                                                                    ),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        );
+                                                                      });
+
                                                                   _launchUrl(
                                                                       "https://wa.me/+62${number.startsWith('0') ? number.substring(1) : number.substring(3)}");
                                                                 },
@@ -240,16 +369,79 @@ class _AllCrowdfundPageState extends State<AllCrowdfundPage> {
                                                             Text("WhatsApp")
                                                           ],
                                                         ),
+
+                                                      // Telephone
                                                       Column(
                                                         children: [
                                                           IconButton(
-                                                              onPressed: () {
+                                                              onPressed:
+                                                                  () async {
                                                                 String
                                                                     telephone =
                                                                     widget.crowdfund[
                                                                             'profile']
                                                                         [
                                                                         'telephone'];
+
+                                                                final response =
+                                                                    await CrowdfundAPIHandler.addUserPointWhenContacting(
+                                                                        request,
+                                                                        widget.crowdfund[
+                                                                            'id']);
+
+                                                                // pop twice
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                                Provider.of<PageProvider>(
+                                                                        context,
+                                                                        listen:
+                                                                            false)
+                                                                    .pop();
+
+                                                                // show thank you message
+                                                                showModalBottomSheet(
+                                                                    shape:
+                                                                        const RoundedRectangleBorder(
+                                                                      borderRadius: BorderRadius.only(
+                                                                          topLeft: Radius.circular(
+                                                                              16.0),
+                                                                          topRight:
+                                                                              Radius.circular(16.0)),
+                                                                    ),
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (BuildContext
+                                                                            context) {
+                                                                      return Container(
+                                                                        height:
+                                                                            200,
+                                                                        child:
+                                                                            Center(
+                                                                          child:
+                                                                              Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.all(8.0),
+                                                                            child:
+                                                                                Row(
+                                                                              children: [
+                                                                                Image.asset('assets/crowdfunding/thank_you_asset.png'),
+                                                                                SizedBox(
+                                                                                  width: 16,
+                                                                                ),
+                                                                                Flexible(
+                                                                                  child: Text(
+                                                                                    "${response['message']}",
+                                                                                    style: TextStyle(fontFamily: 'Verona', fontWeight: FontWeight.bold, fontSize: 18),
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      );
+                                                                    });
                                                                 _launchUrl(
                                                                     "tel:${telephone}");
                                                               },
@@ -266,15 +458,79 @@ class _AllCrowdfundPageState extends State<AllCrowdfundPage> {
                                                           Text("Telepon"),
                                                         ],
                                                       ),
+
+                                                      // Email
                                                       Column(
                                                         children: [
                                                           IconButton(
-                                                              onPressed: () {
+                                                              onPressed:
+                                                                  () async {
                                                                 String email = widget
                                                                             .crowdfund[
                                                                         'profile']
                                                                     [
                                                                     'user']['email'];
+
+                                                                final response =
+                                                                    await CrowdfundAPIHandler.addUserPointWhenContacting(
+                                                                        request,
+                                                                        widget.crowdfund[
+                                                                            'id']);
+
+                                                                // pop twice
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                                Provider.of<PageProvider>(
+                                                                        context,
+                                                                        listen:
+                                                                            false)
+                                                                    .pop();
+
+                                                                // show thank you message
+                                                                showModalBottomSheet(
+                                                                    shape:
+                                                                        const RoundedRectangleBorder(
+                                                                      borderRadius: BorderRadius.only(
+                                                                          topLeft: Radius.circular(
+                                                                              16.0),
+                                                                          topRight:
+                                                                              Radius.circular(16.0)),
+                                                                    ),
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (BuildContext
+                                                                            context) {
+                                                                      return Container(
+                                                                        height:
+                                                                            200,
+                                                                        child:
+                                                                            Center(
+                                                                          child:
+                                                                              Padding(
+                                                                            padding:
+                                                                                const EdgeInsets.all(8.0),
+                                                                            child:
+                                                                                Row(
+                                                                              children: [
+                                                                                Image.asset('assets/crowdfunding/thank_you_asset.png'),
+                                                                                SizedBox(
+                                                                                  width: 16,
+                                                                                ),
+                                                                                Flexible(
+                                                                                  child: Text(
+                                                                                    "${response['message']}",
+                                                                                    style: TextStyle(fontFamily: 'Verona', fontWeight: FontWeight.bold, fontSize: 18),
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      );
+                                                                    });
+
                                                                 _launchUrl(
                                                                     "mailto:${email}");
                                                               },

@@ -29,4 +29,12 @@ class CrowdfundAPIHandler {
         {'csrfmiddlewaretoken': request.cookies['csrftoken']});
     return response;
   }
+
+  static Future<dynamic> addUserPointWhenContacting(
+      CookieRequest request, int id) async {
+    final response = await request.post(
+        'https://sayang-dibuang.up.railway.app/crowdfundings/add-point-when-contacting/${id}',
+        {'csrfmiddlewaretoken': request.cookies['csrftoken']});
+    return response;
+  }
 }
