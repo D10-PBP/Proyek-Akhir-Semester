@@ -61,7 +61,7 @@ Future<T?> loginDialog<T>(
               padding: const EdgeInsets.only(top: 20, bottom: 20),
               shrinkWrap: true,
               children: <Widget>[
-                const Center(child: Text('Informasi Data')),
+                const Center(child: Text('Informasi')),
                 Padding(
                     padding: const EdgeInsets.all(10),
                     child: Text(
