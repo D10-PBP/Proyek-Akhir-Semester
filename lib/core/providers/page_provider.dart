@@ -10,42 +10,54 @@ class PageProvider extends ChangeNotifier {
   Widget currentPage;
   int currentPageIndex;
   List<Widget> history = [];
+
+  List<List<Widget>> tabHistories = [[], [], [], [], [], []];
+
   List<Widget> mainPages = [
+    CrowdfundingsNoUserPage(), // nanti diganti sama Home
+    BerandaBarangPage(),
+    CrowdfundingsNoUserPage(), // nanti diganti sama Request
     Redirect(
         currentWidget: const CrowdfundingsNoUserPage(),
         mainWidget: const CrowdfundingsNoUserPage(),
-        destinationWidget: CrowdfundingsPage()), // nanti diganti sama Home
-    BerandaBarangPage(),
-    BerandaBarangPage(), // nanti diganti sama Request
-    CrowdfundingsPage(),
+        destinationWidget: CrowdfundingsPage()),
     CrowdfundingsPage(), // nanti diganti sama Leaderboard
     Profile(),
-    MainWidget(),
-    // MessagePage()
   ];
 
   PageProvider({
-    this.currentPageIndex = 0,
+    this.currentPageIndex = 5,
     this.currentPage = const Profile(),
   });
 
-  void push(Widget prevPage, Widget newPage) {
-    addHistory(prevPage);
+  void pushInTab(Widget prevPage, Widget newPage) {
+    tabHistories[currentPageIndex].add(currentPage);
     changeCurrentPage(newPage);
+  }
+
+  void popInTab() {
+    changeCurrentPage(tabHistories[currentPageIndex].isEmpty
+        ? mainPages[currentPageIndex]
+        : tabHistories[currentPageIndex].removeLast());
   }
 
   void pop() {
     changeCurrentPage(history.removeLast());
   }
 
+  void push(Widget prevPage, Widget newPage) {
+    addHistory(prevPage);
+    changeCurrentPage(newPage);
+  }
+
   void addHistory(Widget prevPage) {
     history.add(prevPage);
-    notifyListeners();
   }
 
   void changePageIndex(int newIndex) {
+    tabHistories[currentPageIndex].add(currentPage);
     currentPageIndex = newIndex;
-    changeCurrentPage(mainPages[currentPageIndex]);
+    popInTab();
     notifyListeners();
   }
 

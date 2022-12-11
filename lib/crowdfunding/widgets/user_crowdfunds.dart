@@ -55,11 +55,12 @@ class _UserCrowdfundsState extends State<UserCrowdfunds> {
                   if (snapshot.data[index]['user_id'] == profile.user!.pk) {
                     return GestureDetector(
                       onTap: () {
-                        Provider.of<PageProvider>(context, listen: false).push(
-                            const CrowdfundingsPage(),
-                            UserCrowdfundPage(
-                              crowdfund: snapshot.data[index],
-                            ));
+                        Provider.of<PageProvider>(context, listen: false)
+                            .pushInTab(
+                                const CrowdfundingsPage(),
+                                UserCrowdfundPage(
+                                  crowdfund: snapshot.data[index],
+                                ));
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),

@@ -71,7 +71,7 @@ class AllCrowdfunds extends StatelessWidget {
                                     onTap: () {
                                       Provider.of<PageProvider>(context,
                                               listen: false)
-                                          .push(
+                                          .pushInTab(
                                               const CrowdfundingsPage(),
                                               AllCrowdfundPage(
                                                   crowdfund:

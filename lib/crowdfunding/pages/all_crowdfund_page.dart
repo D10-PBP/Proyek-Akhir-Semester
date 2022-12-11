@@ -36,7 +36,7 @@ class _AllCrowdfundPageState extends State<AllCrowdfundPage> {
           children: [
             BackButton(
               onPressed: () {
-                Provider.of<PageProvider>(context, listen: false).pop();
+                Provider.of<PageProvider>(context, listen: false).popInTab();
               },
             ),
             const SizedBox(
