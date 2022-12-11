@@ -4,13 +4,17 @@ import 'package:sayang_dibuang_mobile/crowdfunding/pages/crowdfundings_no_user_p
 import 'package:sayang_dibuang_mobile/crowdfunding/pages/crowdfundings_page.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/demo_pages/demo.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/pages/profile.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/widgets/redirect.dart';
 
 class PageProvider extends ChangeNotifier {
   Widget currentPage;
   int currentPageIndex;
   List<Widget> history = [];
   List<Widget> mainPages = [
-    CrowdfundingsNoUserPage(), // nanti diganti sama Home
+    Redirect(
+        currentWidget: const CrowdfundingsNoUserPage(),
+        mainWidget: const CrowdfundingsNoUserPage(),
+        destinationWidget: CrowdfundingsPage()), // nanti diganti sama Home
     BerandaBarangPage(),
     BerandaBarangPage(), // nanti diganti sama Request
     CrowdfundingsPage(),
