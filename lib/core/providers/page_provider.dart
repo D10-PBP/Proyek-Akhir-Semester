@@ -4,6 +4,7 @@ import 'package:sayang_dibuang_mobile/crowdfunding/pages/crowdfundings_no_user_p
 import 'package:sayang_dibuang_mobile/crowdfunding/pages/crowdfundings_page.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/demo_pages/demo.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/pages/profile.dart';
+import 'package:sayang_dibuang_mobile/information/pages/information.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/widgets/redirect.dart';
 import 'package:sayang_dibuang_mobile/leaderboard/pages/leaderboard.dart';
 
@@ -15,7 +16,7 @@ class PageProvider extends ChangeNotifier {
   List<List<Widget>> tabHistories = [[], [], [], [], [], [], []];
 
   List<Widget> mainPages = [
-    CrowdfundingsNoUserPage(), // nanti diganti sama Home
+    InformationPage(), // nanti diganti sama Home
     BerandaBarangPage(),
     CrowdfundingsNoUserPage(), // nanti diganti sama Request
     Redirect(
