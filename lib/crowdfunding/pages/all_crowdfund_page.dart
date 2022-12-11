@@ -216,7 +216,7 @@ class _AllCrowdfundPageState extends State<AllCrowdfundPage> {
                                                                           context,
                                                                           listen:
                                                                               false)
-                                                                      .pop();
+                                                                      .popInTab();
 
                                                                   // show thank you message
                                                                   showModalBottomSheet(
@@ -310,7 +310,7 @@ class _AllCrowdfundPageState extends State<AllCrowdfundPage> {
                                                                           context,
                                                                           listen:
                                                                               false)
-                                                                      .pop();
+                                                                      .popInTab();
 
                                                                   // show thank you message
                                                                   showModalBottomSheet(
@@ -397,7 +397,7 @@ class _AllCrowdfundPageState extends State<AllCrowdfundPage> {
                                                                         context,
                                                                         listen:
                                                                             false)
-                                                                    .pop();
+                                                                    .popInTab();
 
                                                                 // show thank you message
                                                                 showModalBottomSheet(
@@ -485,7 +485,7 @@ class _AllCrowdfundPageState extends State<AllCrowdfundPage> {
                                                                         context,
                                                                         listen:
                                                                             false)
-                                                                    .pop();
+                                                                    .popInTab();
 
                                                                 // show thank you message
                                                                 showModalBottomSheet(
