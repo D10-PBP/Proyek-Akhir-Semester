@@ -4,13 +4,15 @@ import 'dart:html';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:accordion/accordion.dart';
 import 'package:accordion/controllers.dart';
 
-import 'package:sayang_dibuang_mobile/information/pages/review.dart';
+import 'package:sayang_dibuang_mobile/information/pages/review_page.dart';
 import 'package:sayang_dibuang_mobile/information/pages/teams.dart';
 
 class InformationPage extends StatefulWidget {
@@ -22,8 +24,9 @@ class InformationPage extends StatefulWidget {
 
 // masi ngasal
 final List<String> imgList = [
-  'https://github.com/khansajovita/imgTugasPBP_UAS/blob/main/slide1flutter.png',
-  'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
+  'https://sayang-dibuang.up.railway.app/static/asset/information/slide1flutter.png',
+  'https://sayang-dibuang.up.railway.app/static/asset/information/slide2flutter.png',
+  'https://sayang-dibuang.up.railway.app/static/asset/information/slide3flutter.png'
 ];
 
 final List<Widget> imageSliders = imgList
@@ -40,16 +43,6 @@ final List<Widget> imageSliders = imgList
                       left: 0.0,
                       right: 0.0,
                       child: Container(
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Color.fromARGB(200, 0, 0, 0),
-                              Color.fromARGB(0, 0, 0, 0)
-                            ],
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter,
-                          ),
-                        ),
                         padding: const EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 20.0),
                       ),
@@ -136,11 +129,6 @@ class _InformationPageState extends State<InformationPage> {
                   height: 100,
                 ),
 
-                const Text(
-                  "Kamu mau tidur? aku juga",
-                  style: TextStyle(fontSize: 30),
-                ),
-
                 // buat review
                 Center(
                   child: Container(
@@ -148,12 +136,9 @@ class _InformationPageState extends State<InformationPage> {
                       height: 200,
                       padding: const EdgeInsets.all(10.0),
                       child: GestureDetector(
-                        onTap: () => {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const ReviewPage()))
-                        },
+                        onTap: () => Provider.of<PageProvider>(context,
+                                listen: false)
+                            .push(const InformationPage(), const ReviewPage()),
                         child: Card(
                           elevation: 50,
                           shadowColor: Colors.black,
@@ -213,12 +198,9 @@ class _InformationPageState extends State<InformationPage> {
                       height: 200,
                       padding: const EdgeInsets.all(10.0),
                       child: GestureDetector(
-                        onTap: () => {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const TeamPage()))
-                        },
+                        onTap: () => Provider.of<PageProvider>(context,
+                                listen: false)
+                            .push(const InformationPage(), const TeamPage()),
                         child: Card(
                           elevation: 50,
                           shadowColor: Colors.black,

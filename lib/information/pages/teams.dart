@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 
 class TeamPage extends StatefulWidget {
@@ -15,9 +17,10 @@ class _TeamPageState extends State<TeamPage> {
       backgroundColor: ThemeColor.sand,
       appBar: AppBar(
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () => Navigator.pop(context),
-          ),
+              icon: const Icon(Icons.arrow_back, color: Colors.white),
+              onPressed: () {
+                Provider.of<PageProvider>(context, listen: false).pop();
+              }),
           backgroundColor: ThemeColor.darkGreen,
           shadowColor: Colors.transparent),
       body: ListView(

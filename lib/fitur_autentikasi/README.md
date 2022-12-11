@@ -128,7 +128,6 @@ Fitur autentikasi bertujuan agar fitur tertentu hanya dapat diakses ketika pengg
     - `currentWidget` adalah `widget` saat ini. 
     - `mainWidget` adalah `widget` yang akan ditampilkan ke user ketika user melakukan logout atau dengan kata lain `widget` yang akan ditampilkan ke pengguna publik (belum login).
     - `destinationWidget` adalah `widget` yang akan ditampilkan ke user yang telah login.
-    > :warning: field `currentWidget` belum berfungsi apa-apa karena pembuat masih bingung :sweat_smile:)
 
     > Contoh lebih lengkap dapat dilihat pada [`demo.dart`](./demo_pages/demo.dart) pada folder `demo_pages`. 
     
