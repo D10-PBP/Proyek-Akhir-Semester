@@ -162,7 +162,24 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                                           textAlign: TextAlign.center,
                                         ),
                                       ),
-                                      //TODO BADGES
+                                      Expanded(
+                                          flex: 3,
+                                          child: (snapshot
+                                                      .data![index].status ==
+                                                  1)
+                                              ? Image.asset(
+                                                  'leaderboard/Gold.png')
+                                              : (snapshot.data![index].status ==
+                                                      2)
+                                                  ? Image.asset(
+                                                      'leaderboard/Silver.png')
+                                                  : (snapshot.data![index]
+                                                              .status ==
+                                                          3)
+                                                      ? Image.asset(
+                                                          'leaderboard/Bronze.png')
+                                                      : Image.asset(
+                                                          'leaderboard/Standard.png'))
                                     ],
                                   ),
                                 ),
