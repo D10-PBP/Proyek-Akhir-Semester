@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
-import 'package:sayang_dibuang_mobile/crowdfunding/models/crowdfund.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:sayang_dibuang_mobile/crowdfunding/pages/all_crowdfund_page.dart';
-import 'package:sayang_dibuang_mobile/crowdfunding/pages/crowdfundings_page.dart';
+import 'package:sayang_dibuang_mobile/crowdfunding/widgets/crowdfund_card.dart';
 
 class AllCrowdfunds extends StatelessWidget {
   Future<dynamic> crowdfunds;
@@ -14,6 +11,7 @@ class AllCrowdfunds extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Expanded(
       child: FutureBuilder(
           future: crowdfunds,
@@ -40,65 +38,8 @@ class AllCrowdfunds extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(16.0),
-                      child: Container(
-                        color: ThemeColor.white,
-                        width: 300,
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                snapshot.data[index]['title'],
-                                style: const TextStyle(
-                                    fontFamily: "Verona", fontSize: 20),
-                              ),
-                              const SizedBox(
-                                height: 16,
-                              ),
-                              Html(data: snapshot.data[index]['description']),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      Provider.of<PageProvider>(context,
-                                              listen: false)
-                                          .pushInTab(
-                                              const CrowdfundingsPage(),
-                                              AllCrowdfundPage(
-                                                  crowdfund:
-                                                      snapshot.data[index]));
-                                    },
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      child: Container(
-                                          color: ThemeColor.darkGreen,
-                                          child: const Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                horizontal: 12.0,
-                                                vertical: 8.0),
-                                            child: Text("Lihat",
-                                                style: TextStyle(
-                                                    color: ThemeColor.sand)),
-                                          )),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  );
+                  return CrowdfundCard(
+                      request: request, crowdfund: snapshot.data[index]);
                 },
               );
             }
