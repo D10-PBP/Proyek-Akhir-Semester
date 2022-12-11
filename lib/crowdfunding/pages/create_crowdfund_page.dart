@@ -40,7 +40,7 @@ class _CreateCrowdfundPageState extends State<CreateCrowdfundPage> {
             children: [
               BackButton(
                 onPressed: () {
-                  Provider.of<PageProvider>(context, listen: false).pop();
+                  Provider.of<PageProvider>(context, listen: false).popInTab();
                 },
               ),
               const SizedBox(
@@ -231,7 +231,7 @@ class _CreateCrowdfundPageState extends State<CreateCrowdfundPage> {
                                     // Go back to crowdfunding main page (pop once)
                                     Provider.of<PageProvider>(context,
                                             listen: false)
-                                        .pop();
+                                        .popInTab();
                                   }
                                 },
                                 child: const Padding(

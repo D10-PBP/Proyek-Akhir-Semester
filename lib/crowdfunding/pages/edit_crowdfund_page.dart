@@ -242,7 +242,7 @@ class _EditCrowdfundPageState extends State<EditCrowdfundPage> {
                                     Navigator.of(context).pop();
                                     Provider.of<PageProvider>(context,
                                             listen: false)
-                                        .pop();
+                                        .popInTab();
                                   }
                                 },
                                 child: const Padding(
