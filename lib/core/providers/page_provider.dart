@@ -5,6 +5,7 @@ import 'package:sayang_dibuang_mobile/crowdfunding/pages/crowdfundings_page.dart
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/demo_pages/demo.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/pages/profile.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/widgets/redirect.dart';
+import 'package:sayang_dibuang_mobile/leaderboard/pages/leaderboard.dart';
 
 class PageProvider extends ChangeNotifier {
   Widget currentPage;
@@ -21,7 +22,7 @@ class PageProvider extends ChangeNotifier {
         currentWidget: const CrowdfundingsNoUserPage(),
         mainWidget: const CrowdfundingsNoUserPage(),
         destinationWidget: CrowdfundingsPage()),
-    CrowdfundingsPage(), // nanti diganti sama Leaderboard
+    LeaderboardPage(),
     Profile(),
   ];
 

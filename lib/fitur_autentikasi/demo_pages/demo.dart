@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/widgets/redirect.dart';
 
@@ -31,7 +32,11 @@ class DestinationWidget extends StatelessWidget {
               child: const Text(
                 "Button ke DestinationWidgetTwo",
                 style: TextStyle(color: ThemeColor.white),
-              ))
+              )),
+          IconButton(
+            icon: const Icon(Icons.arrow_back, color: ThemeColor.darkGreen),
+            onPressed: () => context.read<PageProvider>().pop(),
+          ),
         ],
       ),
     )));
@@ -49,7 +54,16 @@ class DestinationWidgetTwo extends StatelessWidget {
       child: Container(
         color: ThemeColor.white,
         alignment: Alignment.center,
-        child: const Text("Halaman Kedua Demo", style: TextStyle(fontSize: 32)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text("Halaman Kedua Demo", style: TextStyle(fontSize: 32)),
+            IconButton(
+              icon: const Icon(Icons.arrow_back, color: ThemeColor.darkGreen),
+              onPressed: () => context.read<PageProvider>().pop(),
+            ),
+          ],
+        ),
       ),
     ));
   }
