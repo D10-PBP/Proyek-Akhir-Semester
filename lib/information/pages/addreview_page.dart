@@ -55,30 +55,25 @@ class _AddreviewPageState extends State<AddreviewPage> {
                             ),
                             const SizedBox(height: 30),
                             Padding(
-                              // Menggunakan padding sebesar 8 pixels
                               padding: const EdgeInsets.all(10.0),
                               child: TextFormField(
                                 decoration: InputDecoration(
                                   hintText: "Contoh: Saya Puas!",
                                   labelText: "Judul",
-                                  // Menambahkan circular border agar lebih rapi
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5.0),
                                   ),
                                 ),
-                                // Menambahkan behavior saat nama diketik
                                 onChanged: (String? value) {
                                   setState(() {
                                     judul = value!;
                                   });
                                 },
-                                // Menambahkan behavior saat data disimpan
                                 onSaved: (String? value) {
                                   setState(() {
                                     judul = value!;
                                   });
                                 },
-                                // Validator sebagai validasi form
                                 validator: (String? value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Judul tidak boleh kosong!';
@@ -88,31 +83,26 @@ class _AddreviewPageState extends State<AddreviewPage> {
                               ),
                             ),
                             Padding(
-                              // Menggunakan padding sebesar 8 pixels
                               padding: const EdgeInsets.all(8.0),
                               child: TextFormField(
                                 decoration: InputDecoration(
                                   hintText:
                                       "Contoh: Sayang Dibuang bagus banget!",
                                   labelText: "Deskripsi",
-                                  // Menambahkan circular border agar lebih rapi
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(5.0),
                                   ),
                                 ),
-                                // Menambahkan behavior saat nama diketik
                                 onChanged: (String? value) {
                                   setState(() {
                                     deskripsi = value!;
                                   });
                                 },
-                                // Menambahkan behavior saat data disimpan
                                 onSaved: (String? value) {
                                   setState(() {
                                     deskripsi = value!;
                                   });
                                 },
-                                // Validator sebagai validasi form
                                 validator: (String? value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Deskripsi tidak boleh kosong!';

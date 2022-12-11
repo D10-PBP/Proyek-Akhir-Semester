@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
+import 'package:sayang_dibuang_mobile/crowdfunding/pages/crowdfundings_page.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/widgets/redirect.dart';
 
 class CrowdfundingsNoUserPage extends StatelessWidget {
   const CrowdfundingsNoUserPage({super.key});
@@ -29,7 +31,7 @@ class CrowdfundingsNoUserPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // Image
-                  Image.asset('crowdfunding/login_asset.png'),
+                  Image.asset('assets/crowdfunding/login_asset.png'),
 
                   // Text
                   const Text(
@@ -43,7 +45,9 @@ class CrowdfundingsNoUserPage extends StatelessWidget {
 
                   // Button
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Redirect.pushToLogin(context);
+                    },
                     style: ButtonStyle(
                       backgroundColor:
                           MaterialStateProperty.all(ThemeColor.darkGreen),
