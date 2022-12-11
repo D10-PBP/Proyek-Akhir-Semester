@@ -168,18 +168,18 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                                                       .data![index].status ==
                                                   1)
                                               ? Image.asset(
-                                                  'leaderboard/Gold.png')
+                                                  'assets/leaderboard/Gold.png')
                                               : (snapshot.data![index].status ==
                                                       2)
                                                   ? Image.asset(
-                                                      'leaderboard/Silver.png')
+                                                      'assets/leaderboard/Silver.png')
                                                   : (snapshot.data![index]
                                                               .status ==
                                                           3)
                                                       ? Image.asset(
-                                                          'leaderboard/Bronze.png')
+                                                          'assets/leaderboard/Bronze.png')
                                                       : Image.asset(
-                                                          'leaderboard/Standard.png'))
+                                                          'assets/leaderboard/Standard.png'))
                                     ],
                                   ),
                                 ),

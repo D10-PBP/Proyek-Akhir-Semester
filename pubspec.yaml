@@ -84,6 +84,10 @@ flutter:
   assets:
     - assets/crowdfunding/login_asset.png
     - assets/crowdfunding/thank_you_asset.png
+    - assets/leaderboard/Bronze.png
+    - assets/leaderboard/Gold.png
+    - assets/leaderboard/Silver.png
+    - assets/leaderboard/Standard.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
