@@ -1,5 +1,6 @@
 import 'package:http/http.dart' as http;
 
+// ref: https://brewyourtech.com/how-to-check-if-image-url-is-valid-in-flutter/
 Future<bool> validateImage(String imageUrl) async {
   http.Response res;
   try {
