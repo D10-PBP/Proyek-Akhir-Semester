@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => PageProvider())
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(primarySwatch: Colors.blue, fontFamily: 'PlusJakarta'),
         home: const BasePage(),
       ),
