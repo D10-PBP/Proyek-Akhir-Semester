@@ -633,70 +633,68 @@ class _CrowdfundPageState extends State<CrowdfundPage> {
                 borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(24.0),
                     topRight: Radius.circular(24.0)),
-                child: Flexible(
-                  child: Container(
-                    constraints: BoxConstraints(
-                        minHeight: MediaQuery.of(context).size.height - 300),
-                    width: MediaQuery.of(context).size.width,
-                    color: ThemeColor.white,
-                    child: Padding(
-                      padding: const EdgeInsets.all(24.0),
-                      child: Column(
-                        children: [
-                          // Created
-                          Row(
-                            children: [
-                              FaIcon(FontAwesomeIcons.calendarDays),
-                              SizedBox(
-                                width: 8,
-                              ),
-                              Text(DateFormat("EEEE, d MMMM yyyy", "id_ID")
-                                  .format(DateTime.parse(
-                                      widget.crowdfund['created']))),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 16,
-                          ),
+                child: Container(
+                  constraints: BoxConstraints(
+                      minHeight: MediaQuery.of(context).size.height - 300),
+                  width: MediaQuery.of(context).size.width,
+                  color: ThemeColor.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Column(
+                      children: [
+                        // Created
+                        Row(
+                          children: [
+                            FaIcon(FontAwesomeIcons.calendarDays),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Text(DateFormat("EEEE, d MMMM yyyy", "id_ID")
+                                .format(DateTime.parse(
+                                    widget.crowdfund['created']))),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 16,
+                        ),
 
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                "Progress",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600, fontSize: 20),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Progress",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600, fontSize: 20),
+                            ),
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: LinearProgressIndicator(
+                                backgroundColor: ThemeColor.sand,
+                                color: ThemeColor.darkGreen,
+                                value: widget.crowdfund['received'] /
+                                    widget.crowdfund['target'],
+                                minHeight: 12,
                               ),
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: LinearProgressIndicator(
-                                  backgroundColor: ThemeColor.sand,
-                                  color: ThemeColor.darkGreen,
-                                  value: widget.crowdfund['received'] /
-                                      widget.crowdfund['target'],
-                                  minHeight: 12,
-                                ),
-                              ),
-                              Text(
-                                  "${widget.crowdfund['received']} dari ${widget.crowdfund['target']} benda diperoleh."),
+                            ),
+                            Text(
+                                "${widget.crowdfund['received']} dari ${widget.crowdfund['target']} benda diperoleh."),
 
-                              const SizedBox(
-                                height: 16,
-                              ),
-                              // Description
-                              const Text(
-                                "Deskripsi",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600, fontSize: 20),
-                              ),
-                              Text(
-                                Bidi.stripHtmlIfNeeded(
-                                    "${widget.crowdfund['description']}"),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            // Description
+                            const Text(
+                              "Deskripsi",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w600, fontSize: 20),
+                            ),
+                            Text(
+                              Bidi.stripHtmlIfNeeded(
+                                  "${widget.crowdfund['description']}"),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ),
