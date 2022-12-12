@@ -1,3 +1,4 @@
+[![Build status](https://build.appcenter.ms/v0.1/apps/55439676-0b23-45ae-b115-8f1604153864/branches/main/badge)](https://appcenter.ms)
 # Kelompok PBP D10: Sayang-Dibuang Mobile
 
 ## 📌 Nama Anggota 📌
