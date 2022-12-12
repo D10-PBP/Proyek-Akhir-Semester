@@ -14,10 +14,10 @@ class PageProvider extends ChangeNotifier {
   int currentPageIndex;
   List<Widget> history = [];
 
-  List<List<Widget>> tabHistories = [[], [], [], [], [], [], []];
+  List<List<Widget>> tabHistories = [[], [], [], [], [], []];
 
   List<Widget> mainPages = [
-    InformationPage(), // nanti diganti sama Home
+    InformationPage(),
     BerandaBarangPage(),
     CrowdfundingsNoUserPage(), // nanti diganti sama Request
     Redirect(
@@ -29,16 +29,15 @@ class PageProvider extends ChangeNotifier {
         mainWidget: LeaderboardNoUserPage(),
         destinationWidget: LeaderboardPage()),
     Profile(),
-    MainWidget(),
   ];
 
   PageProvider({
-    this.currentPageIndex = 5,
-    this.currentPage = const Profile(),
+    this.currentPageIndex = 0,
+    this.currentPage = const InformationPage(),
   });
 
   void resetTabHistories() {
-    tabHistories = [[], [], [], [], [], [], []];
+    tabHistories = [[], [], [], [], [], []];
   }
 
   void pushInTab(Widget prevPage, Widget newPage) {
