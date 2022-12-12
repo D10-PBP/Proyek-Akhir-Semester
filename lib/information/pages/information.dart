@@ -64,7 +64,7 @@ class _InformationPageState extends State<InformationPage> {
     ];
 
     const colorizeTextStyle = TextStyle(
-        fontSize: 50.0, fontFamily: 'Verona', fontWeight: FontWeight.bold);
+        fontSize: 40.0, fontFamily: 'Verona', fontWeight: FontWeight.bold);
 
     return Scaffold(
         backgroundColor: ThemeColor.sand,
