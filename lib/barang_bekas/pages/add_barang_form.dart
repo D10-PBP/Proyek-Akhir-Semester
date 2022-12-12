@@ -4,14 +4,12 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/functions/create_barang_bekas.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/functions/fetch_barang_bekas.dart';
-import 'package:http/http.dart' as http;
 import 'package:sayang_dibuang_mobile/barang_bekas/functions/validate_image_url.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/pages/add_kategori.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/pages/add_lokasi.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/pages/beranda.dart';
 import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
-import 'package:sayang_dibuang_mobile/fitur_autentikasi/models/error_message.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/dialog.dart';
 
