@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/models/update_user.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/models/user_profile.dart';

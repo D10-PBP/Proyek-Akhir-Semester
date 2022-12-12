@@ -250,7 +250,6 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
                         ),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            print("$kategori $lokasi");
                             createBarang(request, profile.user?.username, judul,
                                 deskripsi, foto, lokasi, kategori);
 

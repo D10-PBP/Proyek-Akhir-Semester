@@ -8,7 +8,7 @@ import 'package:sayang_dibuang_mobile/crowdfunding/utils/crowdfund_api_handler.d
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 
 class CreateCrowdfundPage extends StatefulWidget {
-  CreateCrowdfundPage({super.key});
+  const CreateCrowdfundPage({super.key});
   @override
   State<CreateCrowdfundPage> createState() => _CreateCrowdfundPageState();
 }

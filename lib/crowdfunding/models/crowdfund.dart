@@ -59,7 +59,8 @@ class Crowdfund {
 
   @override
   String toString() {
-    return 'id: ${id} - userId: ${userId}';
+    // ignore: unnecessary_brace_in_string_interps
+    return 'id: $id - userId: ${userId}';
   }
 }
 

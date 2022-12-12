@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:sayang_dibuang_mobile/request_barang_bekas/functions/create_request.dart';
 import 'package:sayang_dibuang_mobile/request_barang_bekas/functions/edit_request.dart';
-import 'package:sayang_dibuang_mobile/request_barang_bekas/functions/fetch_request.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/functions/fetch_barang_bekas.dart';
 import 'package:sayang_dibuang_mobile/request_barang_bekas/pages/request_detail.dart';
 import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
-import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 
 class EditRequest extends StatefulWidget {
   const EditRequest(
@@ -52,7 +49,6 @@ class _EditRequest extends State<EditRequest> {
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
-    final profile = context.read<CurrentUserProfileModel>();
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -115,8 +111,7 @@ class _EditRequest extends State<EditRequest> {
                         child: TextFormField(
                           initialValue: deskripsi,
                           decoration: InputDecoration(
-                            hintText:
-                                "Contoh: Botol untuk eksperimen roket.",
+                            hintText: "Contoh: Botol untuk eksperimen roket.",
                             labelText: "Deskripsi",
                             // Menambahkan circular border agar lebih rapi
                             border: OutlineInputBorder(
@@ -207,7 +202,8 @@ class _EditRequest extends State<EditRequest> {
                         ),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            editRequest(request, pk, namaBarang, deskripsi, kategori, isAvailable);
+                            editRequest(request, pk, namaBarang, deskripsi,
+                                kategori, isAvailable);
 
                             // Provider.of<PageProvider>(context, listen: false)
                             //     .popInTab();

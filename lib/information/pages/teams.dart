@@ -60,7 +60,7 @@ class _TeamPageState extends State<TeamPage> {
               Expanded(
                   child: SizedBox(
                       child: Padding(
-                padding: EdgeInsets.all(50),
+                padding: const EdgeInsets.all(50),
                 child: Image.asset(
                   "assets/information/team/Cath.png",
                   height: 150,
@@ -90,7 +90,7 @@ class _TeamPageState extends State<TeamPage> {
               Expanded(
                   child: SizedBox(
                       child: Padding(
-                padding: EdgeInsets.all(50),
+                padding: const EdgeInsets.all(50),
                 child: Image.asset(
                   "assets/information/team/Gibrano.png",
                   height: 150,
@@ -120,7 +120,7 @@ class _TeamPageState extends State<TeamPage> {
               Expanded(
                   child: SizedBox(
                       child: Padding(
-                padding: EdgeInsets.all(50),
+                padding: const EdgeInsets.all(50),
                 child: Image.asset(
                   "assets/information/team/Khansa.png",
                   height: 150,
@@ -150,7 +150,7 @@ class _TeamPageState extends State<TeamPage> {
               Expanded(
                   child: SizedBox(
                       child: Padding(
-                padding: EdgeInsets.all(50),
+                padding: const EdgeInsets.all(50),
                 child: Image.asset(
                   "assets/information/team/Kristo.png",
                   height: 150,
@@ -180,7 +180,7 @@ class _TeamPageState extends State<TeamPage> {
               Expanded(
                   child: SizedBox(
                       child: Padding(
-                padding: EdgeInsets.all(50),
+                padding: const EdgeInsets.all(50),
                 child: Image.asset(
                   "assets/information/team/Lyzander.png",
                   height: 150,
@@ -210,7 +210,7 @@ class _TeamPageState extends State<TeamPage> {
               Expanded(
                   child: SizedBox(
                       child: Padding(
-                padding: EdgeInsets.all(50),
+                padding: const EdgeInsets.all(50),
                 child: Image.asset(
                   "assets/information/team/Pikatan.png",
                   height: 150,

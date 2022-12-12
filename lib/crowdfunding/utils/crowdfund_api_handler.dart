@@ -18,14 +18,14 @@ class CrowdfundAPIHandler {
   static Future<dynamic> editCrowdfund(
       CookieRequest request, int id, Map<String, dynamic> crowdfund) async {
     final response = await request.post(
-        'https://sayang-dibuang.up.railway.app/crowdfundings/edit/mobile/${id}',
+        'https://sayang-dibuang.up.railway.app/crowdfundings/edit/mobile/$id',
         crowdfund);
     return response;
   }
 
   static Future<dynamic> deleteCrowdfund(CookieRequest request, int id) async {
     final response = await request.post(
-        'https://sayang-dibuang.up.railway.app/crowdfundings/delete/${id}',
+        'https://sayang-dibuang.up.railway.app/crowdfundings/delete/$id',
         {'csrfmiddlewaretoken': request.cookies['csrftoken']});
     return response;
   }
@@ -33,7 +33,7 @@ class CrowdfundAPIHandler {
   static Future<dynamic> addUserPointWhenContacting(
       CookieRequest request, int id) async {
     final response = await request.post(
-        'https://sayang-dibuang.up.railway.app/crowdfundings/add-point-when-contacting/${id}',
+        'https://sayang-dibuang.up.railway.app/crowdfundings/add-point-when-contacting/$id',
         {'csrfmiddlewaretoken': request.cookies['csrftoken']});
     return response;
   }

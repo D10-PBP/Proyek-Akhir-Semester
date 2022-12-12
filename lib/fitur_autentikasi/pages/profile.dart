@@ -131,7 +131,6 @@ class ProfileUser extends StatelessWidget {
                         if (profile.hasCurrentUser()) {
                           messageDialog(context, response);
                         } else {
-                          // TODO: add resetTabHistories
                           pageProvider.resetTabHistories();
                         }
                       },

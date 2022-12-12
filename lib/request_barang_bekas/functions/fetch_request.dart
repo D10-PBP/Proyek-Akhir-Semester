@@ -1,5 +1,4 @@
 import 'package:sayang_dibuang_mobile/request_barang_bekas/models/request.dart';
-import 'package:sayang_dibuang_mobile/crowdfunding/models/crowdfund.dart';
 
 Future<List<Request>> fetchRequest(request) async {
   var url = 'https://sayang-dibuang.up.railway.app/request/all/mobile/';
