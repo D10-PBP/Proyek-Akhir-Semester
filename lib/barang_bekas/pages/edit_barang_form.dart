@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:sayang_dibuang_mobile/barang_bekas/functions/create_barang_bekas.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/functions/edit_barang_bekas.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/functions/fetch_barang_bekas.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/pages/barang_detail.dart';
@@ -293,7 +292,7 @@ class _EditBarangBekas extends State<EditBarangBekas> {
                             // Provider.of<PageProvider>(context, listen: false)
                             //     .popInTab();
                             Provider.of<PageProvider>(context, listen: false)
-                                .push(
+                                .pushInTab(
                                     EditBarangBekas(
                                       pk: widget.pk,
                                       judul: widget.judul,

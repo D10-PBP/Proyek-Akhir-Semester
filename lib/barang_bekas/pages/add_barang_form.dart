@@ -255,7 +255,7 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
                                 deskripsi, foto, lokasi, kategori);
 
                             Provider.of<PageProvider>(context, listen: false)
-                                .push(const CreateBarangBekas(),
+                                .pushInTab(const CreateBarangBekas(),
                                     const BerandaBarangPage());
                           }
                         },
@@ -285,7 +285,7 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
                                         style: BorderStyle.solid))),
                             onPressed: () {
                               Provider.of<PageProvider>(context, listen: false)
-                                  .push(const CreateBarangBekas(),
+                                  .pushInTab(const CreateBarangBekas(),
                                       const CreateKategori());
                             },
                             child: const Text(
@@ -312,7 +312,7 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
                                         style: BorderStyle.solid))),
                             onPressed: () {
                               Provider.of<PageProvider>(context, listen: false)
-                                  .push(const CreateBarangBekas(),
+                                  .pushInTab(const CreateBarangBekas(),
                                       const CreateLokasi());
                             },
                             child: const Text(
