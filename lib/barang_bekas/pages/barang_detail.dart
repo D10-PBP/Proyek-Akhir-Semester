@@ -223,7 +223,10 @@ class _BarangDetailPageState extends State<BarangDetailPage> {
                         } else if (snapshot.hasError) {
                           return Text('${snapshot.error}');
                         } else {
-                          return const CircularProgressIndicator();
+                          return Container(
+                            margin: const EdgeInsets.all(20),
+                            child: const CircularProgressIndicator(),
+                          );
                         }
                       },
                     ),
