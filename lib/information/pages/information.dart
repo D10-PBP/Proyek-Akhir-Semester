@@ -1,7 +1,7 @@
 // ignore_for_file: unnecessary_const, unnecessary_string_escapes
 
 // import 'dart:html';
-import 'dart:ui';
+// import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -64,7 +64,7 @@ class _InformationPageState extends State<InformationPage> {
     ];
 
     const colorizeTextStyle = TextStyle(
-        fontSize: 50.0, fontFamily: 'Verona', fontWeight: FontWeight.bold);
+        fontSize: 40.0, fontFamily: 'Verona', fontWeight: FontWeight.bold);
 
     return Scaffold(
         backgroundColor: ThemeColor.sand,
@@ -156,7 +156,7 @@ class _InformationPageState extends State<InformationPage> {
                                     topLeft: Radius.circular(15),
                                     bottomLeft: Radius.circular(15)),
                                 child: Image.asset(
-                                  "information/review-overlay.jpg",
+                                  "assets/information/review-overlay.jpg",
                                   height: 400,
                                   width: 150,
                                   fit: BoxFit.fitHeight,
@@ -219,7 +219,7 @@ class _InformationPageState extends State<InformationPage> {
                                     topLeft: Radius.circular(15),
                                     bottomLeft: Radius.circular(15)),
                                 child: Image.asset(
-                                  "information/our-team.jpg",
+                                  "assets/information/our-team.jpg",
                                   height: 400,
                                   width: 150,
                                   fit: BoxFit.fitHeight,

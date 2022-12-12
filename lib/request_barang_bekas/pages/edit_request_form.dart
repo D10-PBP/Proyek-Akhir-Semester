@@ -1,56 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:sayang_dibuang_mobile/barang_bekas/functions/edit_barang_bekas.dart';
+import 'package:sayang_dibuang_mobile/request_barang_bekas/functions/create_request.dart';
+import 'package:sayang_dibuang_mobile/request_barang_bekas/functions/edit_request.dart';
+import 'package:sayang_dibuang_mobile/request_barang_bekas/functions/fetch_request.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/functions/fetch_barang_bekas.dart';
-import 'package:sayang_dibuang_mobile/barang_bekas/pages/barang_detail.dart';
+import 'package:sayang_dibuang_mobile/request_barang_bekas/pages/request_detail.dart';
 import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 
-class EditBarangBekas extends StatefulWidget {
-  const EditBarangBekas(
+class EditRequest extends StatefulWidget {
+  const EditRequest(
       {super.key,
       required this.pk,
       required this.owner,
-      required this.judul,
+      required this.namaBarang,
       required this.deskripsi,
-      required this.foto,
       required this.kategori,
-      required this.lokasi,
       required this.isAvailable});
 
   final int pk;
   final int owner;
-  final String judul;
+  final String namaBarang;
   final String deskripsi;
-  final String foto;
   final String kategori;
-  final String lokasi;
   final bool isAvailable;
 
   @override
-  State<EditBarangBekas> createState() => _EditBarangBekas();
+  State<EditRequest> createState() => _EditRequest();
 }
 
-class _EditBarangBekas extends State<EditBarangBekas> {
+class _EditRequest extends State<EditRequest> {
   final _formKey = GlobalKey<FormState>();
 
   int? pk;
-  String? judul;
+  String? namaBarang;
   String? deskripsi;
-  String? foto;
-  String? lokasi;
   String? kategori;
   bool? isAvailable;
   @override
   void initState() {
     super.initState();
     pk = widget.pk;
-    judul = widget.judul;
+    namaBarang = widget.namaBarang;
     deskripsi = widget.deskripsi;
-    foto = widget.foto;
-    lokasi = widget.lokasi;
     kategori = widget.kategori;
     isAvailable = widget.isAvailable;
   }
@@ -74,7 +68,7 @@ class _EditBarangBekas extends State<EditBarangBekas> {
                         height: 40,
                       ),
                       const Text(
-                        "EDIT BARANG BEKAS",
+                        "EDIT REQUEST",
                         style: TextStyle(
                             fontFamily: "Verona",
                             fontWeight: FontWeight.bold,
@@ -85,10 +79,10 @@ class _EditBarangBekas extends State<EditBarangBekas> {
                         // Menggunakan padding sebesar 8 pixels
                         padding: const EdgeInsets.all(10.0),
                         child: TextFormField(
-                          initialValue: judul,
+                          initialValue: namaBarang,
                           decoration: InputDecoration(
-                            hintText: "Contoh: Karton Aqua",
-                            labelText: "Judul",
+                            hintText: "Contoh: Botol Plastik 2 Liter",
+                            labelText: "Nama Barang",
                             // Menambahkan circular border agar lebih rapi
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(5.0),
@@ -97,19 +91,19 @@ class _EditBarangBekas extends State<EditBarangBekas> {
                           // Menambahkan behavior saat nama diketik
                           onChanged: (String? value) {
                             setState(() {
-                              judul = value!;
+                              namaBarang = value!;
                             });
                           },
                           // Menambahkan behavior saat data disimpan
                           onSaved: (String? value) {
                             setState(() {
-                              judul = value!;
+                              namaBarang = value!;
                             });
                           },
                           // Validator sebagai validasi form
                           validator: (String? value) {
                             if (value == null || value.isEmpty) {
-                              return 'Judul tidak boleh kosong!';
+                              return 'Nama barang tidak boleh kosong!';
                             }
                             return null;
                           },
@@ -122,7 +116,7 @@ class _EditBarangBekas extends State<EditBarangBekas> {
                           initialValue: deskripsi,
                           decoration: InputDecoration(
                             hintText:
-                                "Contoh: Karton sebanyak 2 lusin. Kondisi pristine.",
+                                "Contoh: Botol untuk eksperimen roket.",
                             labelText: "Deskripsi",
                             // Menambahkan circular border agar lebih rapi
                             border: OutlineInputBorder(
@@ -150,44 +144,8 @@ class _EditBarangBekas extends State<EditBarangBekas> {
                           },
                         ),
                       ),
-                      Padding(
-                        // Menggunakan padding sebesar 8 pixels
-                        padding: const EdgeInsets.all(8.0),
-                        child: TextFormField(
-                          initialValue: foto,
-                          decoration: InputDecoration(
-                            hintText: "Contoh: www.blabla.jpg",
-                            labelText: "Image URL",
-                            // Menambahkan circular border agar lebih rapi
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                          ),
-                          // Menambahkan behavior saat nama diketik
-                          onChanged: (String? value) {
-                            setState(() {
-                              foto = value!;
-                            });
-                          },
-                          // Menambahkan behavior saat data disimpan
-                          onSaved: (String? value) {
-                            setState(() {
-                              foto = value!;
-                            });
-                          },
-                          // Validator sebagai validasi form
-                          validator: (String? value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Image URL tidak boleh kosong!';
-                            } else if (!value.startsWith("http")) {
-                              return 'Image URL harus sebuah link dengan http/https';
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
                       CheckboxListTile(
-                        title: const Text('Available'),
+                        title: const Text('Fulfilled'),
                         value: isAvailable,
                         onChanged: (bool? value) {
                           setState(() {
@@ -201,43 +159,6 @@ class _EditBarangBekas extends State<EditBarangBekas> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            FutureBuilder<List<String>>(
-                              future: fetchLokasi(request),
-                              builder: (context, snapshot) {
-                                if (snapshot.hasData) {
-                                  var data = snapshot.data!;
-                                  return DropdownButton(
-                                    // Initial Value
-                                    value: lokasi ?? data[0],
-
-                                    // Down Arrow Icon
-                                    icon: const Icon(Icons.keyboard_arrow_down),
-
-                                    // Array list of items
-                                    items: data.map((String items) {
-                                      return DropdownMenuItem(
-                                        value: items,
-                                        child: Text(items),
-                                      );
-                                    }).toList(),
-                                    // After selecting the desired option,it will
-                                    // change button value to selected value
-                                    onChanged: (String? newValue) {
-                                      setState(() {
-                                        lokasi = newValue!;
-                                      });
-                                    },
-                                  );
-                                } else if (snapshot.hasError) {
-                                  return Text('${snapshot.error}');
-                                } else {
-                                  return const CircularProgressIndicator();
-                                }
-                              },
-                            ),
-                            const SizedBox(
-                              width: 40,
-                            ),
                             FutureBuilder<List<String>>(
                               future: fetchKategori(request),
                               builder: (context, snapshot) {
@@ -286,29 +207,24 @@ class _EditBarangBekas extends State<EditBarangBekas> {
                         ),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            editBarang(request, pk, judul, deskripsi, foto,
-                                lokasi, kategori, isAvailable);
+                            editRequest(request, pk, namaBarang, deskripsi, kategori, isAvailable);
 
                             // Provider.of<PageProvider>(context, listen: false)
                             //     .popInTab();
                             Provider.of<PageProvider>(context, listen: false)
-                                .pushInTab(
-                                    EditBarangBekas(
+                                .push(
+                                    EditRequest(
                                       pk: widget.pk,
-                                      judul: widget.judul,
+                                      namaBarang: widget.namaBarang,
                                       deskripsi: widget.deskripsi,
-                                      foto: widget.foto,
-                                      lokasi: widget.lokasi,
                                       kategori: widget.kategori,
                                       isAvailable: widget.isAvailable,
                                       owner: widget.owner,
                                     ),
-                                    BarangDetailPage(
+                                    RequestDetailPage(
                                       pk: widget.pk,
-                                      judul: judul!,
+                                      namaBarang: namaBarang!,
                                       deskripsi: deskripsi!,
-                                      foto: foto!,
-                                      lokasi: lokasi!,
                                       kategori: kategori!,
                                       available: isAvailable!,
                                       owner: widget.owner,

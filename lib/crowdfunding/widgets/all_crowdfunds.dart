@@ -6,8 +6,10 @@ import 'package:sayang_dibuang_mobile/crowdfunding/widgets/crowdfund_card.dart';
 
 class AllCrowdfunds extends StatelessWidget {
   Future<dynamic> crowdfunds;
-
-  AllCrowdfunds({Key? key, required this.crowdfunds}) : super(key: key);
+  dynamic updateCrowdfunds;
+  AllCrowdfunds(
+      {Key? key, required this.crowdfunds, required this.updateCrowdfunds})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class AllCrowdfunds extends StatelessWidget {
               return Column(
                 children: const [
                   Text(
-                    "Tidak ada to do list :(",
+                    "Tidak ada crowdfund :(",
                     style: TextStyle(color: Color(0xff59A5D8), fontSize: 20),
                   ),
                   SizedBox(height: 8),
@@ -39,7 +41,10 @@ class AllCrowdfunds extends StatelessWidget {
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) {
                   return CrowdfundCard(
-                      request: request, crowdfund: snapshot.data[index]);
+                    updateCrowdfunds: updateCrowdfunds,
+                    request: request,
+                    crowdfund: snapshot.data[index],
+                  );
                 },
               );
             }

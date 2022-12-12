@@ -38,10 +38,12 @@ class _ReviewPageState extends State<ReviewPage> {
             children: [
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: 260,
+                // height: 260,
                 decoration: const BoxDecoration(
                   color: ThemeColor.darkGreen,
                 ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
                 child: Column(
                   children: [
                     const Text(
@@ -57,7 +59,7 @@ class _ReviewPageState extends State<ReviewPage> {
                       child: Row(
                         children: [
                           Image.asset(
-                            "information/nature.png",
+                            "assets/information/nature.png",
                             height: 100,
                             width: 150,
                             fit: BoxFit.cover,
@@ -151,7 +153,7 @@ class _ReviewPageState extends State<ReviewPage> {
                                     Row(
                                       children: [
                                         Image.asset(
-                                          "icon-profile.png",
+                                          "assets/icon-profile.png",
                                           height: 30,
                                           width: 30,
                                         ),

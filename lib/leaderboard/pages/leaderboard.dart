@@ -178,7 +178,8 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                   return SizedBox(
                       width: 350,
                       child: ListView.builder(
-                          scrollDirection: Axis.vertical,
+                          physics: const NeverScrollableScrollPhysics(),
+                          // scrollDirection: Axis.vertical,
                           shrinkWrap: true,
                           itemCount: snapshot.data!.length,
                           itemBuilder: (_, index) => Container(

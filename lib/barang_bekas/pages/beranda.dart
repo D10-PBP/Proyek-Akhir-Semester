@@ -6,7 +6,6 @@ import 'package:sayang_dibuang_mobile/barang_bekas/pages/add_barang_form.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/pages/barang_detail.dart';
 import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
-import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/widgets/redirect.dart';
 
 class BerandaBarangPage extends StatefulWidget {
@@ -28,11 +27,17 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
             children: [
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: 240,
+                height: 320,
                 decoration: const BoxDecoration(
                   color: ThemeColor.darkGreen,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
+                  ),
                 ),
-                padding: const EdgeInsets.all(10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
+                // child: Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -95,6 +100,7 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
                     ),
                   ],
                 ),
+                // ),
               ),
               FutureBuilder(
                 future: fetchBarangBekas(request),
@@ -140,7 +146,7 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
                                     children: [
                                       Container(
                                         height: 200,
-                                        width: 200,
+                                        width: 150,
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(15.0),
@@ -160,13 +166,13 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
                                                 color: Colors.blueGrey
                                                     .withOpacity(0.5),
                                               ),
-                                              width: 200,
+                                              width: 150,
                                               height: 200,
                                               alignment: Alignment.center,
                                               child: const Text(
                                                 "NOT AVAILABLE",
                                                 style: TextStyle(
-                                                  fontSize: 20,
+                                                  fontSize: 16,
                                                   fontWeight: FontWeight.w900,
                                                   shadows: [
                                                     Shadow(
@@ -202,7 +208,7 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
                                             child: Text(
                                               snapshot.data![index].deskripsi,
                                               overflow: TextOverflow.ellipsis,
-                                              maxLines: 2,
+                                              maxLines: 1,
                                               style: const TextStyle(
                                                 fontSize: 14.0,
                                               ),
@@ -223,7 +229,7 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
                                             child: Text(
                                                 snapshot.data![index].kategori),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 5,
                                           ),
                                           Wrap(
@@ -261,8 +267,9 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
                     return Text('${snapshot.error}');
                   }
                   // By default, show a loading spinner.
-                  return const Center(
-                    child: CircularProgressIndicator(),
+                  return Container(
+                    margin: const EdgeInsets.all(20),
+                    child: const CircularProgressIndicator(),
                   );
                 },
               ),

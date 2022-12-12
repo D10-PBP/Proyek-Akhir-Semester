@@ -44,7 +44,7 @@ Future<T?> messageDialog<T>(BuildContext context, String message,
 
 Future<T?> loginDialog<T>(
     BuildContext context, String message, String redirectTitle,
-    {double width = 300, double height = 200}) {
+    {double width = 300, double height = 300}) {
   return showDialog(
     context: context,
     builder: (context) {

@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
-import 'package:sayang_dibuang_mobile/information/lain-lain/deletereview.dart';
+// import 'package:sayang_dibuang_mobile/information/lain-lain/deletereview.dart';
 
 class ReviewdetailPage extends StatefulWidget {
   final String username;
@@ -68,16 +68,18 @@ class _ReviewdetailPageState extends State<ReviewdetailPage> {
                             child: Row(
                               children: [
                                 Image.asset(
-                                  "icon-profile.png",
+                                  "assets/icon-profile.png",
                                   height: 40,
                                   width: 40,
                                 ),
                                 const SizedBox(
                                   width: 20,
                                 ),
-                                Text(
-                                  widget.username,
-                                  style: const TextStyle(fontSize: 30),
+                                Expanded(
+                                  child: Text(
+                                    widget.username,
+                                    style: const TextStyle(fontSize: 20),
+                                  ),
                                 ),
                               ],
                             ),

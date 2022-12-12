@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/pages/beranda.dart';
+import 'package:sayang_dibuang_mobile/request_barang_bekas/pages/beranda.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/pages/crowdfundings_no_user_page.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/pages/crowdfundings_page.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/demo_pages/demo.dart';
@@ -14,12 +15,12 @@ class PageProvider extends ChangeNotifier {
   int currentPageIndex;
   List<Widget> history = [];
 
-  List<List<Widget>> tabHistories = [[], [], [], [], [], [], []];
+  List<List<Widget>> tabHistories = [[], [], [], [], [], []];
 
   List<Widget> mainPages = [
-    InformationPage(), // nanti diganti sama Home
+    InformationPage(),
     BerandaBarangPage(),
-    CrowdfundingsNoUserPage(), // nanti diganti sama Request
+    BerandaRequestPage(),
     Redirect(
         currentWidget: const CrowdfundingsNoUserPage(),
         mainWidget: const CrowdfundingsNoUserPage(),
@@ -29,16 +30,15 @@ class PageProvider extends ChangeNotifier {
         mainWidget: LeaderboardNoUserPage(),
         destinationWidget: LeaderboardPage()),
     Profile(),
-    MainWidget(),
   ];
 
   PageProvider({
-    this.currentPageIndex = 5,
-    this.currentPage = const Profile(),
+    this.currentPageIndex = 0,
+    this.currentPage = const InformationPage(),
   });
 
   void resetTabHistories() {
-    tabHistories = [[], [], [], [], [], [], []];
+    tabHistories = [[], [], [], [], [], []];
   }
 
   void pushInTab(Widget prevPage, Widget newPage) {

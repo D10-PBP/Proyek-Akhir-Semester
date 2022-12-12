@@ -12,7 +12,12 @@ import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_p
 
 class CrowdfundCard extends StatelessWidget {
   dynamic crowdfund;
-  CrowdfundCard({Key? key, required this.request, required this.crowdfund})
+  dynamic updateCrowdfunds;
+  CrowdfundCard(
+      {Key? key,
+      required this.request,
+      required this.crowdfund,
+      required this.updateCrowdfunds})
       : super(key: key);
 
   final CookieRequest request;
@@ -27,7 +32,7 @@ class CrowdfundCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.0),
         child: Container(
           color: ThemeColor.white,
-          width: 320,
+          width: 250,
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -48,9 +53,10 @@ class CrowdfundCard extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
-                      child: Text(description.length >= 50
-                          ? "${description.substring(0, 50)}..."
-                          : description),
+                      child: Text(
+                        description,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                     const SizedBox(
                       height: 10,
@@ -153,6 +159,7 @@ class CrowdfundCard extends StatelessWidget {
 
                                                   // close the modal
                                                   Navigator.of(context).pop();
+                                                  updateCrowdfunds(request);
                                                 },
                                                 child: ClipRRect(
                                                   borderRadius:

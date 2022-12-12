@@ -102,8 +102,7 @@ class _CreateKategori extends State<CreateKategori> {
               builder: (context) => IconButton(
                 icon: const Icon(Icons.chevron_left_rounded, size: 35.0),
                 onPressed: () =>
-                    Provider.of<PageProvider>(context, listen: false)
-                        .popInTab(),
+                    Provider.of<PageProvider>(context, listen: false).pop(),
               ),
             ),
           ],
