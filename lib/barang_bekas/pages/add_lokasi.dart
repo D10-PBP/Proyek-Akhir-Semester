@@ -102,7 +102,8 @@ class _CreateLokasi extends State<CreateLokasi> {
               builder: (context) => IconButton(
                 icon: const Icon(Icons.chevron_left_rounded, size: 35.0),
                 onPressed: () =>
-                    Provider.of<PageProvider>(context, listen: false).pop(),
+                    Provider.of<PageProvider>(context, listen: false)
+                        .popInTab(),
               ),
             ),
           ],
