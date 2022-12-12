@@ -48,7 +48,7 @@ class _CrowdfundPageState extends State<CrowdfundPage> {
                 },
               ),
               SizedBox(
-                width: 12,
+                width: 4,
               ),
               Text(
                 "Crowdfunding",
@@ -635,6 +635,8 @@ class _CrowdfundPageState extends State<CrowdfundPage> {
                     topRight: Radius.circular(24.0)),
                 child: Flexible(
                   child: Container(
+                    constraints: BoxConstraints(
+                        minHeight: MediaQuery.of(context).size.height - 300),
                     width: MediaQuery.of(context).size.width,
                     color: ThemeColor.white,
                     child: Padding(
