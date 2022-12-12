@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
@@ -21,9 +20,9 @@ class CrowdfundPage extends StatefulWidget {
 
 class _CrowdfundPageState extends State<CrowdfundPage> {
   Future<void> _launchUrl(String urlString) async {
-    final Uri _url = Uri.parse(urlString);
-    if (!await launchUrl(_url)) {
-      throw 'Could not launch $_url';
+    final Uri url = Uri.parse(urlString);
+    if (!await launchUrl(url)) {
+      throw 'Could not launch $url';
     }
   }
 
@@ -47,10 +46,10 @@ class _CrowdfundPageState extends State<CrowdfundPage> {
                   Provider.of<PageProvider>(context, listen: false).popInTab();
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 width: 4,
               ),
-              Text(
+              const Text(
                 "Crowdfunding",
                 style:
                     TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
@@ -61,29 +60,29 @@ class _CrowdfundPageState extends State<CrowdfundPage> {
         Expanded(
           child: SingleChildScrollView(
             child: Column(children: [
-              SizedBox(
+              const SizedBox(
                 height: 16,
               ),
               Container(
-                padding: EdgeInsets.all(32),
+                padding: const EdgeInsets.all(32),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       widget.crowdfund['title'],
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontFamily: 'Verona',
                           fontWeight: FontWeight.bold,
                           fontSize: 24),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        FaIcon(FontAwesomeIcons.user),
-                        SizedBox(
+                        const FaIcon(FontAwesomeIcons.user),
+                        const SizedBox(
                           width: 10,
                         ),
                         Text(
@@ -91,7 +90,7 @@ class _CrowdfundPageState extends State<CrowdfundPage> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     // Button to Contact
@@ -114,10 +113,10 @@ class _CrowdfundPageState extends State<CrowdfundPage> {
                                       ThemeColor.gold),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(4.0),
+                                  padding: const EdgeInsets.all(4.0),
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
+                                    children: const [
                                       FaIcon(
                                         FontAwesomeIcons.solidPenToSquare,
                                         color: ThemeColor.white,
@@ -270,13 +269,13 @@ class _CrowdfundPageState extends State<CrowdfundPage> {
                                                                                 Row(
                                                                               children: [
                                                                                 Image.asset('assets/crowdfunding/thank_you_asset.png'),
-                                                                                SizedBox(
+                                                                                const SizedBox(
                                                                                   width: 16,
                                                                                 ),
                                                                                 Flexible(
                                                                                   child: Text(
                                                                                     "${response['message']}",
-                                                                                    style: TextStyle(fontFamily: 'Verona', fontWeight: FontWeight.bold, fontSize: 18),
+                                                                                    style: const TextStyle(fontFamily: 'Verona', fontWeight: FontWeight.bold, fontSize: 18),
                                                                                   ),
                                                                                 ),
                                                                               ],
@@ -287,7 +286,7 @@ class _CrowdfundPageState extends State<CrowdfundPage> {
                                                                     });
 
                                                                 _launchUrl(
-                                                                    "https://line.me/R/ti/p/~${lineId}");
+                                                                    "https://line.me/R/ti/p/~$lineId");
                                                               },
                                                               padding:
                                                                   EdgeInsets
@@ -375,13 +374,13 @@ class _CrowdfundPageState extends State<CrowdfundPage> {
                                                                                 Row(
                                                                               children: [
                                                                                 Image.asset('assets/crowdfunding/thank_you_asset.png'),
-                                                                                SizedBox(
+                                                                                const SizedBox(
                                                                                   width: 16,
                                                                                 ),
                                                                                 Flexible(
                                                                                   child: Text(
                                                                                     "${response['message']}",
-                                                                                    style: TextStyle(fontFamily: 'Verona', fontWeight: FontWeight.bold, fontSize: 18),
+                                                                                    style: const TextStyle(fontFamily: 'Verona', fontWeight: FontWeight.bold, fontSize: 18),
                                                                                   ),
                                                                                 ),
                                                                               ],
@@ -397,14 +396,15 @@ class _CrowdfundPageState extends State<CrowdfundPage> {
                                                               padding:
                                                                   EdgeInsets
                                                                       .zero,
-                                                              icon: FaIcon(
+                                                              icon:
+                                                                  const FaIcon(
                                                                 FontAwesomeIcons
                                                                     .whatsapp,
                                                                 color: ThemeColor
                                                                     .darkGreen,
                                                                 size: 42,
                                                               )),
-                                                          Text("WhatsApp")
+                                                          const Text("WhatsApp")
                                                         ],
                                                       ),
 
@@ -474,13 +474,13 @@ class _CrowdfundPageState extends State<CrowdfundPage> {
                                                                               Row(
                                                                             children: [
                                                                               Image.asset('assets/crowdfunding/thank_you_asset.png'),
-                                                                              SizedBox(
+                                                                              const SizedBox(
                                                                                 width: 16,
                                                                               ),
                                                                               Flexible(
                                                                                 child: Text(
                                                                                   "${response['message']}",
-                                                                                  style: TextStyle(fontFamily: 'Verona', fontWeight: FontWeight.bold, fontSize: 18),
+                                                                                  style: const TextStyle(fontFamily: 'Verona', fontWeight: FontWeight.bold, fontSize: 18),
                                                                                 ),
                                                                               ),
                                                                             ],
@@ -490,18 +490,18 @@ class _CrowdfundPageState extends State<CrowdfundPage> {
                                                                     );
                                                                   });
                                                               _launchUrl(
-                                                                  "tel:${telephone}");
+                                                                  "tel:$telephone");
                                                             },
                                                             padding:
                                                                 EdgeInsets.zero,
-                                                            icon: FaIcon(
+                                                            icon: const FaIcon(
                                                               FontAwesomeIcons
                                                                   .mobileScreenButton,
                                                               color: ThemeColor
                                                                   .darkGreen,
                                                               size: 42,
                                                             )),
-                                                        Text("Telepon"),
+                                                        const Text("Telepon"),
                                                       ],
                                                     ),
 
@@ -571,13 +571,13 @@ class _CrowdfundPageState extends State<CrowdfundPage> {
                                                                               Row(
                                                                             children: [
                                                                               Image.asset('assets/crowdfunding/thank_you_asset.png'),
-                                                                              SizedBox(
+                                                                              const SizedBox(
                                                                                 width: 16,
                                                                               ),
                                                                               Flexible(
                                                                                 child: Text(
                                                                                   "${response['message']}",
-                                                                                  style: TextStyle(fontFamily: 'Verona', fontWeight: FontWeight.bold, fontSize: 18),
+                                                                                  style: const TextStyle(fontFamily: 'Verona', fontWeight: FontWeight.bold, fontSize: 18),
                                                                                 ),
                                                                               ),
                                                                             ],
@@ -588,18 +588,18 @@ class _CrowdfundPageState extends State<CrowdfundPage> {
                                                                   });
 
                                                               _launchUrl(
-                                                                  "mailto:${email}");
+                                                                  "mailto:$email");
                                                             },
                                                             padding:
                                                                 EdgeInsets.zero,
-                                                            icon: FaIcon(
+                                                            icon: const FaIcon(
                                                               FontAwesomeIcons
                                                                   .at,
                                                               color: ThemeColor
                                                                   .darkGreen,
                                                               size: 42,
                                                             )),
-                                                        Text("Email"),
+                                                        const Text("Email"),
                                                       ],
                                                     ),
                                                   ],
@@ -645,8 +645,8 @@ class _CrowdfundPageState extends State<CrowdfundPage> {
                         // Created
                         Row(
                           children: [
-                            FaIcon(FontAwesomeIcons.calendarDays),
-                            SizedBox(
+                            const FaIcon(FontAwesomeIcons.calendarDays),
+                            const SizedBox(
                               width: 8,
                             ),
                             Text(DateFormat("EEEE, d MMMM yyyy", "id_ID")
@@ -654,7 +654,7 @@ class _CrowdfundPageState extends State<CrowdfundPage> {
                                     widget.crowdfund['created']))),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 16,
                         ),
 

@@ -28,6 +28,7 @@ class _AddreviewPageState extends State<AddreviewPage> {
     super.initState();
   }
 
+  @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     final profile = context.watch<CurrentUserProfileModel>();
@@ -135,7 +136,6 @@ class _AddreviewPageState extends State<AddreviewPage> {
                               ),
                               onPressed: () async {
                                 if (_formKey.currentState!.validate()) {
-                                  print("$judul $deskripsi");
                                   createReview(request, profile.user?.username,
                                       judul, deskripsi);
 

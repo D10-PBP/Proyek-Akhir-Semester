@@ -6,7 +6,6 @@ import 'package:sayang_dibuang_mobile/barang_bekas/functions/fetch_barang_bekas.
 import 'package:sayang_dibuang_mobile/barang_bekas/pages/barang_detail.dart';
 import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
-import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 
 class EditBarangBekas extends StatefulWidget {
   const EditBarangBekas(
@@ -58,7 +57,6 @@ class _EditBarangBekas extends State<EditBarangBekas> {
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
-    final profile = context.read<CurrentUserProfileModel>();
     return SafeArea(
       child: Scaffold(
         body: Stack(

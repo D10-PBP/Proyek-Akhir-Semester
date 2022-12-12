@@ -6,7 +6,6 @@ import 'package:sayang_dibuang_mobile/request_barang_bekas/pages/add_request_for
 import 'package:sayang_dibuang_mobile/request_barang_bekas/pages/request_detail.dart';
 import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
-import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/widgets/redirect.dart';
 
 class BerandaRequestPage extends StatefulWidget {
@@ -128,21 +127,22 @@ class _BerandaRequestPageState extends State<BerandaRequestPage> {
                             child: ClipPath(
                               clipper: ShapeBorderClipper(
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15)
-                                ),
+                                    borderRadius: BorderRadius.circular(15)),
                               ),
                               child: Container(
                                 padding: const EdgeInsets.all(5),
                                 decoration: const BoxDecoration(
                                   border: Border(
-                                    bottom: BorderSide(color: Colors.white, width: 3),
+                                    bottom: BorderSide(
+                                        color: Colors.white, width: 3),
                                   ),
                                   color: ThemeColor.darkGreen,
                                 ),
                                 child: Column(
                                   children: [
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         const SizedBox(
                                           width: 5,
@@ -156,8 +156,7 @@ class _BerandaRequestPageState extends State<BerandaRequestPage> {
                                                 fontFamily: "Verona",
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 15,
-                                                color: Colors.white
-                                            ),
+                                                color: Colors.white),
                                           ),
                                         ),
                                         const SizedBox(
@@ -173,34 +172,43 @@ class _BerandaRequestPageState extends State<BerandaRequestPage> {
                                           padding: const EdgeInsets.all(
                                               5), //apply padding to all four sides
                                           child: Text(
-                                              snapshot.data![index].kategori,
-                                              style: const TextStyle(color: Colors.white),
+                                            snapshot.data![index].kategori,
+                                            style: const TextStyle(
+                                                color: Colors.white),
                                           ),
                                         ),
                                         const SizedBox(
                                           width: 20,
                                         ),
                                         !snapshot.data![index].available
-                                          ? Container(
-                                            decoration: BoxDecoration(
-                                              color: Colors.red,
-                                              borderRadius: BorderRadius.circular(15.0),
-                                              // color: ThemeColor.darkGreen,
-                                            ),
-                                            padding: const EdgeInsets.all(
-                                                5), //apply padding to all four sides
-                                            child: const Text("Pending", style: TextStyle(color: Colors.white)),
-                                          )
-                                          : Container(
-                                            decoration: BoxDecoration(
-                                              color: Colors.green,
-                                              borderRadius: BorderRadius.circular(15.0),
-                                              // color: ThemeColor.darkGreen,
-                                            ),
-                                            padding: const EdgeInsets.all(
-                                                5), //apply padding to all four sides
-                                            child: const Text("Fulfilled", style: TextStyle(color: Colors.white)),
-                                          ),
+                                            ? Container(
+                                                decoration: BoxDecoration(
+                                                  color: Colors.red,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          15.0),
+                                                  // color: ThemeColor.darkGreen,
+                                                ),
+                                                padding: const EdgeInsets.all(
+                                                    5), //apply padding to all four sides
+                                                child: const Text("Pending",
+                                                    style: TextStyle(
+                                                        color: Colors.white)),
+                                              )
+                                            : Container(
+                                                decoration: BoxDecoration(
+                                                  color: Colors.green,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          15.0),
+                                                  // color: ThemeColor.darkGreen,
+                                                ),
+                                                padding: const EdgeInsets.all(
+                                                    5), //apply padding to all four sides
+                                                child: const Text("Fulfilled",
+                                                    style: TextStyle(
+                                                        color: Colors.white)),
+                                              ),
                                         const SizedBox(
                                           width: 5,
                                         ),

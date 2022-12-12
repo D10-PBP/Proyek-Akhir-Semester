@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sayang_dibuang_mobile/request_barang_bekas/functions/create_request.dart';
-import 'package:sayang_dibuang_mobile/request_barang_bekas/functions/fetch_request.dart';
 import 'package:sayang_dibuang_mobile/request_barang_bekas/pages/add_kategori.dart';
 import 'package:sayang_dibuang_mobile/request_barang_bekas/pages/beranda.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/functions/fetch_barang_bekas.dart';
@@ -91,8 +90,7 @@ class _CreateRequest extends State<CreateRequest> {
                         padding: const EdgeInsets.all(8.0),
                         child: TextFormField(
                           decoration: InputDecoration(
-                            hintText:
-                                "Contoh: Botol untuk eksperimen roket.",
+                            hintText: "Contoh: Botol untuk eksperimen roket.",
                             labelText: "Deskripsi",
                             // Menambahkan circular border agar lebih rapi
                             border: OutlineInputBorder(
@@ -175,8 +173,8 @@ class _CreateRequest extends State<CreateRequest> {
                         ),
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            createRequest(request, profile.user?.username, namaBarang,
-                                deskripsi, kategori);
+                            createRequest(request, profile.user?.username,
+                                namaBarang, deskripsi, kategori);
 
                             Provider.of<PageProvider>(context, listen: false)
                                 .push(const CreateRequest(),

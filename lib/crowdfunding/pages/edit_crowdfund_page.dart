@@ -169,12 +169,16 @@ class _EditCrowdfundPageState extends State<EditCrowdfundPage> {
                                           BorderRadius.circular(5.0))),
                               onChanged: (String? received) {
                                 setState(() {
-                                  _received = int.parse(received!);
+                                  _received = (received!.isEmpty)
+                                      ? 0
+                                      : int.parse(received);
                                 });
                               },
                               onSaved: (String? received) {
                                 setState(() {
-                                  _received = int.parse(received!);
+                                  _received = (received!.isEmpty)
+                                      ? 0
+                                      : int.parse(received);
                                 });
                               },
                               validator: (String? received) {
@@ -238,10 +242,8 @@ class _EditCrowdfundPageState extends State<EditCrowdfundPage> {
                                     ),
                                     onPressed: () {
                                       if (_formKey.currentState!.validate()) {
-                                        final response =
-                                            CrowdfundAPIHandler.editCrowdfund(
-                                                request,
-                                                widget.crowdfund['id'], {
+                                        CrowdfundAPIHandler.editCrowdfund(
+                                            request, widget.crowdfund['id'], {
                                           'csrfmiddlewaretoken':
                                               request.cookies['csrftoken'],
                                           'title': _title,

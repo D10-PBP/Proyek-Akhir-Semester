@@ -315,14 +315,6 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                       ),
                     )),
                 TextButton(
-                  child: Text(
-                    "Kirim",
-                    style: TextStyle(
-                        fontFamily: "PlusJakarta",
-                        fontWeight: FontWeight.normal,
-                        fontSize: 14,
-                        color: ThemeColor.white),
-                  ),
                   style: ButtonStyle(
                       backgroundColor:
                           MaterialStateProperty.all(ThemeColor.darkGreen)),
@@ -338,25 +330,31 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                             elevation: 15,
-                            child: Container(
-                              child: ListView(
-                                padding:
-                                    const EdgeInsets.only(top: 20, bottom: 20),
-                                shrinkWrap: true,
-                                children: <Widget>[
-                                  Center(child: const Text('Pesan Terkirim')),
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: Text('Kembali'),
-                                  ),
-                                ],
-                              ),
+                            child: ListView(
+                              padding:
+                                  const EdgeInsets.only(top: 20, bottom: 20),
+                              shrinkWrap: true,
+                              children: <Widget>[
+                                const Center(child: Text('Pesan Terkirim')),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text('Kembali'),
+                                ),
+                              ],
                             ),
                           );
                         });
                   },
+                  child: const Text(
+                    "Kirim",
+                    style: TextStyle(
+                        fontFamily: "PlusJakarta",
+                        fontWeight: FontWeight.normal,
+                        fontSize: 14,
+                        color: ThemeColor.white),
+                  ),
                 )
               ],
             ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sayang_dibuang_mobile/fitur_autentikasi/pages/redirect_login.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/widgets/redirect.dart';
 
 Future<T?> messageDialog<T>(BuildContext context, String message,

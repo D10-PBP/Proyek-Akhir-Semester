@@ -4,12 +4,14 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/functions/create_barang_bekas.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/functions/fetch_barang_bekas.dart';
+import 'package:sayang_dibuang_mobile/barang_bekas/functions/validate_image_url.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/pages/add_kategori.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/pages/add_lokasi.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/pages/beranda.dart';
 import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
+import 'package:sayang_dibuang_mobile/fitur_autentikasi/utilities/dialog.dart';
 
 class CreateBarangBekas extends StatefulWidget {
   const CreateBarangBekas({super.key});
@@ -25,7 +27,9 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
   String? deskripsi;
   String? foto;
   File? image;
+  String? lokasiInit;
   String? lokasi;
+  String? kategoriInit;
   String? kategori;
   String? username;
 
@@ -136,9 +140,11 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
                           ),
                           // Menambahkan behavior saat nama diketik
                           onChanged: (String? value) {
-                            setState(() {
-                              foto = value!;
-                            });
+                            setState(
+                              () {
+                                foto = value;
+                              },
+                            );
                           },
                           // Menambahkan behavior saat data disimpan
                           onSaved: (String? value) {
@@ -160,7 +166,7 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
                       Container(
                         alignment: Alignment.center,
                         padding: const EdgeInsets.all(10),
-                        child: Row(
+                        child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             FutureBuilder<List<String>>(
@@ -168,7 +174,7 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
                                   var data = snapshot.data!;
-                                  lokasi = data[0];
+                                  lokasiInit = data[0];
                                   return DropdownButton(
                                     // Initial Value
                                     value: lokasi ?? data[0],
@@ -206,7 +212,7 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
                                   var data = snapshot.data!;
-                                  kategori = data[0];
+                                  kategoriInit = data[0];
                                   return DropdownButton(
                                     // Initial Value
                                     value: kategori ?? data[0],
@@ -248,15 +254,38 @@ class _CreateBarangBekas extends State<CreateBarangBekas> {
                                 horizontal: 24, vertical: 16),
                           ),
                         ),
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            print("$kategori $lokasi");
-                            createBarang(request, profile.user?.username, judul,
-                                deskripsi, foto, lokasi, kategori);
+                            try {
+                              // var res = http.get(Uri.parse(foto!));
+                              // bool isValid = res.statusCode == 200;
+                              Future<bool> checkUrl = validateImage(foto!);
+                              var isValid = await checkUrl;
+                              if (isValid) {
+                                if (lokasi == null) {
+                                  setState(() {
+                                    lokasi = lokasiInit;
+                                  });
+                                }
+                                if (kategori == null) {
+                                  setState(() {
+                                    kategori = kategoriInit;
+                                  });
+                                }
+                                createBarang(request, profile.user?.username,
+                                    judul, deskripsi, foto, lokasi, kategori);
 
-                            Provider.of<PageProvider>(context, listen: false)
-                                .pushInTab(const CreateBarangBekas(),
-                                    const BerandaBarangPage());
+                                // ignore: use_build_context_synchronously
+                                Provider.of<PageProvider>(context,
+                                        listen: false)
+                                    .pushInTab(const CreateBarangBekas(),
+                                        const BerandaBarangPage());
+                              } else {
+                                throw Exception("URL tidak valid");
+                              }
+                            } catch (e) {
+                              messageDialog(context, e.toString());
+                            }
                           }
                         },
                         child: const Text(

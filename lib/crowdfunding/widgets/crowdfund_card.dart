@@ -86,7 +86,7 @@ class CrowdfundCard extends StatelessWidget {
                                     crowdfund: crowdfund,
                                   ));
                         },
-                        icon: FaIcon(FontAwesomeIcons.eye),
+                        icon: const FaIcon(FontAwesomeIcons.eye),
                         color: ThemeColor.darkGreen,
                       ),
                       const SizedBox(
@@ -139,23 +139,22 @@ class CrowdfundCard extends StatelessWidget {
                                             ),
                                           ],
                                         ),
-                                        SizedBox(height: 16.0),
+                                        const SizedBox(height: 16.0),
                                         Center(
                                           child: Column(
                                             children: [
                                               const Text(
                                                   "Apakah kamu yakin ingin menghapus crowdfund ini?"),
-                                              SizedBox(height: 8.0),
+                                              const SizedBox(height: 8.0),
                                               GestureDetector(
                                                 onTap: () {
                                                   // hit delete endpoint
                                                   int crowdfundId =
                                                       crowdfund['id'];
-                                                  final response =
-                                                      CrowdfundAPIHandler
-                                                          .deleteCrowdfund(
-                                                              request,
-                                                              crowdfundId);
+
+                                                  CrowdfundAPIHandler
+                                                      .deleteCrowdfund(
+                                                          request, crowdfundId);
 
                                                   // close the modal
                                                   Navigator.of(context).pop();
@@ -189,7 +188,7 @@ class CrowdfundCard extends StatelessWidget {
                                   );
                                 });
                           },
-                          icon: FaIcon(FontAwesomeIcons.trashCan),
+                          icon: const FaIcon(FontAwesomeIcons.trashCan),
                           color: Colors.red,
                         ),
                     ],

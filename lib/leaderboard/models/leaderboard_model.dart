@@ -4,8 +4,6 @@
 
 import 'dart:convert';
 
-import 'package:flutter/cupertino.dart';
-
 List<User> userFromJson(String str) =>
     List<User>.from(json.decode(str).map((x) => User.fromJson(x)));
 

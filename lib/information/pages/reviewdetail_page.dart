@@ -1,12 +1,9 @@
 // import 'dart:html';
 
 import 'package:flutter/material.dart';
-import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
-import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
-// import 'package:sayang_dibuang_mobile/information/lain-lain/deletereview.dart';
 
 class ReviewdetailPage extends StatefulWidget {
   final String username;
@@ -30,9 +27,6 @@ class ReviewdetailPage extends StatefulWidget {
 class _ReviewdetailPageState extends State<ReviewdetailPage> {
   @override
   Widget build(BuildContext context) {
-    final request = context.watch<CookieRequest>();
-    final profile = context.read<CurrentUserProfileModel>();
-
     return SafeArea(
       child: Scaffold(
           backgroundColor: ThemeColor.white,
