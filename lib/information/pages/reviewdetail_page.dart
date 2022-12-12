@@ -75,9 +75,11 @@ class _ReviewdetailPageState extends State<ReviewdetailPage> {
                                 const SizedBox(
                                   width: 20,
                                 ),
-                                Text(
-                                  widget.username,
-                                  style: const TextStyle(fontSize: 30),
+                                Expanded(
+                                  child: Text(
+                                    widget.username,
+                                    style: const TextStyle(fontSize: 20),
+                                  ),
                                 ),
                               ],
                             ),

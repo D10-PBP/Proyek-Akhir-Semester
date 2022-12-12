@@ -43,99 +43,113 @@ class _TeamPageState extends State<TeamPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                padding: EdgeInsets.only(left: 20),
+              const Expanded(
+                  child: SizedBox(
+                      child: Padding(
+                          padding: EdgeInsets.only(left: 50),
+                          child: Text(
+                            "Catherine Angel Robin",
+                            style: TextStyle(
+                                fontFamily: 'Verona',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30),
+                          )))),
+              const SizedBox(
+                height: 200,
+              ),
+              Expanded(
+                  child: SizedBox(
+                      child: Padding(
+                padding: EdgeInsets.all(50),
                 child: Image.asset(
                   "assets/information/team/Cath.png",
                   height: 150,
                   width: 150,
                   // fit: BoxFit.cover,
                 ),
-              ),
-              const SizedBox(
-                width: 30,
-                height: 200,
-              ),
-              const Expanded(
-                  child: Text(
-                "Catherine Angel Robin",
-                style: TextStyle(
-                    fontFamily: 'Verona',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30),
-              ))
+              ))),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Expanded(
-                  child: Padding(
-                      padding: EdgeInsets.all(50),
-                      child: Text(
-                        "Gibrano Fabien Derenz",
-                        style: TextStyle(
-                            fontFamily: 'Verona',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30),
-                      ))),
+                  child: SizedBox(
+                      child: Padding(
+                          padding: EdgeInsets.only(left: 50),
+                          child: Text(
+                            "Gibrano Fabien Derenz",
+                            style: TextStyle(
+                                fontFamily: 'Verona',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30),
+                          )))),
               const SizedBox(
                 height: 200,
               ),
-              Padding(
-                padding: EdgeInsets.only(right: 50),
+              Expanded(
+                  child: SizedBox(
+                      child: Padding(
+                padding: EdgeInsets.all(50),
                 child: Image.asset(
                   "assets/information/team/Gibrano.png",
                   height: 150,
                   width: 150,
                   // fit: BoxFit.cover,
                 ),
-              ),
+              ))),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                padding: EdgeInsets.only(left: 20),
+              const Expanded(
+                  child: SizedBox(
+                      child: Padding(
+                          padding: EdgeInsets.only(left: 50),
+                          child: Text(
+                            "Khansa Jovita",
+                            style: TextStyle(
+                                fontFamily: 'Verona',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30),
+                          )))),
+              const SizedBox(
+                height: 200,
+              ),
+              Expanded(
+                  child: SizedBox(
+                      child: Padding(
+                padding: EdgeInsets.all(50),
                 child: Image.asset(
                   "assets/information/team/Khansa.png",
                   height: 150,
                   width: 150,
                   // fit: BoxFit.cover,
                 ),
-              ),
-              const SizedBox(
-                width: 30,
-                height: 200,
-              ),
-              const Expanded(
-                  child: Text(
-                "Khansa Jovita",
-                style: TextStyle(
-                    fontFamily: 'Verona',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30),
-              ))
+              ))),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Expanded(
-                  child: Padding(
-                      padding: EdgeInsets.only(left: 50),
-                      child: Text(
-                        "Kristo Jeremy Thady Tobing",
-                        style: TextStyle(
-                            fontFamily: 'Verona',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30),
-                      ))),
+                  child: SizedBox(
+                      child: Padding(
+                          padding: EdgeInsets.only(left: 50),
+                          child: Text(
+                            "Kristo Jeremy Thady Tobing",
+                            style: TextStyle(
+                                fontFamily: 'Verona',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30),
+                          )))),
               const SizedBox(
                 height: 200,
               ),
-              Padding(
+              Expanded(
+                  child: SizedBox(
+                      child: Padding(
                 padding: EdgeInsets.all(50),
                 child: Image.asset(
                   "assets/information/team/Kristo.png",
@@ -143,52 +157,59 @@ class _TeamPageState extends State<TeamPage> {
                   width: 150,
                   // fit: BoxFit.cover,
                 ),
-              ),
+              ))),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                padding: EdgeInsets.only(left: 20),
+              const Expanded(
+                  child: SizedBox(
+                      child: Padding(
+                          padding: EdgeInsets.only(left: 50),
+                          child: Text(
+                            "Lyzander Marciano Andrylie",
+                            style: TextStyle(
+                                fontFamily: 'Verona',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30),
+                          )))),
+              const SizedBox(
+                height: 200,
+              ),
+              Expanded(
+                  child: SizedBox(
+                      child: Padding(
+                padding: EdgeInsets.all(50),
                 child: Image.asset(
                   "assets/information/team/Lyzander.png",
                   height: 150,
                   width: 150,
                   // fit: BoxFit.cover,
                 ),
-              ),
-              const SizedBox(
-                width: 30,
-                height: 200,
-              ),
-              const Expanded(
-                  child: Text(
-                "Lyzander Marciano Andrylie",
-                style: TextStyle(
-                    fontFamily: 'Verona',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30),
-              ))
+              ))),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Expanded(
-                  child: Padding(
-                      padding: EdgeInsets.all(50),
-                      child: Text(
-                        "Pikatan Arya Bramajati",
-                        style: TextStyle(
-                            fontFamily: 'Verona',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30),
-                      ))),
+                  child: SizedBox(
+                      child: Padding(
+                          padding: EdgeInsets.only(left: 50),
+                          child: Text(
+                            "Pikatan Arya Bramajati",
+                            style: TextStyle(
+                                fontFamily: 'Verona',
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30),
+                          )))),
               const SizedBox(
                 height: 200,
               ),
-              Padding(
+              Expanded(
+                  child: SizedBox(
+                      child: Padding(
                 padding: EdgeInsets.all(50),
                 child: Image.asset(
                   "assets/information/team/Pikatan.png",
@@ -196,7 +217,7 @@ class _TeamPageState extends State<TeamPage> {
                   width: 150,
                   // fit: BoxFit.cover,
                 ),
-              ),
+              ))),
             ],
           ),
         ],

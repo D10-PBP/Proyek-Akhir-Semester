@@ -7,14 +7,14 @@ Future<List<Review>> fetchReview(request) async {
   );
   var data = response;
 
-  List<Review> listBarangBekas = [];
+  List<Review> listReview = [];
   for (var d in data) {
     if (d != null) {
       // print(d);
-      listBarangBekas.add(Review.fromJson(d));
+      listReview.add(Review.fromJson(d));
     }
   }
-  return listBarangBekas;
+  return listReview;
 }
 
 createReview(request, username, judul, deskripsi) async {

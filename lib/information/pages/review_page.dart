@@ -38,10 +38,12 @@ class _ReviewPageState extends State<ReviewPage> {
             children: [
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: 260,
+                // height: 260,
                 decoration: const BoxDecoration(
                   color: ThemeColor.darkGreen,
                 ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
                 child: Column(
                   children: [
                     const Text(
