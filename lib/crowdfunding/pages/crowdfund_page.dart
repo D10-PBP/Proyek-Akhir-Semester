@@ -51,414 +51,250 @@ class _CrowdfundPageState extends State<CrowdfundPage> {
                 width: 12,
               ),
               Text(
-                "Ditayangkan oleh ${widget.crowdfund['profile']['user']['username']}",
+                "Crowdfunding",
                 style:
                     TextStyle(color: Colors.black, fontWeight: FontWeight.w600),
               ),
             ],
           ),
         ),
-
-        SizedBox(
-          height: 16,
-        ),
-
-        // Contents
         Expanded(
-          child: Column(
-            children: [
-              // Title
+          child: SingleChildScrollView(
+            child: Column(children: [
+              SizedBox(
+                height: 16,
+              ),
               Container(
-                height: MediaQuery.of(context).size.height / 5,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                padding: EdgeInsets.all(32),
+                child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 24.0),
-                      child: Text(
-                        widget.crowdfund['title'],
-                        style: const TextStyle(
-                            fontFamily: 'Verona',
-                            fontSize: 32,
-                            fontWeight: FontWeight.bold),
-                      ),
+                    Text(
+                      widget.crowdfund['title'],
+                      style: TextStyle(
+                          fontFamily: 'Verona',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        FaIcon(FontAwesomeIcons.user),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          widget.crowdfund['profile']['user']['username'],
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ),
+              ClipRRect(
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(24.0),
+                    topRight: Radius.circular(24.0)),
+                child: Container(
+                  height: MediaQuery.of(context).size.height,
+                  width: MediaQuery.of(context).size.width,
+                  color: ThemeColor.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Column(
+                      children: [
+                        // Created
+                        Row(
+                          children: [
+                            FaIcon(FontAwesomeIcons.calendarDays),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Text(DateFormat("EEEE, d MMMM yyyy", "id_ID")
+                                .format(DateTime.parse(
+                                    widget.crowdfund['created']))),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 16,
+                        ),
 
-              // Details
-              Expanded(
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(24.0),
-                      topRight: Radius.circular(24.0)),
-                  child: Container(
-                    width: double.infinity,
-                    color: ThemeColor.white,
-                    child: Padding(
-                      padding: const EdgeInsets.all(24.0),
-                      child: Column(
-                        children: [
-                          // Created
-                          Row(
+                        SizedBox(
+                          height: 16,
+                        ),
+
+                        // Progress
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              FaIcon(FontAwesomeIcons.calendarDays),
-                              SizedBox(
-                                width: 8,
+                              const Text(
+                                "Progress",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600, fontSize: 20),
                               ),
-                              Text(DateFormat("EEEE, d MMMM yyyy", "id_ID")
-                                  .format(DateTime.parse(
-                                      widget.crowdfund['created']))),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: LinearProgressIndicator(
+                                  backgroundColor: ThemeColor.sand,
+                                  color: ThemeColor.darkGreen,
+                                  value: widget.crowdfund['received'] /
+                                      widget.crowdfund['target'],
+                                  minHeight: 12,
+                                ),
+                              ),
+                              Text(
+                                  "${widget.crowdfund['received']} dari ${widget.crowdfund['target']} benda diperoleh."),
+
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              // Description
+                              const Text(
+                                "Deskripsi",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600, fontSize: 20),
+                              ),
+                              Text(
+                                Bidi.stripHtmlIfNeeded(
+                                    "${widget.crowdfund['description']}"),
+                              ),
                             ],
                           ),
-                          SizedBox(
-                            height: 16,
-                          ),
+                        ),
 
-                          // Progress
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  "Progress",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 20),
-                                ),
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: LinearProgressIndicator(
-                                    backgroundColor: ThemeColor.sand,
-                                    color: ThemeColor.darkGreen,
-                                    value: widget.crowdfund['received'] /
-                                        widget.crowdfund['target'],
-                                    minHeight: 12,
-                                  ),
-                                ),
-                                Text(
-                                    "${widget.crowdfund['received']} dari ${widget.crowdfund['target']} benda diperoleh."),
-
-                                const SizedBox(
-                                  height: 16,
-                                ),
-                                // Description
-                                const Text(
-                                  "Deskripsi",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 20),
-                                ),
-                                Html(
-                                    data: "${widget.crowdfund['description']}"),
-                              ],
-                            ),
-                          ),
-
-                          // Button to Contact
-                          profile.user!.pk == widget.crowdfund['user_id']
-                              ? Row(
-                                  children: [
-                                    Expanded(
-                                      child: TextButton(
-                                        onPressed: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      EditCrowdfundPage(
-                                                          crowdfund: widget
-                                                              .crowdfund)));
-                                        },
-                                        style: ButtonStyle(
-                                          backgroundColor:
-                                              MaterialStateProperty.all(
-                                                  ThemeColor.gold),
-                                        ),
-                                        child: Padding(
-                                          padding: EdgeInsets.all(4.0),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              FaIcon(
-                                                FontAwesomeIcons
-                                                    .solidPenToSquare,
+                        // Button to Contact
+                        profile.user!.pk == widget.crowdfund['user_id']
+                            ? Row(
+                                children: [
+                                  Expanded(
+                                    child: TextButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    EditCrowdfundPage(
+                                                        crowdfund:
+                                                            widget.crowdfund)));
+                                      },
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                ThemeColor.gold),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(4.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            FaIcon(
+                                              FontAwesomeIcons.solidPenToSquare,
+                                              color: ThemeColor.white,
+                                            ),
+                                            SizedBox(
+                                              width: 8,
+                                            ),
+                                            Text(
+                                              "Edit",
+                                              style: TextStyle(
                                                 color: ThemeColor.white,
                                               ),
-                                              SizedBox(
-                                                width: 8,
-                                              ),
-                                              Text(
-                                                "Edit",
-                                                style: TextStyle(
-                                                  color: ThemeColor.white,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
-                                  ],
-                                )
-                              : Row(
-                                  children: [
-                                    Expanded(
-                                      child: TextButton(
-                                        onPressed: () {
-                                          showModalBottomSheet(
-                                              shape:
-                                                  const RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.only(
-                                                    topLeft:
-                                                        Radius.circular(16.0),
-                                                    topRight:
-                                                        Radius.circular(16.0)),
-                                              ),
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return Container(
-                                                  height: 200,
-                                                  child: Column(
-                                                    children: [
-                                                      // Header
-                                                      Row(
-                                                        children: [
-                                                          Expanded(
-                                                            child: ClipRRect(
-                                                              borderRadius: const BorderRadius
-                                                                      .only(
-                                                                  topLeft: Radius
-                                                                      .circular(
-                                                                          16.0),
-                                                                  topRight: Radius
-                                                                      .circular(
-                                                                          16.0)),
-                                                              child: Container(
-                                                                color:
-                                                                    ThemeColor
-                                                                        .sand,
-                                                                child: Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                              .all(
-                                                                          16.0),
-                                                                  child: Text(
-                                                                      'Hubungi ${widget.crowdfund['profile']['user']['first_name']}',
-                                                                      style: const TextStyle(
-                                                                          fontFamily:
-                                                                              'Verona',
-                                                                          fontSize:
-                                                                              20,
-                                                                          fontWeight:
-                                                                              FontWeight.bold)),
-                                                                ),
+                                  ),
+                                ],
+                              )
+                            : Row(
+                                children: [
+                                  Expanded(
+                                    child: TextButton(
+                                      onPressed: () {
+                                        showModalBottomSheet(
+                                            shape: const RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.only(
+                                                  topLeft:
+                                                      Radius.circular(16.0),
+                                                  topRight:
+                                                      Radius.circular(16.0)),
+                                            ),
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return Container(
+                                                height: 200,
+                                                child: Column(
+                                                  children: [
+                                                    // Header
+                                                    Row(
+                                                      children: [
+                                                        Expanded(
+                                                          child: ClipRRect(
+                                                            borderRadius: const BorderRadius
+                                                                    .only(
+                                                                topLeft: Radius
+                                                                    .circular(
+                                                                        16.0),
+                                                                topRight: Radius
+                                                                    .circular(
+                                                                        16.0)),
+                                                            child: Container(
+                                                              color: ThemeColor
+                                                                  .sand,
+                                                              child: Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        16.0),
+                                                                child: Text(
+                                                                    'Hubungi ${widget.crowdfund['profile']['user']['first_name']}',
+                                                                    style: const TextStyle(
+                                                                        fontFamily:
+                                                                            'Verona',
+                                                                        fontSize:
+                                                                            20,
+                                                                        fontWeight:
+                                                                            FontWeight.bold)),
                                                               ),
                                                             ),
                                                           ),
-                                                        ],
-                                                      ),
+                                                        ),
+                                                      ],
+                                                    ),
 
-                                                      const SizedBox(
-                                                          height: 24.0),
+                                                    const SizedBox(
+                                                        height: 24.0),
 
-                                                      // Contact Buttons
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(8.0),
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceAround,
-                                                          children: [
-                                                            // LINE
-                                                            if (widget.crowdfund[
-                                                                        'profile']
-                                                                    ['line'] !=
-                                                                '')
-                                                              Column(
-                                                                children: [
-                                                                  IconButton(
-                                                                      onPressed:
-                                                                          () async {
-                                                                        String
-                                                                            lineId =
-                                                                            widget.crowdfund['profile']['line'];
-
-                                                                        final response = await CrowdfundAPIHandler.addUserPointWhenContacting(
-                                                                            request,
-                                                                            widget.crowdfund['id']);
-
-                                                                        // add user point in flutter
-                                                                        if (response['poin'] !=
-                                                                            null) {
-                                                                          profile
-                                                                              .addUserPoin(5);
-                                                                        }
-
-                                                                        // pop twice
-                                                                        Navigator.of(context)
-                                                                            .pop();
-                                                                        Provider.of<PageProvider>(context,
-                                                                                listen: false)
-                                                                            .popInTab();
-
-                                                                        // show thank you message
-                                                                        showModalBottomSheet(
-                                                                            shape:
-                                                                                const RoundedRectangleBorder(
-                                                                              borderRadius: BorderRadius.only(topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
-                                                                            ),
-                                                                            context:
-                                                                                context,
-                                                                            builder:
-                                                                                (BuildContext context) {
-                                                                              return Container(
-                                                                                height: 200,
-                                                                                child: Center(
-                                                                                  child: Padding(
-                                                                                    padding: const EdgeInsets.all(8.0),
-                                                                                    child: Row(
-                                                                                      children: [
-                                                                                        Image.asset('assets/crowdfunding/thank_you_asset.png'),
-                                                                                        SizedBox(
-                                                                                          width: 16,
-                                                                                        ),
-                                                                                        Flexible(
-                                                                                          child: Text(
-                                                                                            "${response['message']}",
-                                                                                            style: TextStyle(fontFamily: 'Verona', fontWeight: FontWeight.bold, fontSize: 18),
-                                                                                          ),
-                                                                                        ),
-                                                                                      ],
-                                                                                    ),
-                                                                                  ),
-                                                                                ),
-                                                                              );
-                                                                            });
-
-                                                                        _launchUrl(
-                                                                            "https://line.me/R/ti/p/~${lineId}");
-                                                                      },
-                                                                      padding:
-                                                                          EdgeInsets
-                                                                              .zero,
-                                                                      icon:
-                                                                          const FaIcon(
-                                                                        FontAwesomeIcons
-                                                                            .line,
-                                                                        color: ThemeColor
-                                                                            .darkGreen,
-                                                                        size:
-                                                                            42,
-                                                                      )),
-                                                                  const Text(
-                                                                    "LINE",
-                                                                  )
-                                                                ],
-                                                              ),
-
-                                                            // WhatsApp
-                                                            if (widget.crowdfund[
-                                                                        'profile']
-                                                                    [
-                                                                    'whatsapp'] !=
-                                                                '')
-                                                              Column(
-                                                                children: [
-                                                                  IconButton(
-                                                                      onPressed:
-                                                                          () async {
-                                                                        String
-                                                                            number =
-                                                                            widget.crowdfund['profile']['whatsapp'];
-
-                                                                        final response = await CrowdfundAPIHandler.addUserPointWhenContacting(
-                                                                            request,
-                                                                            widget.crowdfund['id']);
-
-                                                                        // add user point in flutter
-                                                                        if (response['poin'] !=
-                                                                            null) {
-                                                                          profile
-                                                                              .addUserPoin(5);
-                                                                        }
-
-                                                                        // pop twice
-                                                                        Navigator.of(context)
-                                                                            .pop();
-                                                                        Provider.of<PageProvider>(context,
-                                                                                listen: false)
-                                                                            .popInTab();
-
-                                                                        // show thank you message
-                                                                        showModalBottomSheet(
-                                                                            shape:
-                                                                                const RoundedRectangleBorder(
-                                                                              borderRadius: BorderRadius.only(topLeft: Radius.circular(16.0), topRight: Radius.circular(16.0)),
-                                                                            ),
-                                                                            context:
-                                                                                context,
-                                                                            builder:
-                                                                                (BuildContext context) {
-                                                                              return Container(
-                                                                                height: 200,
-                                                                                child: Center(
-                                                                                  child: Padding(
-                                                                                    padding: const EdgeInsets.all(8.0),
-                                                                                    child: Row(
-                                                                                      children: [
-                                                                                        Image.asset('assets/crowdfunding/thank_you_asset.png'),
-                                                                                        SizedBox(
-                                                                                          width: 16,
-                                                                                        ),
-                                                                                        Flexible(
-                                                                                          child: Text(
-                                                                                            "${response['message']}",
-                                                                                            style: TextStyle(fontFamily: 'Verona', fontWeight: FontWeight.bold, fontSize: 18),
-                                                                                          ),
-                                                                                        ),
-                                                                                      ],
-                                                                                    ),
-                                                                                  ),
-                                                                                ),
-                                                                              );
-                                                                            });
-
-                                                                        _launchUrl(
-                                                                            "https://wa.me/+62${number.startsWith('0') ? number.substring(1) : number.substring(3)}");
-                                                                      },
-                                                                      padding:
-                                                                          EdgeInsets
-                                                                              .zero,
-                                                                      icon:
-                                                                          FaIcon(
-                                                                        FontAwesomeIcons
-                                                                            .whatsapp,
-                                                                        color: ThemeColor
-                                                                            .darkGreen,
-                                                                        size:
-                                                                            42,
-                                                                      )),
-                                                                  Text(
-                                                                      "WhatsApp")
-                                                                ],
-                                                              ),
-
-                                                            // Telephone
+                                                    // Contact Buttons
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceAround,
+                                                        children: [
+                                                          // LINE
+                                                          if (widget.crowdfund[
+                                                                      'profile']
+                                                                  ['line'] !=
+                                                              '')
                                                             Column(
                                                               children: [
                                                                 IconButton(
                                                                     onPressed:
                                                                         () async {
                                                                       String
-                                                                          telephone =
+                                                                          lineId =
                                                                           widget.crowdfund['profile']
                                                                               [
-                                                                              'telephone'];
+                                                                              'line'];
 
                                                                       final response = await CrowdfundAPIHandler.addUserPointWhenContacting(
                                                                           request,
@@ -516,35 +352,43 @@ class _CrowdfundPageState extends State<CrowdfundPage> {
                                                                               ),
                                                                             );
                                                                           });
+
                                                                       _launchUrl(
-                                                                          "tel:${telephone}");
+                                                                          "https://line.me/R/ti/p/~${lineId}");
                                                                     },
                                                                     padding:
                                                                         EdgeInsets
                                                                             .zero,
                                                                     icon:
-                                                                        FaIcon(
+                                                                        const FaIcon(
                                                                       FontAwesomeIcons
-                                                                          .mobileScreenButton,
+                                                                          .line,
                                                                       color: ThemeColor
                                                                           .darkGreen,
                                                                       size: 42,
                                                                     )),
-                                                                Text("Telepon"),
+                                                                const Text(
+                                                                  "LINE",
+                                                                )
                                                               ],
                                                             ),
 
-                                                            // Email
+                                                          // WhatsApp
+                                                          if (widget.crowdfund[
+                                                                      'profile']
+                                                                  [
+                                                                  'whatsapp'] !=
+                                                              '')
                                                             Column(
                                                               children: [
                                                                 IconButton(
                                                                     onPressed:
                                                                         () async {
                                                                       String
-                                                                          email =
-                                                                          widget.crowdfund['profile']['user']
+                                                                          number =
+                                                                          widget.crowdfund['profile']
                                                                               [
-                                                                              'email'];
+                                                                              'whatsapp'];
 
                                                                       final response = await CrowdfundAPIHandler.addUserPointWhenContacting(
                                                                           request,
@@ -604,7 +448,7 @@ class _CrowdfundPageState extends State<CrowdfundPage> {
                                                                           });
 
                                                                       _launchUrl(
-                                                                          "mailto:${email}");
+                                                                          "https://wa.me/+62${number.startsWith('0') ? number.substring(1) : number.substring(3)}");
                                                                     },
                                                                     padding:
                                                                         EdgeInsets
@@ -612,49 +456,231 @@ class _CrowdfundPageState extends State<CrowdfundPage> {
                                                                     icon:
                                                                         FaIcon(
                                                                       FontAwesomeIcons
-                                                                          .at,
+                                                                          .whatsapp,
                                                                       color: ThemeColor
                                                                           .darkGreen,
                                                                       size: 42,
                                                                     )),
-                                                                Text("Email"),
+                                                                Text("WhatsApp")
                                                               ],
                                                             ),
-                                                          ],
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                );
-                                              });
-                                        },
-                                        style: ButtonStyle(
-                                          backgroundColor:
-                                              MaterialStateProperty.all(
-                                                  ThemeColor.darkGreen),
-                                        ),
-                                        child: const Padding(
-                                          padding: EdgeInsets.all(4.0),
-                                          child: Text(
-                                            "Hubungi",
-                                            style: TextStyle(
-                                              color: ThemeColor.white,
-                                            ),
+
+                                                          // Telephone
+                                                          Column(
+                                                            children: [
+                                                              IconButton(
+                                                                  onPressed:
+                                                                      () async {
+                                                                    String
+                                                                        telephone =
+                                                                        widget.crowdfund['profile']
+                                                                            [
+                                                                            'telephone'];
+
+                                                                    final response = await CrowdfundAPIHandler.addUserPointWhenContacting(
+                                                                        request,
+                                                                        widget.crowdfund[
+                                                                            'id']);
+
+                                                                    // add user point in flutter
+                                                                    if (response[
+                                                                            'poin'] !=
+                                                                        null) {
+                                                                      profile
+                                                                          .addUserPoin(
+                                                                              5);
+                                                                    }
+
+                                                                    // pop twice
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop();
+                                                                    Provider.of<PageProvider>(
+                                                                            context,
+                                                                            listen:
+                                                                                false)
+                                                                        .popInTab();
+
+                                                                    // show thank you message
+                                                                    showModalBottomSheet(
+                                                                        shape:
+                                                                            const RoundedRectangleBorder(
+                                                                          borderRadius: BorderRadius.only(
+                                                                              topLeft: Radius.circular(16.0),
+                                                                              topRight: Radius.circular(16.0)),
+                                                                        ),
+                                                                        context:
+                                                                            context,
+                                                                        builder:
+                                                                            (BuildContext
+                                                                                context) {
+                                                                          return Container(
+                                                                            height:
+                                                                                200,
+                                                                            child:
+                                                                                Center(
+                                                                              child: Padding(
+                                                                                padding: const EdgeInsets.all(8.0),
+                                                                                child: Row(
+                                                                                  children: [
+                                                                                    Image.asset('assets/crowdfunding/thank_you_asset.png'),
+                                                                                    SizedBox(
+                                                                                      width: 16,
+                                                                                    ),
+                                                                                    Flexible(
+                                                                                      child: Text(
+                                                                                        "${response['message']}",
+                                                                                        style: TextStyle(fontFamily: 'Verona', fontWeight: FontWeight.bold, fontSize: 18),
+                                                                                      ),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        });
+                                                                    _launchUrl(
+                                                                        "tel:${telephone}");
+                                                                  },
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .zero,
+                                                                  icon: FaIcon(
+                                                                    FontAwesomeIcons
+                                                                        .mobileScreenButton,
+                                                                    color: ThemeColor
+                                                                        .darkGreen,
+                                                                    size: 42,
+                                                                  )),
+                                                              Text("Telepon"),
+                                                            ],
+                                                          ),
+
+                                                          // Email
+                                                          Column(
+                                                            children: [
+                                                              IconButton(
+                                                                  onPressed:
+                                                                      () async {
+                                                                    String
+                                                                        email =
+                                                                        widget.crowdfund['profile']['user']
+                                                                            [
+                                                                            'email'];
+
+                                                                    final response = await CrowdfundAPIHandler.addUserPointWhenContacting(
+                                                                        request,
+                                                                        widget.crowdfund[
+                                                                            'id']);
+
+                                                                    // add user point in flutter
+                                                                    if (response[
+                                                                            'poin'] !=
+                                                                        null) {
+                                                                      profile
+                                                                          .addUserPoin(
+                                                                              5);
+                                                                    }
+
+                                                                    // pop twice
+                                                                    Navigator.of(
+                                                                            context)
+                                                                        .pop();
+                                                                    Provider.of<PageProvider>(
+                                                                            context,
+                                                                            listen:
+                                                                                false)
+                                                                        .popInTab();
+
+                                                                    // show thank you message
+                                                                    showModalBottomSheet(
+                                                                        shape:
+                                                                            const RoundedRectangleBorder(
+                                                                          borderRadius: BorderRadius.only(
+                                                                              topLeft: Radius.circular(16.0),
+                                                                              topRight: Radius.circular(16.0)),
+                                                                        ),
+                                                                        context:
+                                                                            context,
+                                                                        builder:
+                                                                            (BuildContext
+                                                                                context) {
+                                                                          return Container(
+                                                                            height:
+                                                                                200,
+                                                                            child:
+                                                                                Center(
+                                                                              child: Padding(
+                                                                                padding: const EdgeInsets.all(8.0),
+                                                                                child: Row(
+                                                                                  children: [
+                                                                                    Image.asset('assets/crowdfunding/thank_you_asset.png'),
+                                                                                    SizedBox(
+                                                                                      width: 16,
+                                                                                    ),
+                                                                                    Flexible(
+                                                                                      child: Text(
+                                                                                        "${response['message']}",
+                                                                                        style: TextStyle(fontFamily: 'Verona', fontWeight: FontWeight.bold, fontSize: 18),
+                                                                                      ),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        });
+
+                                                                    _launchUrl(
+                                                                        "mailto:${email}");
+                                                                  },
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .zero,
+                                                                  icon: FaIcon(
+                                                                    FontAwesomeIcons
+                                                                        .at,
+                                                                    color: ThemeColor
+                                                                        .darkGreen,
+                                                                    size: 42,
+                                                                  )),
+                                                              Text("Email"),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              );
+                                            });
+                                      },
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            MaterialStateProperty.all(
+                                                ThemeColor.darkGreen),
+                                      ),
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(4.0),
+                                        child: Text(
+                                          "Hubungi",
+                                          style: TextStyle(
+                                            color: ThemeColor.white,
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ],
-                                ),
-                        ],
-                      ),
+                                  ),
+                                ],
+                              ),
+                      ],
                     ),
                   ),
                 ),
               ),
-            ],
+            ]),
           ),
-        ),
+        )
       ]),
     );
   }

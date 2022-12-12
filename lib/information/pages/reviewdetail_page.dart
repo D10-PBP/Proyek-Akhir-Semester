@@ -68,7 +68,7 @@ class _ReviewdetailPageState extends State<ReviewdetailPage> {
                             child: Row(
                               children: [
                                 Image.asset(
-                                  "icon-profile.png",
+                                  "assets/icon-profile.png",
                                   height: 40,
                                   width: 40,
                                 ),

@@ -156,7 +156,7 @@ class _InformationPageState extends State<InformationPage> {
                                     topLeft: Radius.circular(15),
                                     bottomLeft: Radius.circular(15)),
                                 child: Image.asset(
-                                  "information/review-overlay.jpg",
+                                  "assets/information/review-overlay.jpg",
                                   height: 400,
                                   width: 150,
                                   fit: BoxFit.fitHeight,
@@ -219,7 +219,7 @@ class _InformationPageState extends State<InformationPage> {
                                     topLeft: Radius.circular(15),
                                     bottomLeft: Radius.circular(15)),
                                 child: Image.asset(
-                                  "information/our-team.jpg",
+                                  "assets/information/our-team.jpg",
                                   height: 400,
                                   width: 150,
                                   fit: BoxFit.fitHeight,

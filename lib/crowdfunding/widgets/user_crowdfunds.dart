@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:provider/provider.dart';
+import 'package:sayang_dibuang_mobile/crowdfunding/utils/crowdfund_api_handler.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/widgets/crowdfund_card.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 
 class UserCrowdfunds extends StatefulWidget {
   late Future<dynamic> crowdfunds;
-  UserCrowdfunds({Key? key, required this.crowdfunds}) : super(key: key);
+  dynamic updateCrowdfunds;
+  UserCrowdfunds(
+      {Key? key, required this.crowdfunds, required this.updateCrowdfunds})
+      : super(key: key);
 
   @override
   State<UserCrowdfunds> createState() => _UserCrowdfundsState();
@@ -20,7 +24,7 @@ class _UserCrowdfundsState extends State<UserCrowdfunds> {
     final profile = context.read<CurrentUserProfileModel>();
 
     return Container(
-      height: 270,
+      height: 250,
       child: FutureBuilder(
           future: widget.crowdfunds,
           builder: (context, AsyncSnapshot snapshot) {
@@ -49,9 +53,9 @@ class _UserCrowdfundsState extends State<UserCrowdfunds> {
                 itemBuilder: (context, index) {
                   if (snapshot.data[index]['user_id'] == profile.user!.pk) {
                     return CrowdfundCard(
-                      request: request,
-                      crowdfund: snapshot.data[index],
-                    );
+                        request: request,
+                        crowdfund: snapshot.data[index],
+                        updateCrowdfunds: widget.updateCrowdfunds);
                   }
                   return const SizedBox();
                 },

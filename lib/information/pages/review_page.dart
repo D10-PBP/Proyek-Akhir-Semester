@@ -57,7 +57,7 @@ class _ReviewPageState extends State<ReviewPage> {
                       child: Row(
                         children: [
                           Image.asset(
-                            "information/nature.png",
+                            "assets/information/nature.png",
                             height: 100,
                             width: 150,
                             fit: BoxFit.cover,
@@ -151,7 +151,7 @@ class _ReviewPageState extends State<ReviewPage> {
                                     Row(
                                       children: [
                                         Image.asset(
-                                          "icon-profile.png",
+                                          "assets/icon-profile.png",
                                           height: 30,
                                           width: 30,
                                         ),
