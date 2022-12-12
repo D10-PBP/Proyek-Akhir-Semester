@@ -28,7 +28,6 @@ class _BerandaRequestPageState extends State<BerandaRequestPage> {
             children: [
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: 300,
                 decoration: const BoxDecoration(
                   color: ThemeColor.darkGreen,
                 ),
@@ -145,13 +144,20 @@ class _BerandaRequestPageState extends State<BerandaRequestPage> {
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Text(
-                                          snapshot.data![index].namaBarang,
-                                          style: const TextStyle(
-                                              fontFamily: "Verona",
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15,
-                                              color: Colors.white
+                                        const SizedBox(
+                                          width: 5,
+                                        ),
+                                        Flexible(
+                                          child: Text(
+                                            snapshot.data![index].namaBarang,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            style: const TextStyle(
+                                                fontFamily: "Verona",
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 15,
+                                                color: Colors.white
+                                            ),
                                           ),
                                         ),
                                         const SizedBox(
@@ -172,7 +178,7 @@ class _BerandaRequestPageState extends State<BerandaRequestPage> {
                                           ),
                                         ),
                                         const SizedBox(
-                                          width: 10,
+                                          width: 20,
                                         ),
                                         !snapshot.data![index].available
                                           ? Container(
@@ -181,7 +187,6 @@ class _BerandaRequestPageState extends State<BerandaRequestPage> {
                                               borderRadius: BorderRadius.circular(15.0),
                                               // color: ThemeColor.darkGreen,
                                             ),
-                                            margin: const EdgeInsets.all(10),
                                             padding: const EdgeInsets.all(
                                                 5), //apply padding to all four sides
                                             child: const Text("Pending", style: TextStyle(color: Colors.white)),
@@ -192,11 +197,13 @@ class _BerandaRequestPageState extends State<BerandaRequestPage> {
                                               borderRadius: BorderRadius.circular(15.0),
                                               // color: ThemeColor.darkGreen,
                                             ),
-                                            margin: const EdgeInsets.all(10),
                                             padding: const EdgeInsets.all(
                                                 5), //apply padding to all four sides
                                             child: const Text("Fulfilled", style: TextStyle(color: Colors.white)),
                                           ),
+                                        const SizedBox(
+                                          width: 5,
+                                        ),
                                       ],
                                     ),
                                     Container(
