@@ -27,75 +27,80 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
             children: [
               Container(
                 width: MediaQuery.of(context).size.width,
+                height: 320,
                 decoration: const BoxDecoration(
                   color: ThemeColor.darkGreen,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20),
+                  ),
                 ),
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 30),
-                child: Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Text(
-                        "BERANDA BARANG",
-                        style: TextStyle(
-                            fontFamily: "Verona",
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24,
-                            color: ThemeColor.gold),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Text(
-                        "\"One man's trash is another man's treasure.\"",
-                        style: TextStyle(
-                            // fontFamily: "Verona",
-                            fontStyle: FontStyle.italic,
-                            fontSize: 18,
-                            color: ThemeColor.sand),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Text(
-                        "Live sustainably by reducing your waste. Don't throw away unused things. Post it here!",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 16, color: ThemeColor.sand),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      // if (profile.hasCurrentUser())
-                      OutlinedButton(
-                        style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(ThemeColor.sand),
-                            padding: MaterialStateProperty.all<EdgeInsets>(
-                              const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 8),
-                            ),
-                            side: MaterialStateProperty.all(const BorderSide(
-                                color: ThemeColor.sand,
-                                width: 2.0,
-                                style: BorderStyle.solid))),
-                        onPressed: Redirect.loginHandler(context,
-                            currentWidget: const BerandaBarangPage(),
-                            mainWidget: const BerandaBarangPage(),
-                            destinationWidget: const CreateBarangBekas()),
-                        child: const Text(
-                          "Upload",
-                          style: TextStyle(
-                            color: ThemeColor.darkGreen,
+                // child: Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Text(
+                      "BERANDA BARANG",
+                      style: TextStyle(
+                          fontFamily: "Verona",
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24,
+                          color: ThemeColor.gold),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Text(
+                      "\"One man's trash is another man's treasure.\"",
+                      style: TextStyle(
+                          // fontFamily: "Verona",
+                          fontStyle: FontStyle.italic,
+                          fontSize: 18,
+                          color: ThemeColor.sand),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Text(
+                      "Live sustainably by reducing your waste. Don't throw away unused things. Post it here!",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 16, color: ThemeColor.sand),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    // if (profile.hasCurrentUser())
+                    OutlinedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(ThemeColor.sand),
+                          padding: MaterialStateProperty.all<EdgeInsets>(
+                            const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 8),
                           ),
+                          side: MaterialStateProperty.all(const BorderSide(
+                              color: ThemeColor.sand,
+                              width: 2.0,
+                              style: BorderStyle.solid))),
+                      onPressed: Redirect.loginHandler(context,
+                          currentWidget: const BerandaBarangPage(),
+                          mainWidget: const BerandaBarangPage(),
+                          destinationWidget: const CreateBarangBekas()),
+                      child: const Text(
+                        "Upload",
+                        style: TextStyle(
+                          color: ThemeColor.darkGreen,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
+                // ),
               ),
               FutureBuilder(
                 future: fetchBarangBekas(request),
@@ -262,8 +267,9 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
                     return Text('${snapshot.error}');
                   }
                   // By default, show a loading spinner.
-                  return const Center(
-                    child: CircularProgressIndicator(),
+                  return Container(
+                    margin: const EdgeInsets.all(20),
+                    child: const CircularProgressIndicator(),
                   );
                 },
               ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/pages/beranda.dart';
+import 'package:sayang_dibuang_mobile/request_barang_bekas/pages/beranda.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/pages/crowdfundings_no_user_page.dart';
 import 'package:sayang_dibuang_mobile/crowdfunding/pages/crowdfundings_page.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/demo_pages/demo.dart';
@@ -19,7 +20,7 @@ class PageProvider extends ChangeNotifier {
   List<Widget> mainPages = [
     InformationPage(),
     BerandaBarangPage(),
-    CrowdfundingsNoUserPage(), // nanti diganti sama Request
+    BerandaRequestPage(),
     Redirect(
         currentWidget: const CrowdfundingsNoUserPage(),
         mainWidget: const CrowdfundingsNoUserPage(),

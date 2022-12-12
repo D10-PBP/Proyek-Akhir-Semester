@@ -1,43 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:sayang_dibuang_mobile/barang_bekas/functions/delete_barang.dart';
-import 'package:sayang_dibuang_mobile/barang_bekas/functions/fetch_barang_bekas.dart';
-import 'package:sayang_dibuang_mobile/barang_bekas/models/barang_bekas.dart';
-import 'package:sayang_dibuang_mobile/barang_bekas/pages/beranda.dart';
-import 'package:sayang_dibuang_mobile/barang_bekas/pages/edit_barang_form.dart';
+import 'package:sayang_dibuang_mobile/request_barang_bekas/functions/delete_request.dart';
+import 'package:sayang_dibuang_mobile/request_barang_bekas/functions/edit_request.dart';
+import 'package:sayang_dibuang_mobile/request_barang_bekas/functions/fetch_request.dart';
+import 'package:sayang_dibuang_mobile/request_barang_bekas/models/request.dart';
+import 'package:sayang_dibuang_mobile/request_barang_bekas/pages/beranda.dart';
+import 'package:sayang_dibuang_mobile/request_barang_bekas/pages/edit_request_form.dart';
 import 'package:sayang_dibuang_mobile/core/providers/page_provider.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_profile.dart';
 
-class BarangDetailPage extends StatefulWidget {
+class RequestDetailPage extends StatefulWidget {
   final int pk;
-  final String judul;
+  final String namaBarang;
   final String deskripsi;
-  final String foto;
   final String kategori;
-  final String lokasi;
   final bool available;
 
   final int owner;
 
-  const BarangDetailPage({
+  const RequestDetailPage({
     super.key,
     required this.pk,
-    required this.judul,
+    required this.namaBarang,
     required this.deskripsi,
-    required this.foto,
     required this.kategori,
     required this.owner,
-    required this.lokasi,
     required this.available,
   });
 
   @override
-  State<BarangDetailPage> createState() => _BarangDetailPageState();
+  State<RequestDetailPage> createState() => _RequestDetailPageState();
 }
 
-class _BarangDetailPageState extends State<BarangDetailPage> {
+class _RequestDetailPageState extends State<RequestDetailPage> {
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
@@ -54,50 +51,33 @@ class _BarangDetailPageState extends State<BarangDetailPage> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Stack(
-                      children: [
-                        Container(
-                          height: 450,
-                          width: (MediaQuery.of(context).size.width),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15.0),
-                            color: ThemeColor.gold,
-                          ),
-                          padding: const EdgeInsets.all(10.0),
-                          child: Image.network(widget.foto),
+                    !widget.available
+                      ? Container(
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(15.0),
+                          // color: ThemeColor.darkGreen,
                         ),
-                        !widget.available
-                            ? Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                  color: Colors.blueGrey.withOpacity(0.5),
-                                ),
-                                width: MediaQuery.of(context).size.width,
-                                height: 450,
-                                alignment: Alignment.center,
-                                child: const Text(
-                                  "NOT AVAILABLE",
-                                  style: TextStyle(
-                                    fontSize: 34,
-                                    fontWeight: FontWeight.w900,
-                                    shadows: [
-                                      Shadow(
-                                        blurRadius: 12.0,
-                                        color:
-                                            Color.fromARGB(255, 255, 255, 255),
-                                        offset: Offset(2.0, 1.0),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              )
-                            : Container(),
-                      ],
-                    ),
+                        margin: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(
+                            5), //apply padding to all four sides
+                        child: const Text("PENDING", style: TextStyle(color: Colors.white, fontSize: 25)),
+                      )
+                      : Container(
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(15.0),
+                          // color: ThemeColor.darkGreen,
+                        ),
+                        margin: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(
+                            5), //apply padding to all four sides
+                        child: const Text("FULFILLED", style: TextStyle(color: Colors.white, fontSize: 25)),
+                      ),
                     Container(
                       padding: const EdgeInsets.only(top: 12.0),
                       child: Text(
-                        widget.judul,
+                        widget.namaBarang,
                         style: const TextStyle(
                             fontFamily: "Verona",
                             fontWeight: FontWeight.bold,
@@ -123,19 +103,6 @@ class _BarangDetailPageState extends State<BarangDetailPage> {
                       padding: const EdgeInsets.all(
                           5), //apply padding to all four sides
                       child: Text(widget.kategori),
-                    ),
-                    Wrap(
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      children: [
-                        const Icon(
-                          Icons.pin_drop,
-                          color: Color.fromARGB(255, 186, 48, 48),
-                        ),
-                        const SizedBox(
-                          width: 4,
-                        ),
-                        Text(widget.lokasi),
-                      ],
                     ),
                     FutureBuilder<List<Owner>>(
                       future: fetchOwner(request, widget.owner),
@@ -223,10 +190,7 @@ class _BarangDetailPageState extends State<BarangDetailPage> {
                         } else if (snapshot.hasError) {
                           return Text('${snapshot.error}');
                         } else {
-                          return Container(
-                            margin: const EdgeInsets.all(20),
-                            child: const CircularProgressIndicator(),
-                          );
+                          return const CircularProgressIndicator();
                         }
                       },
                     ),
@@ -239,23 +203,19 @@ class _BarangDetailPageState extends State<BarangDetailPage> {
                               // print(widget.kategori);
                               Provider.of<PageProvider>(context, listen: false)
                                   .pushInTab(
-                                      BarangDetailPage(
+                                      RequestDetailPage(
                                         pk: widget.pk,
-                                        judul: widget.judul,
+                                        namaBarang: widget.namaBarang,
                                         deskripsi: widget.deskripsi,
-                                        foto: widget.foto,
                                         kategori: widget.kategori,
-                                        lokasi: widget.lokasi,
                                         available: widget.available,
                                         owner: widget.owner,
                                       ),
-                                      EditBarangBekas(
+                                      EditRequest(
                                           pk: widget.pk,
                                           owner: widget.owner,
-                                          judul: widget.judul,
+                                          namaBarang: widget.namaBarang,
                                           deskripsi: widget.deskripsi,
-                                          foto: widget.foto,
-                                          lokasi: widget.lokasi,
                                           kategori: widget.kategori,
                                           isAvailable: widget.available));
                             },
@@ -291,11 +251,11 @@ class _BarangDetailPageState extends State<BarangDetailPage> {
                                         TextButton(
                                           onPressed: () {
                                             var pk = widget.pk;
-                                            deleteBarang(request, pk);
+                                            deleteRequest(request, pk);
                                             Navigator.pop(context);
                                             Provider.of<PageProvider>(context,
                                                     listen: false)
-                                                .popInTab();
+                                                .pop();
                                           },
                                           child: const Text('Hapus'),
                                         ),
@@ -329,16 +289,14 @@ class _BarangDetailPageState extends State<BarangDetailPage> {
                 icon: const Icon(Icons.chevron_left_rounded, size: 35.0),
                 onPressed: () =>
                     Provider.of<PageProvider>(context, listen: false).pushInTab(
-                        BarangDetailPage(
+                        RequestDetailPage(
                             pk: widget.pk,
-                            judul: widget.judul,
+                            namaBarang: widget.namaBarang,
                             deskripsi: widget.deskripsi,
-                            foto: widget.foto,
                             kategori: widget.kategori,
                             owner: widget.owner,
-                            lokasi: widget.lokasi,
                             available: widget.available),
-                        const BerandaBarangPage()),
+                        const BerandaRequestPage()),
               ),
             ),
           ],
