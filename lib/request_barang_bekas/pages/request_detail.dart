@@ -52,28 +52,28 @@ class _RequestDetailPageState extends State<RequestDetailPage> {
                 child: Column(
                   children: [
                     !widget.available
-                        ? Container(
-                          decoration: BoxDecoration(
-                            color: Colors.green,
-                            borderRadius: BorderRadius.circular(15.0),
-                            // color: ThemeColor.darkGreen,
-                          ),
-                          margin: const EdgeInsets.all(10),
-                          padding: const EdgeInsets.all(
-                              5), //apply padding to all four sides
-                          child: const Text("Fullfilled", style: TextStyle(color: Colors.white)),
-                        )
-                        : Container(
-                          decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.circular(15.0),
-                            // color: ThemeColor.darkGreen,
-                          ),
-                          margin: const EdgeInsets.all(10),
-                          padding: const EdgeInsets.all(
-                              5), //apply padding to all four sides
-                          child: const Text("Pending", style: TextStyle(color: Colors.white)),
+                      ? Container(
+                        decoration: BoxDecoration(
+                          color: Colors.red,
+                          borderRadius: BorderRadius.circular(15.0),
+                          // color: ThemeColor.darkGreen,
                         ),
+                        margin: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(
+                            5), //apply padding to all four sides
+                        child: const Text("PENDING", style: TextStyle(color: Colors.white, fontSize: 25)),
+                      )
+                      : Container(
+                        decoration: BoxDecoration(
+                          color: Colors.green,
+                          borderRadius: BorderRadius.circular(15.0),
+                          // color: ThemeColor.darkGreen,
+                        ),
+                        margin: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(
+                            5), //apply padding to all four sides
+                        child: const Text("FULFILLED", style: TextStyle(color: Colors.white, fontSize: 25)),
+                      ),
                     Container(
                       padding: const EdgeInsets.only(top: 12.0),
                       child: Text(

@@ -102,16 +102,17 @@ class _BerandaRequestPageState extends State<BerandaRequestPage> {
                   if (snapshot.hasData) {
                     // return Text(snapshot.data.length.toString());
                     if (snapshot.data!.length > 0) {
-                      return ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: snapshot.data!.length,
-                        itemBuilder: (_, index) => Container(
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 8),
-                          padding: const EdgeInsets.only(
-                              left: 20.0, right: 20.0, top: 5.0),
-                          child: GestureDetector(
+                      return Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        color: ThemeColor.darkGreen,
+                        elevation: 10,
+                        child: ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (_, index) => GestureDetector(
                             onTap: () => Provider.of<PageProvider>(context,
                                     listen: false)
                                 .pushInTab(
@@ -125,59 +126,93 @@ class _BerandaRequestPageState extends State<BerandaRequestPage> {
                                 owner: snapshot.data![index].profile,
                               ),
                             ),
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15.0),
-                                side: const BorderSide(
-                                  color: ThemeColor.darkGreen,
+                            child: ClipPath(
+                              clipper: ShapeBorderClipper(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15)
                                 ),
                               ),
-                              child: Row(
-                                children: [
-                                  Flexible(
-                                    child: Container(
-                                      padding: const EdgeInsets.only(
-                                          top: 25.0, left: 15.0),
-                                      width: MediaQuery.of(context).size.width,
-                                      height: 160,
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            snapshot.data![index].namaBarang,
-                                            style: const TextStyle(
-                                                fontFamily: "Verona",
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18),
+                              child: Container(
+                                padding: const EdgeInsets.all(5),
+                                decoration: const BoxDecoration(
+                                  border: Border(
+                                    bottom: BorderSide(color: Colors.white, width: 3),
+                                  ),
+                                  color: ThemeColor.darkGreen,
+                                ),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          snapshot.data![index].namaBarang,
+                                          style: const TextStyle(
+                                              fontFamily: "Verona",
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15,
+                                              color: Colors.white
                                           ),
-                                          Container(
-                                            padding: const EdgeInsets.all(12.0),
-                                            child: Text(
-                                              snapshot.data![index].deskripsi,
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 2,
-                                              style: const TextStyle(
-                                                fontSize: 14.0,
-                                              ),
-                                            ),
+                                        ),
+                                        const SizedBox(
+                                          width: 20,
+                                        ),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: ThemeColor.gold,
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
+                                            // color: ThemeColor.darkGreen,
                                           ),
-                                          Container(
+                                          padding: const EdgeInsets.all(
+                                              5), //apply padding to all four sides
+                                          child: Text(
+                                              snapshot.data![index].kategori,
+                                              style: const TextStyle(color: Colors.white),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        !snapshot.data![index].available
+                                          ? Container(
                                             decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: ThemeColor.gold),
-                                              borderRadius:
-                                                  BorderRadius.circular(15.0),
+                                              color: Colors.red,
+                                              borderRadius: BorderRadius.circular(15.0),
                                               // color: ThemeColor.darkGreen,
                                             ),
+                                            margin: const EdgeInsets.all(10),
                                             padding: const EdgeInsets.all(
                                                 5), //apply padding to all four sides
-                                            child: Text(
-                                                snapshot.data![index].kategori),
+                                            child: const Text("Pending", style: TextStyle(color: Colors.white)),
+                                          )
+                                          : Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.green,
+                                              borderRadius: BorderRadius.circular(15.0),
+                                              // color: ThemeColor.darkGreen,
+                                            ),
+                                            margin: const EdgeInsets.all(10),
+                                            padding: const EdgeInsets.all(
+                                                5), //apply padding to all four sides
+                                            child: const Text("Fulfilled", style: TextStyle(color: Colors.white)),
                                           ),
-                                        ],
+                                      ],
+                                    ),
+                                    Container(
+                                      padding: const EdgeInsets.all(5),
+                                      child: Text(
+                                        snapshot.data![index].deskripsi,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 1,
+                                        style: const TextStyle(
+                                          fontSize: 14.0,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
