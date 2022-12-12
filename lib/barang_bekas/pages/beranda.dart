@@ -27,7 +27,6 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
             children: [
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: 320,
                 decoration: const BoxDecoration(
                   color: ThemeColor.darkGreen,
                   borderRadius: BorderRadius.only(
