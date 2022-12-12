@@ -15,7 +15,7 @@
 
 ## ✨ Link APK ✨
 
-Coming soon
+Aplikasi ini dapat didapat melalui [link berikut](https://install.appcenter.ms/orgs/sayang-dibuang/apps/sayang-dibuang-mobile/distribution_groups/public).
 
 ## 📜 Cerita Aplikasi dan Manfaat 📜
 
