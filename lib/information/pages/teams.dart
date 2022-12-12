@@ -46,7 +46,7 @@ class _TeamPageState extends State<TeamPage> {
               Padding(
                 padding: EdgeInsets.only(left: 20),
                 child: Image.asset(
-                  "information/team/Cath.png",
+                  "assets/information/team/Cath.png",
                   height: 150,
                   width: 150,
                   // fit: BoxFit.cover,
@@ -85,7 +85,7 @@ class _TeamPageState extends State<TeamPage> {
               Padding(
                 padding: EdgeInsets.only(right: 50),
                 child: Image.asset(
-                  "information/team/Gibrano.png",
+                  "assets/information/team/Gibrano.png",
                   height: 150,
                   width: 150,
                   // fit: BoxFit.cover,
@@ -99,7 +99,7 @@ class _TeamPageState extends State<TeamPage> {
               Padding(
                 padding: EdgeInsets.only(left: 20),
                 child: Image.asset(
-                  "information/team/Khansa.png",
+                  "assets/information/team/Khansa.png",
                   height: 150,
                   width: 150,
                   // fit: BoxFit.cover,
@@ -138,7 +138,7 @@ class _TeamPageState extends State<TeamPage> {
               Padding(
                 padding: EdgeInsets.all(50),
                 child: Image.asset(
-                  "information/team/Kristo.png",
+                  "assets/information/team/Kristo.png",
                   height: 150,
                   width: 150,
                   // fit: BoxFit.cover,
@@ -152,7 +152,7 @@ class _TeamPageState extends State<TeamPage> {
               Padding(
                 padding: EdgeInsets.only(left: 20),
                 child: Image.asset(
-                  "information/team/Lyzander.png",
+                  "assets/information/team/Lyzander.png",
                   height: 150,
                   width: 150,
                   // fit: BoxFit.cover,
@@ -191,7 +191,7 @@ class _TeamPageState extends State<TeamPage> {
               Padding(
                 padding: EdgeInsets.all(50),
                 child: Image.asset(
-                  "information/team/Pikatan.png",
+                  "assets/information/team/Pikatan.png",
                   height: 150,
                   width: 150,
                   // fit: BoxFit.cover,

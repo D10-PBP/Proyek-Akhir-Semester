@@ -18,11 +18,16 @@ class CrowdfundingsPage extends StatefulWidget {
 class _CrowdfundingsPageState extends State<CrowdfundingsPage> {
   late Future<dynamic> crowdfunds;
 
+  void updateCrowdfunds(CookieRequest request) {
+    setState(() {
+      crowdfunds = CrowdfundAPIHandler.fetchAllCrowdfunds(request);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final request = context.watch<CookieRequest>();
     crowdfunds = CrowdfundAPIHandler.fetchAllCrowdfunds(request);
-
     return SafeArea(
       child: Center(
         child: Column(
@@ -74,8 +79,7 @@ class _CrowdfundingsPageState extends State<CrowdfundingsPage> {
             ),
 
             UserCrowdfunds(
-              crowdfunds: crowdfunds,
-            ),
+                crowdfunds: crowdfunds, updateCrowdfunds: updateCrowdfunds),
 
             // All Crowdfunds
             const Padding(
@@ -87,8 +91,7 @@ class _CrowdfundingsPageState extends State<CrowdfundingsPage> {
             ),
 
             AllCrowdfunds(
-              crowdfunds: crowdfunds,
-            ),
+                crowdfunds: crowdfunds, updateCrowdfunds: updateCrowdfunds),
           ],
         ),
       ),

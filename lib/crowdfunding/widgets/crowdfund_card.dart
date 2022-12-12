@@ -12,7 +12,12 @@ import 'package:sayang_dibuang_mobile/fitur_autentikasi/providers/current_user_p
 
 class CrowdfundCard extends StatelessWidget {
   dynamic crowdfund;
-  CrowdfundCard({Key? key, required this.request, required this.crowdfund})
+  dynamic updateCrowdfunds;
+  CrowdfundCard(
+      {Key? key,
+      required this.request,
+      required this.crowdfund,
+      required this.updateCrowdfunds})
       : super(key: key);
 
   final CookieRequest request;
@@ -89,6 +94,11 @@ class CrowdfundCard extends StatelessWidget {
                       if (profile.user!.pk == crowdfund['user_id'])
                         IconButton(
                           onPressed: () {
+                            Provider.of<PageProvider>(context, listen: false)
+                                .tabHistories[Provider.of<PageProvider>(context,
+                                        listen: false)
+                                    .currentPageIndex]
+                                .add(const CrowdfundingsPage());
                             showModalBottomSheet(
                                 shape: const RoundedRectangleBorder(
                                   borderRadius: BorderRadius.only(
@@ -153,6 +163,8 @@ class CrowdfundCard extends StatelessWidget {
 
                                                   // close the modal
                                                   Navigator.of(context).pop();
+                                                  updateCrowdfunds(request);
+                                                  print("update called");
                                                 },
                                                 child: ClipRRect(
                                                   borderRadius:
@@ -180,7 +192,10 @@ class CrowdfundCard extends StatelessWidget {
                                       ],
                                     ),
                                   );
-                                });
+                                }).whenComplete(() {
+                              Provider.of<PageProvider>(context, listen: false)
+                                  .popInTab();
+                            });
                           },
                           icon: FaIcon(FontAwesomeIcons.trashCan),
                           color: Colors.red,
