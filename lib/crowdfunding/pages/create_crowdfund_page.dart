@@ -152,12 +152,14 @@ class _CreateCrowdfundPageState extends State<CreateCrowdfundPage> {
                                   borderRadius: BorderRadius.circular(5.0))),
                           onChanged: (String? received) {
                             setState(() {
-                              _received = int.parse(received!);
+                              _received =
+                                  (received!.isEmpty) ? 0 : int.parse(received);
                             });
                           },
                           onSaved: (String? received) {
                             setState(() {
-                              _received = int.parse(received!);
+                              _received =
+                                  (received!.isEmpty) ? 0 : int.parse(received);
                             });
                           },
                           validator: (String? received) {
@@ -188,12 +190,14 @@ class _CreateCrowdfundPageState extends State<CreateCrowdfundPage> {
                                   borderRadius: BorderRadius.circular(5.0))),
                           onChanged: (String? target) {
                             setState(() {
-                              _target = int.parse(target!);
+                              _target =
+                                  (target!.isEmpty) ? 0 : int.parse(target);
                             });
                           },
                           onSaved: (String? target) {
                             setState(() {
-                              _target = int.parse(target!);
+                              _target =
+                                  (target!.isEmpty) ? 0 : int.parse(target);
                             });
                           },
                           validator: (String? target) {
