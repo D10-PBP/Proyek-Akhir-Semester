@@ -24,11 +24,10 @@ class PageProvider extends ChangeNotifier {
         currentWidget: const CrowdfundingsNoUserPage(),
         mainWidget: const CrowdfundingsNoUserPage(),
         destinationWidget: CrowdfundingsPage()),
-    // const Redirect(
-    //     currentWidget: LeaderboardNoUserPage(),
-    //     mainWidget: LeaderboardNoUserPage(),
-    //     destinationWidget: LeaderboardPage()),
-    LeaderboardPage(),
+    const Redirect(
+        currentWidget: LeaderboardNoUserPage(),
+        mainWidget: LeaderboardNoUserPage(),
+        destinationWidget: LeaderboardPage()),
     Profile(),
     MainWidget(),
   ];
