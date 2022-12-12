@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/functions/delete_barang.dart';
-import 'package:sayang_dibuang_mobile/barang_bekas/functions/edit_barang_bekas.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/functions/fetch_barang_bekas.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/models/barang_bekas.dart';
 import 'package:sayang_dibuang_mobile/barang_bekas/pages/beranda.dart';
@@ -293,7 +292,7 @@ class _BarangDetailPageState extends State<BarangDetailPage> {
                                             Navigator.pop(context);
                                             Provider.of<PageProvider>(context,
                                                     listen: false)
-                                                .pop();
+                                                .popInTab();
                                           },
                                           child: const Text('Hapus'),
                                         ),
