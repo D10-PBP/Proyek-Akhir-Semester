@@ -1,5 +1,3 @@
-// import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
@@ -9,8 +7,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:sayang_dibuang_mobile/leaderboard/models/message.dart';
-
-import '../../core/providers/page_provider.dart';
 
 class LeaderboardPage extends StatefulWidget {
   const LeaderboardPage({Key? key}) : super(key: key);
@@ -182,7 +178,8 @@ class _LeaderboardPageState extends State<LeaderboardPage> {
                   return SizedBox(
                       width: 350,
                       child: ListView.builder(
-                          scrollDirection: Axis.vertical,
+                          physics: const NeverScrollableScrollPhysics(),
+                          // scrollDirection: Axis.vertical,
                           shrinkWrap: true,
                           itemCount: snapshot.data!.length,
                           itemBuilder: (_, index) => Container(

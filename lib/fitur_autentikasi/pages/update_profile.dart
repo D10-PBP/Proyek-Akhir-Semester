@@ -351,7 +351,7 @@ class _UpdateProfileFormState extends State<UpdateProfileForm> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: const [
                                 Text(
-                                  "Daftar",
+                                  "Perbarui",
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontFamily: "PlusJakarta",
