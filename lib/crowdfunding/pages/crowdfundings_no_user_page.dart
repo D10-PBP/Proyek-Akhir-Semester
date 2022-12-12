@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:sayang_dibuang_mobile/core/theme/theme_color.dart';
 import 'package:sayang_dibuang_mobile/fitur_autentikasi/widgets/redirect.dart';
@@ -35,7 +37,9 @@ class CrowdfundingsNoUserPage extends StatelessWidget {
                   // Text
                   const Text(
                     "Fitur ini dapat digunakan jika kamu sudah login.",
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
                   ),
 
                   const SizedBox(

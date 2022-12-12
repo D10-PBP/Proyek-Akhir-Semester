@@ -30,171 +30,177 @@ class CrowdfundCard extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(16.0),
-        child: Container(
-          color: ThemeColor.white,
-          width: 320,
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      crowdfund['title'],
-                      style: const TextStyle(
-                          fontFamily: "Verona",
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 16.0),
-                      child: Text(description.length >= 50
-                          ? "${description.substring(0, 50)}..."
-                          : description),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                  ],
-                ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: LinearProgressIndicator(
-                    backgroundColor: ThemeColor.sand,
-                    color: ThemeColor.darkGreen,
-                    value: crowdfund['received'] / crowdfund['target'],
-                    minHeight: 10,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+        child: Flexible(
+          child: Container(
+            color: ThemeColor.white,
+            width: 250,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      IconButton(
-                        onPressed: () {
-                          Provider.of<PageProvider>(context, listen: false)
-                              .pushInTab(
-                                  const CrowdfundingsPage(),
-                                  CrowdfundPage(
-                                    crowdfund: crowdfund,
-                                  ));
-                        },
-                        icon: FaIcon(FontAwesomeIcons.eye),
-                        color: ThemeColor.darkGreen,
+                      Text(
+                        crowdfund['title'],
+                        style: const TextStyle(
+                            fontFamily: "Verona",
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(
-                        width: 8,
+                        height: 8,
                       ),
-                      if (profile.user!.pk == crowdfund['user_id'])
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16.0),
+                        child: Text(
+                          description,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: LinearProgressIndicator(
+                      backgroundColor: ThemeColor.sand,
+                      color: ThemeColor.darkGreen,
+                      value: crowdfund['received'] / crowdfund['target'],
+                      minHeight: 10,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
                         IconButton(
                           onPressed: () {
-                            showModalBottomSheet(
-                                shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(16.0),
-                                      topRight: Radius.circular(16.0)),
-                                ),
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Container(
-                                    height: 200,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                              child: ClipRRect(
-                                                borderRadius: const BorderRadius
-                                                        .only(
-                                                    topLeft:
-                                                        Radius.circular(16.0),
-                                                    topRight:
-                                                        Radius.circular(16.0)),
-                                                child: Container(
-                                                  color: ThemeColor.sand,
-                                                  child: const Padding(
-                                                    padding:
-                                                        EdgeInsets.all(16.0),
-                                                    child: Text(
-                                                        "Menghapus Crowdfund",
-                                                        style: TextStyle(
-                                                            fontFamily:
-                                                                'Verona',
-                                                            fontSize: 20,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold)),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(height: 16.0),
-                                        Center(
-                                          child: Column(
+                            Provider.of<PageProvider>(context, listen: false)
+                                .pushInTab(
+                                    const CrowdfundingsPage(),
+                                    CrowdfundPage(
+                                      crowdfund: crowdfund,
+                                    ));
+                          },
+                          icon: FaIcon(FontAwesomeIcons.eye),
+                          color: ThemeColor.darkGreen,
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        if (profile.user!.pk == crowdfund['user_id'])
+                          IconButton(
+                            onPressed: () {
+                              showModalBottomSheet(
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(16.0),
+                                        topRight: Radius.circular(16.0)),
+                                  ),
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return Container(
+                                      height: 200,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
                                             children: [
-                                              const Text(
-                                                  "Apakah kamu yakin ingin menghapus crowdfund ini?"),
-                                              SizedBox(height: 8.0),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  // hit delete endpoint
-                                                  int crowdfundId =
-                                                      crowdfund['id'];
-                                                  final response =
-                                                      CrowdfundAPIHandler
-                                                          .deleteCrowdfund(
-                                                              request,
-                                                              crowdfundId);
-
-                                                  // close the modal
-                                                  Navigator.of(context).pop();
-                                                  updateCrowdfunds(request);
-                                                },
+                                              Expanded(
                                                 child: ClipRRect(
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          4.0),
+                                                      const BorderRadius.only(
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  16.0),
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  16.0)),
                                                   child: Container(
-                                                      color: Colors.red,
-                                                      child: const Padding(
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                                horizontal:
-                                                                    12.0,
-                                                                vertical: 8.0),
-                                                        child: Text("Hapus",
-                                                            style: TextStyle(
-                                                                color:
-                                                                    ThemeColor
-                                                                        .sand)),
-                                                      )),
+                                                    color: ThemeColor.sand,
+                                                    child: const Padding(
+                                                      padding:
+                                                          EdgeInsets.all(16.0),
+                                                      child: Text(
+                                                          "Menghapus Crowdfund",
+                                                          style: TextStyle(
+                                                              fontFamily:
+                                                                  'Verona',
+                                                              fontSize: 20,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold)),
+                                                    ),
+                                                  ),
                                                 ),
                                               ),
                                             ],
                                           ),
-                                        )
-                                      ],
-                                    ),
-                                  );
-                                });
-                          },
-                          icon: FaIcon(FontAwesomeIcons.trashCan),
-                          color: Colors.red,
-                        ),
-                    ],
-                  ),
-                )
-              ],
+                                          SizedBox(height: 16.0),
+                                          Center(
+                                            child: Column(
+                                              children: [
+                                                const Text(
+                                                    "Apakah kamu yakin ingin menghapus crowdfund ini?"),
+                                                SizedBox(height: 8.0),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    // hit delete endpoint
+                                                    int crowdfundId =
+                                                        crowdfund['id'];
+                                                    final response =
+                                                        CrowdfundAPIHandler
+                                                            .deleteCrowdfund(
+                                                                request,
+                                                                crowdfundId);
+
+                                                    // close the modal
+                                                    Navigator.of(context).pop();
+                                                    updateCrowdfunds(request);
+                                                  },
+                                                  child: ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            4.0),
+                                                    child: Container(
+                                                        color: Colors.red,
+                                                        child: const Padding(
+                                                          padding: EdgeInsets
+                                                              .symmetric(
+                                                                  horizontal:
+                                                                      12.0,
+                                                                  vertical:
+                                                                      8.0),
+                                                          child: Text("Hapus",
+                                                              style: TextStyle(
+                                                                  color:
+                                                                      ThemeColor
+                                                                          .sand)),
+                                                        )),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    );
+                                  });
+                            },
+                            icon: FaIcon(FontAwesomeIcons.trashCan),
+                            color: Colors.red,
+                          ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

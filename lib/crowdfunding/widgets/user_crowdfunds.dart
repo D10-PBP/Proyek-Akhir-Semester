@@ -24,7 +24,7 @@ class _UserCrowdfundsState extends State<UserCrowdfunds> {
     final profile = context.read<CurrentUserProfileModel>();
 
     return Container(
-      height: 270,
+      height: 250,
       child: FutureBuilder(
           future: widget.crowdfunds,
           builder: (context, AsyncSnapshot snapshot) {
