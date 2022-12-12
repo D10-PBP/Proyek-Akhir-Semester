@@ -27,7 +27,7 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
             children: [
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: 240,
+                height: 280,
                 decoration: const BoxDecoration(
                   color: ThemeColor.darkGreen,
                 ),
@@ -139,7 +139,7 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
                                     children: [
                                       Container(
                                         height: 200,
-                                        width: 200,
+                                        width: 150,
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(15.0),
@@ -159,7 +159,7 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
                                                 color: Colors.blueGrey
                                                     .withOpacity(0.5),
                                               ),
-                                              width: 200,
+                                              width: 150,
                                               height: 200,
                                               alignment: Alignment.center,
                                               child: const Text(
@@ -201,7 +201,7 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
                                             child: Text(
                                               snapshot.data![index].deskripsi,
                                               overflow: TextOverflow.ellipsis,
-                                              maxLines: 2,
+                                              maxLines: 1,
                                               style: const TextStyle(
                                                 fontSize: 14.0,
                                               ),
@@ -222,7 +222,7 @@ class _BerandaBarangPageState extends State<BerandaBarangPage> {
                                             child: Text(
                                                 snapshot.data![index].kategori),
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 5,
                                           ),
                                           Wrap(
